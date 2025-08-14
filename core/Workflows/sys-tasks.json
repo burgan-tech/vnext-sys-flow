@@ -1,0 +1,312 @@
+{
+  "key": "sys-tasks",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-flows",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "task",
+    "lifecycle",
+    "repository"
+  ],
+  "attributes": {
+    "timeout": null,
+    "type": "F",
+    "labels": [
+      {
+        "language": "en-US",
+        "label": "Task Lifecycle Management"
+      },
+      {
+        "language": "tr-TR",
+        "label": "Görev Yaşam Döngüsü Yönetimi"
+      }
+    ],
+    "functions": [],
+    "sharedTransitions": [],
+    "extensions": [],
+    "features": [],
+    "startTransition": {
+      "key": "create",
+      "target": "draft",
+      "triggerType": 0,
+      "labels": [
+        {
+          "language": "en-US",
+          "label": "Create Task"
+        },
+        {
+          "language": "tr-TR",
+          "label": "Görev Oluştur"
+        }
+      ],
+      "versionStrategy": "Minor",
+      "schema": {
+        "ref": "Schemas/task.json"
+      },
+      "onExecutionTasks": [],
+      "view": null
+    },
+    "states": [
+      {
+        "key": "draft",
+        "stateType": 1,
+        "labels": [
+          {
+            "language": "en-US",
+            "label": "Draft State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Taslak Durumu"
+          }
+        ],
+        "transitions": [
+          {
+            "key": "activate",
+            "from": "draft",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Activate Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Aktifleştir"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [
+              {
+                "order": 1,
+                "task": {
+                  "ref": "Tasks/invalidate-cache.json"
+                },
+                "mapping": {
+                  "location": "./src/InvalideCacheMapping.csx",
+                  "code": "dXNpbmcgU3lzdGVtLlRocmVhZGluZy5UYXNrczsKdXNpbmcgQkJULldvcmtmbG93LlNjcmlwdGluZzsKdXNpbmcgQkJULldvcmtmbG93LkRlZmluaXRpb25zOwoKcHVibGljIGNsYXNzIEludmFsaWRhdGVDYWNoZU1hcHBpbmcgOiBJTWFwcGluZwp7CiAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IElucHV0SGFuZGxlcihXb3JrZmxvd1Rhc2sgdGFzaywgU2NyaXB0Q29udGV4dCBjb250ZXh0KQogIHsKICAgIHZhciBkYXByVGFzayA9IHRhc2sgYXMgRGFwclNlcnZpY2VUYXNrOwogICAgZGFwclRhc2suU2V0TWV0aG9kTmFtZSgiL2FwaS92MS9hZG1pbi9pbnZhbGlkYXRlIik7CiAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgaWYgKGVudmlyb25tZW50ID09ICJEZXZlbG9wbWVudCIpCiAgICB7CiAgICAgIC8vIExvY2FsIGRldmVsb3BtZW50CiAgICAgIGRhcHJUYXNrLlNldEFwcElkKCJ2bmV4dC1hcHAiKTsKICAgIH0KICAgIGVsc2UKICAgIHsKICAgICAgZGFwclRhc2suU2V0QXBwSWQoJCJhbW9ycGhpZS12bmV4dC57ZW52aXJvbm1lbnQuVG9Mb3dlcigpfS1hbW9ycGhpZS12bmV4dCIpOwogICAgfQoKICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlCiAgICB7CiAgICAgIERhdGEgPSBuZXcKICAgICAgewogICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgIGZsb3cgPSBjb250ZXh0LldvcmtmbG93LktleSwKICAgICAgICBkb21haW4gPSBjb250ZXh0LlJ1bnRpbWUuRG9tYWluLAogICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICB9LAogICAgICBIZWFkZXJzID0gbnVsbAogICAgfSk7CiAgfQoKICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gT3V0cHV0SGFuZGxlcihTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgewogICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgfQp9Cg=="
+                }
+              },
+              {
+                "order": 1,
+                "task": {
+                  "ref": "Tasks/invalidate-cache.json"
+                },
+                "mapping": {
+                  "location": "./src/InvalideCacheExecutionMapping.csx",
+                  "code": "dXNpbmcgU3lzdGVtLlRocmVhZGluZy5UYXNrczsKdXNpbmcgQkJULldvcmtmbG93LlNjcmlwdGluZzsKdXNpbmcgQkJULldvcmtmbG93LkRlZmluaXRpb25zOwoKcHVibGljIGNsYXNzIEludmFsaWRlQ2FjaGVFeGVjdXRpb25NYXBwaW5nIDogSU1hcHBpbmcKewogIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICB7CiAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJTZXJ2aWNlVGFzazsKICAgIGRhcHJUYXNrLlNldE1ldGhvZE5hbWUoIi9hcGkvdjEvdXRpbGl0aWVzL2ludmFsaWRhdGUiKTsKICAgIHZhciBlbnZpcm9ubWVudCA9IEVudmlyb25tZW50LkdldEVudmlyb25tZW50VmFyaWFibGUoIkFTUE5FVENPUkVfRU5WSVJPTk1FTlQiKTsKCiAgICBpZiAoZW52aXJvbm1lbnQgPT0gIkRldmVsb3BtZW50IikKICAgIHsKICAgICAgLy8gTG9jYWwgZGV2ZWxvcG1lbnQKICAgICAgZGFwclRhc2suU2V0QXBwSWQoInZuZXh0LWV4ZWN1dGlvbi1hcHAiKTsKICAgIH0KICAgIGVsc2UKICAgIHsKICAgICAgZGFwclRhc2suU2V0QXBwSWQoJCJhbW9ycGhpZS12bmV4dC1leGVjdXRpb24ue2Vudmlyb25tZW50LlRvTG93ZXIoKX0tYW1vcnBoaWUtdm5leHQtZXhlY3V0aW9uIik7CiAgICB9CgogICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UKICAgIHsKICAgICAgRGF0YSA9IG5ldwogICAgICB7CiAgICAgICAga2V5ID0gY29udGV4dC5JbnN0YW5jZS5LZXksCiAgICAgICAgZmxvdyA9IGNvbnRleHQuV29ya2Zsb3cuS2V5LAogICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgdmVyc2lvbiA9IGNvbnRleHQuSW5zdGFuY2UuTGF0ZXN0RGF0YT8uVmVyc2lvbiA/PyAiMS4wLjAiCiAgICAgIH0sCiAgICAgIEhlYWRlcnMgPSBudWxsCiAgICB9KTsKICB9CgogIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICB7CiAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICB9Cn0K"
+                }
+              }
+            ],
+            "view": null
+          },
+          {
+            "key": "delete",
+            "from": "draft",
+            "target": "draft",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Delete Draft"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Taslağı Sil"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      },
+      {
+        "key": "active",
+        "stateType": 2,
+        "labels": [
+          {
+            "language": "en-US",
+            "label": "Active State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Aktif Durumu"
+          }
+        ],
+        "transitions": [
+          {
+            "key": "deactivate",
+            "from": "active",
+            "target": "passive",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Deactivate Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Pasifleştir"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          },
+          {
+            "key": "update",
+            "from": "active",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Update Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Güncelle"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [
+              {
+                "order": 1,
+                "task": {
+                  "ref": "Tasks/invalidate-cache.json"
+                },
+                "mapping": {
+                  "location": "./src/InvalideCacheMapping.csx",
+                  "code": "dXNpbmcgU3lzdGVtLlRocmVhZGluZy5UYXNrczsKdXNpbmcgQkJULldvcmtmbG93LlNjcmlwdGluZzsKdXNpbmcgQkJULldvcmtmbG93LkRlZmluaXRpb25zOwoKcHVibGljIGNsYXNzIEludmFsaWRhdGVDYWNoZU1hcHBpbmcgOiBJTWFwcGluZwp7CiAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IElucHV0SGFuZGxlcihXb3JrZmxvd1Rhc2sgdGFzaywgU2NyaXB0Q29udGV4dCBjb250ZXh0KQogIHsKICAgIHZhciBkYXByVGFzayA9IHRhc2sgYXMgRGFwclNlcnZpY2VUYXNrOwogICAgZGFwclRhc2suU2V0TWV0aG9kTmFtZSgiL2FwaS92MS9hZG1pbi9pbnZhbGlkYXRlIik7CiAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgaWYgKGVudmlyb25tZW50ID09ICJEZXZlbG9wbWVudCIpCiAgICB7CiAgICAgIC8vIExvY2FsIGRldmVsb3BtZW50CiAgICAgIGRhcHJUYXNrLlNldEFwcElkKCJ2bmV4dC1hcHAiKTsKICAgIH0KICAgIGVsc2UKICAgIHsKICAgICAgZGFwclRhc2suU2V0QXBwSWQoJCJhbW9ycGhpZS12bmV4dC57ZW52aXJvbm1lbnQuVG9Mb3dlcigpfS1hbW9ycGhpZS12bmV4dCIpOwogICAgfQoKICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlCiAgICB7CiAgICAgIERhdGEgPSBuZXcKICAgICAgewogICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgIGZsb3cgPSBjb250ZXh0LldvcmtmbG93LktleSwKICAgICAgICBkb21haW4gPSBjb250ZXh0LlJ1bnRpbWUuRG9tYWluLAogICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICB9LAogICAgICBIZWFkZXJzID0gbnVsbAogICAgfSk7CiAgfQoKICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gT3V0cHV0SGFuZGxlcihTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgewogICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgfQp9Cg=="
+                }
+              },
+              {
+                "order": 1,
+                "task": {
+                  "ref": "Tasks/invalidate-cache.json"
+                },
+                "mapping": {
+                  "location": "./src/InvalideCacheExecutionMapping.csx",
+                  "code": "dXNpbmcgU3lzdGVtLlRocmVhZGluZy5UYXNrczsKdXNpbmcgQkJULldvcmtmbG93LlNjcmlwdGluZzsKdXNpbmcgQkJULldvcmtmbG93LkRlZmluaXRpb25zOwoKcHVibGljIGNsYXNzIEludmFsaWRlQ2FjaGVFeGVjdXRpb25NYXBwaW5nIDogSU1hcHBpbmcKewogIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICB7CiAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJTZXJ2aWNlVGFzazsKICAgIGRhcHJUYXNrLlNldE1ldGhvZE5hbWUoIi9hcGkvdjEvdXRpbGl0aWVzL2ludmFsaWRhdGUiKTsKICAgIHZhciBlbnZpcm9ubWVudCA9IEVudmlyb25tZW50LkdldEVudmlyb25tZW50VmFyaWFibGUoIkFTUE5FVENPUkVfRU5WSVJPTk1FTlQiKTsKCiAgICBpZiAoZW52aXJvbm1lbnQgPT0gIkRldmVsb3BtZW50IikKICAgIHsKICAgICAgLy8gTG9jYWwgZGV2ZWxvcG1lbnQKICAgICAgZGFwclRhc2suU2V0QXBwSWQoInZuZXh0LWV4ZWN1dGlvbi1hcHAiKTsKICAgIH0KICAgIGVsc2UKICAgIHsKICAgICAgZGFwclRhc2suU2V0QXBwSWQoJCJhbW9ycGhpZS12bmV4dC1leGVjdXRpb24ue2Vudmlyb25tZW50LlRvTG93ZXIoKX0tYW1vcnBoaWUtdm5leHQtZXhlY3V0aW9uIik7CiAgICB9CgogICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UKICAgIHsKICAgICAgRGF0YSA9IG5ldwogICAgICB7CiAgICAgICAga2V5ID0gY29udGV4dC5JbnN0YW5jZS5LZXksCiAgICAgICAgZmxvdyA9IGNvbnRleHQuV29ya2Zsb3cuS2V5LAogICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgdmVyc2lvbiA9IGNvbnRleHQuSW5zdGFuY2UuTGF0ZXN0RGF0YT8uVmVyc2lvbiA/PyAiMS4wLjAiCiAgICAgIH0sCiAgICAgIEhlYWRlcnMgPSBudWxsCiAgICB9KTsKICB9CgogIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICB7CiAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICB9Cn0K"
+                }
+              }
+            ],
+            "schema": {
+              "ref": "Schemas/task.json"
+            },
+            "view": null
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      },
+      {
+        "key": "passive",
+        "stateType": 2,
+        "labels": [
+          {
+            "language": "en-US",
+            "label": "Passive State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Pasif Durumu"
+          }
+        ],
+        "transitions": [
+          {
+            "key": "reactivate",
+            "from": "passive",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Reactivate Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Yeniden Aktifleştir"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          },
+          {
+            "key": "archive",
+            "from": "passive",
+            "target": "deleted",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Archive Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Arşivle"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      },
+      {
+        "key": "deleted",
+        "stateType": 2,
+        "labels": [
+          {
+            "language": "en-US",
+            "label": "Deleted State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Silinmiş Durum"
+          }
+        ],
+        "transitions": [
+          {
+            "key": "recover",
+            "from": "deleted",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Recover"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Geri Al"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      }
+    ]
+  }
+}

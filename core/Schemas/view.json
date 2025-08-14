@@ -1,0 +1,72 @@
+{
+  "key": "view",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-schemas",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "schema",
+    "view",
+    "ui"
+  ],
+  "attributes": {
+    "type": "view",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.vnext.com/core/view.json",
+      "title": "View Definition",
+      "description": "vNext platformunda view tanımları için şema. View içerik türü, hedef ve içerik bilgilerini içerir.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "description": "View içerik türü",
+          "oneOf": [
+            {
+              "const": 1,
+              "description": "Json içerik türü"
+            },
+            {
+              "const": 2,
+              "description": "Html içerik türü"
+            },
+            {
+              "const": 3,
+              "description": "Markdown içerik türü"
+            }
+          ]
+        },
+        "target": {
+          "type": "integer",
+          "description": "View'in hedef aldığı workflow component türü",
+          "oneOf": [
+            {
+              "const": 1,
+              "description": "State hedefli view"
+            },
+            {
+              "const": 2,
+              "description": "Transition hedefli view"
+            },
+            {
+              "const": 3,
+              "description": "Task hedefli view"
+            }
+          ]
+        },
+        "content": {
+          "type": "string",
+          "description": "View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "type",
+        "target",
+        "content"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

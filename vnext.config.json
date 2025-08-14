@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "description": "vNext Core Domain Definition Configuration",
+  "domain": "core",
+  "paths": {
+    "componentsRoot": "core",
+    "tasks": "Tasks",
+    "views": "Views",
+    "functions": "Functions",
+    "extensions": "Extensions",
+    "workflows": "Workflows",
+    "schemas": "Schemas"
+  },
+  "exports": {
+    "functions": [],
+    "workflows": [],
+    "tasks": [],
+    "views": [],
+    "schemas": [],
+    "extensions": [
+      "available-transitions.json"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "description": "Exported components for core domain",
+      "maintainer": "Burgan Tech",
+      "license": "MIT",
+      "keywords": [
+        "core",
+        "vnext",
+        "workflow",
+        "domain"
+      ]
+    }
+  },
+  "dependencies": {
+    "domains": [],
+    "npm": []
+  },
+  "referenceResolution": {
+    "enabled": true,
+    "validateOnBuild": true,
+    "strictMode": true,
+    "validateReferenceConsistency": true,
+    "validateSchemas": true,
+    "allowedHosts": [
+      "registry.npmjs.org",
+      "npm.vnext.com",
+      "npm.pkg.github.com"
+    ],
+    "schemaValidationRules": {
+      "enforceKeyFormat": true,
+      "enforceVersionFormat": true,
+      "enforceFilenameConsistency": true,
+      "allowUnknownProperties": false
+    }
+  }
+}

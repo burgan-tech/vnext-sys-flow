@@ -1,0 +1,449 @@
+{
+  "key": "task",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-schemas",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "schema",
+    "task",
+    "polymorphic"
+  ],
+  "attributes": {
+    "type": "task",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.vnext.com/core/task.json",
+      "title": "Task Definition",
+      "description": "Polimorfik task tanımları. Task tipine göre farklı konfigürasyon şemaları kullanır.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Task tipi (TaskType enum değeri string olarak)",
+          "enum": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "description": "Task konfigürasyon objesi"
+        }
+      },
+      "required": [
+        "type",
+        "config"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "1"
+              }
+            }
+          },
+          "then": {
+            "title": "DaprHttpEndpoint Task",
+            "properties": {
+              "type": {
+                "const": "1"
+              },
+              "config": {
+                "type": "object",
+                "description": "Dapr HTTP Endpoint konfigürasyonu",
+                "properties": {
+                  "endpointName": {
+                    "type": "string",
+                    "description": "Dapr HTTP endpoint adı",
+                    "minLength": 1
+                  },
+                  "path": {
+                    "type": "string",
+                    "description": "HTTP endpoint path",
+                    "minLength": 1
+                  },
+                  "method": {
+                    "type": "string",
+                    "description": "HTTP metodu",
+                    "enum": [
+                      "GET",
+                      "POST",
+                      "PUT",
+                      "DELETE",
+                      "PATCH"
+                    ],
+                    "default": "GET"
+                  },
+                  "headers": {
+                    "type": "object",
+                    "description": "HTTP header bilgileri"
+                  }
+                },
+                "required": [
+                  "endpointName",
+                  "path",
+                  "method"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "config"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "2"
+              }
+            }
+          },
+          "then": {
+            "title": "DaprBinding Task",
+            "properties": {
+              "type": {
+                "const": "2"
+              },
+              "config": {
+                "type": "object",
+                "description": "Dapr Binding konfigürasyonu",
+                "properties": {
+                  "bindingName": {
+                    "type": "string",
+                    "description": "Dapr binding adı",
+                    "minLength": 1
+                  },
+                  "operation": {
+                    "type": "string",
+                    "description": "Binding operasyonu",
+                    "minLength": 1
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Binding metadata bilgileri"
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Binding data bilgileri"
+                  }
+                },
+                "required": [
+                  "bindingName",
+                  "operation"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "config"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "3"
+              }
+            }
+          },
+          "then": {
+            "title": "DaprService Task",
+            "properties": {
+              "type": {
+                "const": "3"
+              },
+              "config": {
+                "type": "object",
+                "description": "Dapr Service konfigürasyonu",
+                "properties": {
+                  "appId": {
+                    "type": "string",
+                    "description": "Dapr app ID",
+                    "minLength": 1
+                  },
+                  "methodName": {
+                    "type": "string",
+                    "description": "Servis method adı",
+                    "minLength": 1
+                  },
+                  "httpVerb": {
+                    "type": "string",
+                    "description": "HTTP verb",
+                    "enum": [
+                      "GET",
+                      "POST",
+                      "PUT",
+                      "DELETE",
+                      "PATCH"
+                    ]
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Servis çağrısı data"
+                  },
+                  "queryString": {
+                    "type": "string",
+                    "description": "Query string parametreleri"
+                  },
+                  "timeoutSeconds": {
+                    "type": "integer",
+                    "description": "Timeout süresi (saniye)",
+                    "minimum": 1,
+                    "default": 30
+                  }
+                },
+                "required": [
+                  "appId",
+                  "methodName"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "config"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "4"
+              }
+            }
+          },
+          "then": {
+            "title": "DaprPubSub Task",
+            "properties": {
+              "type": {
+                "const": "4"
+              },
+              "config": {
+                "type": "object",
+                "description": "Dapr PubSub konfigürasyonu",
+                "properties": {
+                  "pubSubName": {
+                    "type": "string",
+                    "description": "PubSub component adı",
+                    "minLength": 1
+                  },
+                  "topic": {
+                    "type": "string",
+                    "description": "Topic adı",
+                    "minLength": 1
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Message data"
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Message metadata"
+                  }
+                },
+                "required": [
+                  "pubSubName",
+                  "topic"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "config"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "5"
+              }
+            }
+          },
+          "then": {
+            "title": "Human Task",
+            "properties": {
+              "type": {
+                "const": "5"
+              },
+              "config": {
+                "type": "object",
+                "description": "Human Task konfigürasyonu",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Task başlığı",
+                    "minLength": 1
+                  },
+                  "instructions": {
+                    "type": "string",
+                    "description": "Task talimatları",
+                    "minLength": 1
+                  },
+                  "assignedTo": {
+                    "type": "string",
+                    "description": "Atanan kişi/grup",
+                    "minLength": 1
+                  },
+                  "dueDate": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Bitiş tarihi (ISO 8601 format)",
+                    "format": "date-time"
+                  },
+                  "form": {
+                    "description": "Form tanımı JSON formatında"
+                  },
+                  "reminderIntervalMinutes": {
+                    "type": "integer",
+                    "description": "Hatırlatma aralığı (dakika)",
+                    "minimum": 0
+                  },
+                  "escalationTimeoutMinutes": {
+                    "type": "integer",
+                    "description": "Escalation timeout (dakika)",
+                    "minimum": 0
+                  },
+                  "escalationAssignee": {
+                    "type": "string",
+                    "description": "Escalation atanacak kişi/grup"
+                  }
+                },
+                "required": [
+                  "title",
+                  "instructions",
+                  "assignedTo"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "config"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "6"
+              }
+            }
+          },
+          "then": {
+            "title": "Http Task",
+            "properties": {
+              "type": {
+                "const": "6"
+              },
+              "config": {
+                "type": "object",
+                "description": "HTTP Task konfigürasyonu",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "HTTP URL"
+                  },
+                  "method": {
+                    "type": "string",
+                    "description": "HTTP metodu",
+                    "enum": [
+                      "GET",
+                      "POST",
+                      "PUT",
+                      "DELETE",
+                      "PATCH"
+                    ],
+                    "default": "GET"
+                  },
+                  "headers": {
+                    "type": "object",
+                    "description": "HTTP header bilgileri"
+                  },
+                  "body": {
+                    "type": "object",
+                    "description": "HTTP request body"
+                  },
+                  "timeoutSeconds": {
+                    "type": "integer",
+                    "description": "Timeout süresi (saniye)",
+                    "minimum": 1,
+                    "default": 30
+                  },
+                  "validateSsl": {
+                    "type": "boolean",
+                    "description": "SSL doğrulaması yapılsın mı",
+                    "default": true
+                  }
+                },
+                "required": [
+                  "url",
+                  "method"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "config"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "7"
+              }
+            }
+          },
+          "then": {
+            "title": "Script Task",
+            "properties": {
+              "type": {
+                "const": "7"
+              },
+              "config": {
+                "type": "object",
+                "description": "Script Task konfigürasyonu",
+                "properties": {},
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "config"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "@burgan-tech/vnext-core",
+  "version": "1.0.0",
+  "description": "vNext core packages platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "validate": "node validate.js",
+    "build": "echo 'Build completed - package is ready'",
+    "prepublishOnly": "npm run validate"
+  },
+  "keywords": [
+    "vnext",
+    "sys-flow",
+    "core",
+    "burgan-tech"
+  ],
+  "author": "Burgan Tech Team <dev@burgan-tech.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burgan-tech/vnext-sys-flow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/burgan-tech/vnext-sys-flow/issues"
+  },
+  "homepage": "https://github.com/burgan-tech/vnext-sys-flow#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "core/",
+    "vnext.config.json",
+    "README.md",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "test.js",
+    "validate.js",
+    "test-domain-detection.sh",
+    ".cursorrules",
+    "gitignore",
+    "gitattributes"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1"
+  }
+}

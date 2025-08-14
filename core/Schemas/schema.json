@@ -1,0 +1,58 @@
+{
+  "key": "schema",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-schemas",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "schema",
+    "metaSchema",
+    "base"
+  ],
+  "attributes": {
+    "type": "schema",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.vnext.com/core/schema.json",
+      "title": "Schema Definition",
+      "description": "Gerçek JSON Schema tanımının bulunduğu alan. Bu alan valid bir JSON Schema olmalıdır.",
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "format": "uri",
+          "description": "JSON Schema versiyonu"
+        },
+        "$id": {
+          "type": "string",
+          "format": "uri",
+          "description": "Şemanın benzersiz URI'si"
+        },
+        "title": {
+          "type": "string",
+          "description": "Şemanın başlığı"
+        },
+        "description": {
+          "type": "string",
+          "description": "Şemanın açıklaması"
+        },
+        "type": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "description": "JSON Schema type tanımı"
+        }
+      },
+      "required": [
+        "$schema",
+        "$id",
+        "title",
+        "description",
+        "type"
+      ],
+      "additionalProperties": true
+    }
+  }
+}
