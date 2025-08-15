@@ -3,15 +3,7 @@ on:
   push:
     branches:
       - master
-      - main
-      - develop
       - 'release-v*'
-      - 'release/*'
-  pull_request:
-    branches:
-      - master
-      - main
-      - develop
       
 jobs:
   quality-check:
