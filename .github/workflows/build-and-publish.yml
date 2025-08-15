@@ -143,15 +143,6 @@ jobs:
           exit 1
         fi
     
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v2.3.0
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        args: >
-          -Dsonar.projectKey=burgan-tech_vnext-sys-flow
-          -Dsonar.organization=burgan-tech
     
     - name: Build Reference Package
       run: |
