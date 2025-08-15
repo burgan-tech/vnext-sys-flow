@@ -1,9 +1,9 @@
 name: SonarQube Analysis - vNext Core Domain
 on:
-  push:
-    branches:
-      - master
-      - 'release-v*'
+  pull_request:
+    branches: [ master, 'release-v*']
+    types: [opened, synchronize, reopened]
+ 
       
 jobs:
   quality-check:
