@@ -200,3 +200,114 @@ if (testsFailed > 0) {
   console.log('\n🎉 All tests passed!');
   process.exit(0);
 }
+
+/**
+ * Additional tests for package.json
+ * Testing library/framework: Node.js built-in 'assert' (no external framework),
+ * consistent with "test": "node test.js" in package.json.
+ */
+(() => {
+  const assert = require('assert');
+  const fs = require('fs');
+  const path = require('path');
+
+  function test(name, fn) {
+    // Reuse existing test() if present; otherwise define a minimal one.
+    if (typeof global.test === 'function' && global.test !== test) {
+      return global.test(name, fn);
+    }
+    Promise.resolve()
+      .then(fn)
+      .then(() => console.log(`✓ ${name}`))
+      .catch((err) => {
+        console.error(`✗ ${name}\n  ${err && err.stack || err}`);
+        process.exitCode = 1;
+      });
+  }
+
+  function loadPackageJson() {
+    const pkgPath = path.join(__dirname, 'package.json');
+    assert.ok(fs.existsSync(pkgPath), 'package.json should exist at repository root');
+    const raw = fs.readFileSync(pkgPath, 'utf8');
+    try {
+      return JSON.parse(raw);
+    } catch (e) {
+      assert.fail('package.json must contain valid JSON: ' + e.message);
+    }
+  }
+
+  function hasOwn(obj, key) {
+    return Object.prototype.hasOwnProperty.call(obj, key);
+  }
+
+  test('package.json: structure and key fields', () => {
+    const pkg = loadPackageJson();
+    const required = [
+      'name','version','description','main','scripts','keywords','author','license',
+      'repository','bugs','homepage','publishConfig','files','engines','dependencies','devDependencies'
+    ];
+    for (const k of required) {
+      assert.ok(hasOwn(pkg, k), `package.json should include "${k}"`);
+    }
+    assert.strictEqual(pkg.name, '@burgan-tech/vnext-core');
+    assert.strictEqual(pkg.version, '1.0.0');
+    assert.strictEqual(pkg.main, 'index.js');
+  });
+
+  test('package.json: scripts contents match expected values', () => {
+    const pkg = loadPackageJson();
+    assert.strictEqual(pkg.scripts.test, 'node test.js');
+    assert.strictEqual(pkg.scripts.validate, 'node validate.js');
+    assert.strictEqual(pkg.scripts.build, "echo 'Build completed - package is ready'");
+    assert.strictEqual(pkg.scripts.prepublishOnly, 'npm run validate');
+  });
+
+  test('package.json: keywords and metadata', () => {
+    const pkg = loadPackageJson();
+    for (const k of ['vnext','sys-flow','core','burgan-tech']) {
+      assert.ok(pkg.keywords.includes(k), `keywords should include "${k}"`);
+    }
+    assert.strictEqual(pkg.author, 'Burgan Tech Team <dev@burgan-tech.com>');
+    assert.strictEqual(pkg.license, 'MIT');
+  });
+
+  test('package.json: repository/bugs/homepage fields', () => {
+    const pkg = loadPackageJson();
+    assert.strictEqual(pkg.repository.type, 'git');
+    assert.strictEqual(pkg.repository.url, 'git+https://github.com/burgan-tech/vnext-sys-flow.git');
+    assert.strictEqual(pkg.bugs.url, 'https://github.com/burgan-tech/vnext-sys-flow/issues');
+    assert.strictEqual(pkg.homepage, 'https://github.com/burgan-tech/vnext-sys-flow#readme');
+  });
+
+  test('package.json: publishConfig, engines, dependencies', () => {
+    const pkg = loadPackageJson();
+    assert.strictEqual(pkg.publishConfig.registry, 'https://registry.npmjs.org/');
+    assert.strictEqual(pkg.publishConfig.access, 'public');
+    assert.strictEqual(pkg.engines.node, '>=16.0.0');
+    assert.deepStrictEqual(pkg.dependencies, {}, 'dependencies should be an empty object');
+    assert.strictEqual(pkg.devDependencies.ajv, '^8.12.0');
+    assert.strictEqual(pkg.devDependencies['ajv-formats'], '^2.1.1');
+  });
+
+  test('package.json: files list integrity and referenced file existence', () => {
+    const pkg = loadPackageJson();
+    const expected = [
+      'index.js', 'core/', 'vnext.config.json', 'README.md', 'package.json', 'CHANGELOG.md',
+      'LICENSE', 'test.js', 'validate.js', 'test-domain-detection.sh', '.cursorrules',
+      'gitignore', 'gitattributes'
+    ];
+    for (const f of expected) {
+      assert.ok(pkg.files.includes(f), `files should include "${f}"`);
+    }
+    const set = new Set(pkg.files);
+    assert.strictEqual(set.size, pkg.files.length, 'files array should not contain duplicates');
+    for (const f of ['index.js','README.md','package.json','CHANGELOG.md','LICENSE','test.js','validate.js','.cursorrules','gitignore','gitattributes']) {
+      assert.ok(fs.existsSync(path.join(__dirname, f)), `Expected to find file: ${f}`);
+    }
+    assert.ok(fs.existsSync(path.join(__dirname, 'test-domain-detection.sh')), 'Expected to find test-domain-detection.sh');
+    const corePath = path.join(__dirname, 'core');
+    assert.ok(fs.existsSync(corePath), 'Expected to find "core/" directory');
+    assert.ok(fs.statSync(corePath).isDirectory(), '"core/" should be a directory');
+    assert.ok(fs.existsSync(path.join(__dirname, 'vnext.config.json')), 'Expected to find vnext.config.json');
+  });
+})();
