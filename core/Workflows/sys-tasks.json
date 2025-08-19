@@ -308,5 +308,60 @@
         "versionStrategy": "Minor"
       }
     ]
-  }
+  },
+  "data": [
+    {
+      "key": "available-transitions",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "sys-tasks",
+        "components"
+      ],
+      "attributes": {
+        "type": "3",
+        "config": {
+          "appId": "vnext-app",
+          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/transitions/available",
+          "httpVerb": "GET",
+          "data": {},
+          "queryString": "",
+          "timeoutSeconds": 2
+        }
+      }
+    },
+    {
+      "key": "available-transitions",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "sys-tasks",
+        "components"
+      ],
+      "attributes": {
+        "type": "3",
+        "config": {
+          "appId": "vnext-app",
+          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/transitions/available",
+          "httpVerb": "GET",
+          "data": {},
+          "queryString": "",
+          "timeoutSeconds": 2
+        }
+      }
+    },
+    {
+      "key": "script-task",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "sys-tasks",
+        "components"
+      ],
+      "attributes": {
+        "type": "7",
+        "config": {}
+      }
+    }
+  ]
 }
