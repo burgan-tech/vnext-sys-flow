@@ -308,5 +308,2703 @@
         "versionStrategy": "Minor"
       }
     ]
-  }
+  },
+  "data": [
+    {
+      "key": "schema",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "schema",
+        "metaSchema",
+        "base"
+      ],
+      "attributes": {
+        "type": "schema",
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://schemas.vnext.com/core/schema.json",
+          "title": "Schema Definition",
+          "description": "Gerçek JSON Schema tanımının bulunduğu alan. Bu alan valid bir JSON Schema olmalıdır.",
+          "type": "object",
+          "properties": {
+            "$schema": {
+              "type": "string",
+              "format": "uri",
+              "description": "JSON Schema versiyonu"
+            },
+            "$id": {
+              "type": "string",
+              "format": "uri",
+              "description": "Şemanın benzersiz URI'si"
+            },
+            "title": {
+              "type": "string",
+              "description": "Şemanın başlığı"
+            },
+            "description": {
+              "type": "string",
+              "description": "Şemanın açıklaması"
+            },
+            "type": {
+              "type": [
+                "string",
+                "array"
+              ],
+              "description": "JSON Schema type tanımı"
+            }
+          },
+          "required": [
+            "$schema",
+            "$id",
+            "title",
+            "description",
+            "type"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    {
+      "key": "task",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "schema",
+        "task",
+        "polymorphic"
+      ],
+      "attributes": {
+        "type": "task",
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://schemas.vnext.com/core/task.json",
+          "title": "Task Definition",
+          "description": "Polimorfik task tanımları. Task tipine göre farklı konfigürasyon şemaları kullanır.",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Task tipi (TaskType enum değeri string olarak)",
+              "enum": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "description": "Task konfigürasyon objesi"
+            }
+          },
+          "required": [
+            "type",
+            "config"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "1"
+                  }
+                }
+              },
+              "then": {
+                "title": "DaprHttpEndpoint Task",
+                "properties": {
+                  "type": {
+                    "const": "1"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Dapr HTTP Endpoint konfigürasyonu",
+                    "properties": {
+                      "endpointName": {
+                        "type": "string",
+                        "description": "Dapr HTTP endpoint adı",
+                        "minLength": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "description": "HTTP endpoint path",
+                        "minLength": 1
+                      },
+                      "method": {
+                        "type": "string",
+                        "description": "HTTP metodu",
+                        "enum": [
+                          "GET",
+                          "POST",
+                          "PUT",
+                          "DELETE",
+                          "PATCH"
+                        ],
+                        "default": "GET"
+                      },
+                      "headers": {
+                        "type": "object",
+                        "description": "HTTP header bilgileri"
+                      }
+                    },
+                    "required": [
+                      "endpointName",
+                      "path",
+                      "method"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "2"
+                  }
+                }
+              },
+              "then": {
+                "title": "DaprBinding Task",
+                "properties": {
+                  "type": {
+                    "const": "2"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Dapr Binding konfigürasyonu",
+                    "properties": {
+                      "bindingName": {
+                        "type": "string",
+                        "description": "Dapr binding adı",
+                        "minLength": 1
+                      },
+                      "operation": {
+                        "type": "string",
+                        "description": "Binding operasyonu",
+                        "minLength": 1
+                      },
+                      "metadata": {
+                        "type": "object",
+                        "description": "Binding metadata bilgileri"
+                      },
+                      "data": {
+                        "type": "object",
+                        "description": "Binding data bilgileri"
+                      }
+                    },
+                    "required": [
+                      "bindingName",
+                      "operation"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "3"
+                  }
+                }
+              },
+              "then": {
+                "title": "DaprService Task",
+                "properties": {
+                  "type": {
+                    "const": "3"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Dapr Service konfigürasyonu",
+                    "properties": {
+                      "appId": {
+                        "type": "string",
+                        "description": "Dapr app ID",
+                        "minLength": 1
+                      },
+                      "methodName": {
+                        "type": "string",
+                        "description": "Servis method adı",
+                        "minLength": 1
+                      },
+                      "httpVerb": {
+                        "type": "string",
+                        "description": "HTTP verb",
+                        "enum": [
+                          "GET",
+                          "POST",
+                          "PUT",
+                          "DELETE",
+                          "PATCH"
+                        ]
+                      },
+                      "data": {
+                        "type": "object",
+                        "description": "Servis çağrısı data"
+                      },
+                      "queryString": {
+                        "type": "string",
+                        "description": "Query string parametreleri"
+                      },
+                      "timeoutSeconds": {
+                        "type": "integer",
+                        "description": "Timeout süresi (saniye)",
+                        "minimum": 1,
+                        "default": 30
+                      }
+                    },
+                    "required": [
+                      "appId",
+                      "methodName"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "4"
+                  }
+                }
+              },
+              "then": {
+                "title": "DaprPubSub Task",
+                "properties": {
+                  "type": {
+                    "const": "4"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Dapr PubSub konfigürasyonu",
+                    "properties": {
+                      "pubSubName": {
+                        "type": "string",
+                        "description": "PubSub component adı",
+                        "minLength": 1
+                      },
+                      "topic": {
+                        "type": "string",
+                        "description": "Topic adı",
+                        "minLength": 1
+                      },
+                      "data": {
+                        "type": "object",
+                        "description": "Message data"
+                      },
+                      "metadata": {
+                        "type": "object",
+                        "description": "Message metadata"
+                      }
+                    },
+                    "required": [
+                      "pubSubName",
+                      "topic"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "5"
+                  }
+                }
+              },
+              "then": {
+                "title": "Human Task",
+                "properties": {
+                  "type": {
+                    "const": "5"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Human Task konfigürasyonu",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "description": "Task başlığı",
+                        "minLength": 1
+                      },
+                      "instructions": {
+                        "type": "string",
+                        "description": "Task talimatları",
+                        "minLength": 1
+                      },
+                      "assignedTo": {
+                        "type": "string",
+                        "description": "Atanan kişi/grup",
+                        "minLength": 1
+                      },
+                      "dueDate": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Bitiş tarihi (ISO 8601 format)",
+                        "format": "date-time"
+                      },
+                      "form": {
+                        "description": "Form tanımı JSON formatında"
+                      },
+                      "reminderIntervalMinutes": {
+                        "type": "integer",
+                        "description": "Hatırlatma aralığı (dakika)",
+                        "minimum": 0
+                      },
+                      "escalationTimeoutMinutes": {
+                        "type": "integer",
+                        "description": "Escalation timeout (dakika)",
+                        "minimum": 0
+                      },
+                      "escalationAssignee": {
+                        "type": "string",
+                        "description": "Escalation atanacak kişi/grup"
+                      }
+                    },
+                    "required": [
+                      "title",
+                      "instructions",
+                      "assignedTo"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "6"
+                  }
+                }
+              },
+              "then": {
+                "title": "Http Task",
+                "properties": {
+                  "type": {
+                    "const": "6"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "HTTP Task konfigürasyonu",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "description": "HTTP URL"
+                      },
+                      "method": {
+                        "type": "string",
+                        "description": "HTTP metodu",
+                        "enum": [
+                          "GET",
+                          "POST",
+                          "PUT",
+                          "DELETE",
+                          "PATCH"
+                        ],
+                        "default": "GET"
+                      },
+                      "headers": {
+                        "type": "object",
+                        "description": "HTTP header bilgileri"
+                      },
+                      "body": {
+                        "type": "object",
+                        "description": "HTTP request body"
+                      },
+                      "timeoutSeconds": {
+                        "type": "integer",
+                        "description": "Timeout süresi (saniye)",
+                        "minimum": 1,
+                        "default": 30
+                      },
+                      "validateSsl": {
+                        "type": "boolean",
+                        "description": "SSL doğrulaması yapılsın mı",
+                        "default": true
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "method"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "7"
+                  }
+                }
+              },
+              "then": {
+                "title": "Script Task",
+                "properties": {
+                  "type": {
+                    "const": "7"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Script Task konfigürasyonu",
+                    "properties": {},
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            }
+          ],
+          "additionalProperties": false
+        }
+      }
+    },    
+    {
+      "key": "view",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "schema",
+        "view",
+        "ui"
+      ],
+      "attributes": {
+        "type": "view",
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://schemas.vnext.com/core/view.json",
+          "title": "View Definition",
+          "description": "vNext platformunda view tanımları için şema. View içerik türü, hedef ve içerik bilgilerini içerir.",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "integer",
+              "description": "View içerik türü",
+              "oneOf": [
+                {
+                  "const": 1,
+                  "description": "Json içerik türü"
+                },
+                {
+                  "const": 2,
+                  "description": "Html içerik türü"
+                },
+                {
+                  "const": 3,
+                  "description": "Markdown içerik türü"
+                }
+              ]
+            },
+            "target": {
+              "type": "integer",
+              "description": "View'in hedef aldığı workflow component türü",
+              "oneOf": [
+                {
+                  "const": 1,
+                  "description": "State hedefli view"
+                },
+                {
+                  "const": 2,
+                  "description": "Transition hedefli view"
+                },
+                {
+                  "const": 3,
+                  "description": "Task hedefli view"
+                }
+              ]
+            },
+            "content": {
+              "type": "string",
+              "description": "View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "type",
+            "target",
+            "content"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },    
+    {
+      "key": "workflow",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "workflow",
+        "stateMachine",
+        "schema"
+      ],
+      "attributes": {
+        "type": "workflow",
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://schemas.vnext.com/core/workflow.json",
+          "title": "Workflow Definition",
+          "description": "vNext platformunda iş akışı tanımlarını yapılandıran şema. Sadece workflow attributes yapısını tanımlar.",
+          "type": "object",
+          "properties": {
+            "timeout": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "description": "Workflow timeout yapılandırması",
+                  "required": [
+                    "key",
+                    "target",
+                    "versionStrategy",
+                    "timer"
+                  ],
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "Timeout anahtar değeri",
+                      "pattern": "^[a-z0-9-]+$",
+                      "maxLength": 255
+                    },
+                    "target": {
+                      "type": "string",
+                      "description": "Timeout durumunda hedef state",
+                      "pattern": "^[a-z0-9-]+$",
+                      "maxLength": 255
+                    },
+                    "versionStrategy": {
+                      "type": "string",
+                      "enum": [
+                        "Minor",
+                        "Major"
+                      ],
+                      "description": "Timeout sonrası versiyon stratejisi",
+                      "maxLength": 50
+                    },
+                    "timer": {
+                      "type": "object",
+                      "required": [
+                        "reset",
+                        "duration"
+                      ],
+                      "properties": {
+                        "reset": {
+                          "type": "string",
+                          "description": "Timer reset stratejisi"
+                        },
+                        "duration": {
+                          "type": "string",
+                          "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                          "description": "Süre bilgisi (ISO 8601 formatında)",
+                          "maxLength": 100
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Workflow genel timeout tanımı"
+            },
+            "type": {
+              "oneOf": [
+                {
+                  "const": "C",
+                  "description": "Core workflow türü"
+                },
+                {
+                  "const": "F",
+                  "description": "Flow workflow türü"
+                },
+                {
+                  "const": "S",
+                  "description": "SubFlow workflow türü"
+                },
+                {
+                  "const": "P",
+                  "description": "Sub Process workflow türü"
+                }
+              ],
+              "description": "Workflow'un türü"
+            },
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "label",
+                  "language"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "description": "Kullanıcıya gösterilecek metin içeriği",
+                    "maxLength": 500
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "ISO 639 formatında dil kodu",
+                    "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                    "maxLength": 10
+                  }
+                },
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "examples": [
+                [
+                  {
+                    "label": "User Login",
+                    "language": "en-US"
+                  },
+                  {
+                    "label": "Kullanıcı Girişi",
+                    "language": "tr-TR"
+                  }
+                ],
+                [
+                  {
+                    "label": "Data Processing",
+                    "language": "en-US"
+                  },
+                  {
+                    "label": "Veri İşleme",
+                    "language": "tr-TR"
+                  }
+                ]
+              ],
+              "description": "Workflow'un çoklu dil etiketleri"
+            },
+            "functions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                    "pattern": "^[a-z0-9-]+$",
+                    "maxLength": 255
+                  },
+                  "domain": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                    "pattern": "^[a-zA-Z\\-]+$",
+                    "maxLength": 100,
+                    "examples": [
+                      "core",
+                      "idm",
+                      "banking",
+                      "payment"
+                    ]
+                  },
+                  "flow": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın bulunduğu flow adı",
+                    "pattern": "^[a-z\\-]+$",
+                    "maxLength": 100
+                  },
+                  "version": {
+                    "type": "string",
+                    "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                    "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                    "maxLength": 50
+                  }
+                },
+                "required": [
+                  "key",
+                  "domain",
+                  "flow",
+                  "version"
+                ],
+                "additionalProperties": false,
+                "examples": [
+                  {
+                    "key": "user-authentication-workflow",
+                    "domain": "idm",
+                    "flow": "user-authentication",
+                    "version": "1.0.0"
+                  },
+                  {
+                    "key": "user-login-state",
+                    "domain": "core",
+                    "flow": "authentication",
+                    "version": "2.1.0"
+                  },
+                  {
+                    "key": "payment-validation-task",
+                    "domain": "banking",
+                    "flow": "payment-process",
+                    "version": "1.2.3"
+                  }
+                ]
+              },
+              "description": "Workflow ile ilişkili function referansları"
+            },
+            "sharedTransitions": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
+                        "pattern": "^[a-z0-9-]+$",
+                        "maxLength": 255
+                      },
+                      "target": {
+                        "type": "string",
+                        "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
+                        "pattern": "^[a-zA-Z0-9\\-]+$",
+                        "maxLength": 255
+                      },
+                      "from": {
+                        "type": "string",
+                        "description": "Kaynak state key'i",
+                        "pattern": "^[a-zA-Z0-9\\-]+$",
+                        "maxLength": 255
+                      },
+                      "versionStrategy": {
+                        "type": "string",
+                        "enum": [
+                          "Minor",
+                          "Major"
+                        ],
+                        "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
+                        "maxLength": 50
+                      },
+                      "triggerType": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1,
+                          2,
+                          3
+                        ],
+                        "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                      },
+                      "availableIn": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                      },
+                      "schema": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                "pattern": "^[a-z0-9-]+$",
+                                "maxLength": 255
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                "pattern": "^[a-zA-Z\\-]+$",
+                                "maxLength": 100,
+                                "examples": [
+                                  "core",
+                                  "idm",
+                                  "banking",
+                                  "payment"
+                                ]
+                              },
+                              "flow": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu flow adı",
+                                "pattern": "^[a-zA-Z\\-]+$",
+                                "maxLength": 100
+                              },
+                              "version": {
+                                "type": "string",
+                                "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "domain",
+                              "flow",
+                              "version"
+                            ],
+                            "additionalProperties": false,
+                            "examples": [
+                              {
+                                "key": "user-authentication-workflow",
+                                "domain": "idm",
+                                "flow": "user-authentication",
+                                "version": "1.0.0"
+                              },
+                              {
+                                "key": "user-login-state",
+                                "domain": "core",
+                                "flow": "authentication",
+                                "version": "2.1.0"
+                              },
+                              {
+                                "key": "payment-validation-task",
+                                "domain": "banking",
+                                "flow": "payment-process",
+                                "version": "1.2.3"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
+                      },
+                      "rule": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "code",
+                              "location"
+                            ],
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Rule kodu"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "Kod dosyasının konumu"
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
+                      },
+                      "timer": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "reset",
+                              "duration"
+                            ],
+                            "properties": {
+                              "reset": {
+                                "type": "string",
+                                "description": "Zamanlayıcı reset stratejisi"
+                              },
+                              "duration": {
+                                "type": "string",
+                                "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                                "description": "Süre bilgisi (ISO 8601 formatında)",
+                                "maxLength": 100
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
+                      },
+                      "labels": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "language"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string",
+                              "description": "Kullanıcıya gösterilecek metin içeriği",
+                              "maxLength": 500
+                            },
+                            "language": {
+                              "type": "string",
+                              "description": "ISO 639 formatında dil kodu",
+                              "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                              "maxLength": 10
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "minItems": 1,
+                        "examples": [
+                          [
+                            {
+                              "label": "User Login",
+                              "language": "en"
+                            },
+                            {
+                              "label": "Kullanıcı Girişi",
+                              "language": "tr"
+                            }
+                          ],
+                          [
+                            {
+                              "label": "Data Processing",
+                              "language": "en-US"
+                            },
+                            {
+                              "label": "Veri İşleme",
+                              "language": "tr-TR"
+                            }
+                          ]
+                        ],
+                        "description": "Çok dilli geçiş ismi"
+                      },
+                      "view": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                "pattern": "^[a-z0-9-]+$",
+                                "maxLength": 255
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                "pattern": "^[a-zA-Z\\-]+$",
+                                "maxLength": 100,
+                                "examples": [
+                                  "core",
+                                  "idm",
+                                  "banking",
+                                  "payment"
+                                ]
+                              },
+                              "flow": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu flow adı",
+                                "pattern": "^[a-z\\-]+$",
+                                "maxLength": 100
+                              },
+                              "version": {
+                                "type": "string",
+                                "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "domain",
+                              "flow",
+                              "version"
+                            ],
+                            "additionalProperties": false,
+                            "examples": [
+                              {
+                                "key": "user-authentication-workflow",
+                                "domain": "idm",
+                                "flow": "user-authentication",
+                                "version": "1.0.0"
+                              },
+                              {
+                                "key": "user-login-state",
+                                "domain": "core",
+                                "flow": "authentication",
+                                "version": "2.1.0"
+                              },
+                              {
+                                "key": "payment-validation-task",
+                                "domain": "banking",
+                                "flow": "payment-process",
+                                "version": "1.2.3"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "Geçişte kullanılacak view referansı"
+                      },
+                      "onExecutionTasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "order",
+                            "task",
+                            "mapping"
+                          ],
+                          "properties": {
+                            "order": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "description": "Görevin çalışma sırası"
+                            },
+                            "task": {
+                              "type": "object",
+                              "properties": {
+                                "key": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                  "pattern": "^[a-zA-Z0-9\\-]+$",
+                                  "maxLength": 255
+                                },
+                                "domain": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                  "pattern": "^[a-zA-Z\\-]+$",
+                                  "maxLength": 100,
+                                  "examples": [
+                                    "core",
+                                    "idm",
+                                    "banking",
+                                    "payment"
+                                  ]
+                                },
+                                "flow": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın bulunduğu flow adı",
+                                  "pattern": "^[a-z\\-]+$",
+                                  "maxLength": 100
+                                },
+                                "version": {
+                                  "type": "string",
+                                  "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                  "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                  "maxLength": 50
+                                }
+                              },
+                              "required": [
+                                "key",
+                                "domain",
+                                "flow",
+                                "version"
+                              ],
+                              "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "key": "user-authentication-workflow",
+                                  "domain": "idm",
+                                  "flow": "user-authentication",
+                                  "version": "1.0.0"
+                                },
+                                {
+                                  "key": "user-login-state",
+                                  "domain": "core",
+                                  "flow": "authentication",
+                                  "version": "2.1.0"
+                                },
+                                {
+                                  "key": "payment-validation-task",
+                                  "domain": "banking",
+                                  "flow": "payment-process",
+                                  "version": "1.2.3"
+                                }
+                              ],
+                              "description": "Çalıştırılacak task referansı"
+                            },
+                            "mapping": {
+                              "type": "object",
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping kodu"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Kod dosyasının konumu"
+                                }
+                              },
+                              "additionalProperties": false
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "target",
+                      "versionStrategy",
+                      "triggerType",
+                      "labels"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "availableIn"
+                    ],
+                    "properties": {
+                      "availableIn": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                      }
+                    }
+                  }
+                ]
+              },
+              "description": "Birden fazla state'de kullanılabilecek ortak transition'lar"
+            },
+            "extensions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                    "pattern": "^[a-z0-9-]+$",
+                    "maxLength": 255
+                  },
+                  "domain": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                    "pattern": "^[a-zA-Z\\-]+$",
+                    "maxLength": 100,
+                    "examples": [
+                      "core",
+                      "idm",
+                      "banking",
+                      "payment"
+                    ]
+                  },
+                  "flow": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın bulunduğu flow adı",
+                    "pattern": "^[a-z\\-]+$",
+                    "maxLength": 100
+                  },
+                  "version": {
+                    "type": "string",
+                    "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                    "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                    "maxLength": 50
+                  }
+                },
+                "required": [
+                  "key",
+                  "domain",
+                  "flow",
+                  "version"
+                ],
+                "additionalProperties": false,
+                "examples": [
+                  {
+                    "key": "user-authentication-workflow",
+                    "domain": "idm",
+                    "flow": "user-authentication",
+                    "version": "1.0.0"
+                  },
+                  {
+                    "key": "user-login-state",
+                    "domain": "core",
+                    "flow": "authentication",
+                    "version": "2.1.0"
+                  },
+                  {
+                    "key": "payment-validation-task",
+                    "domain": "banking",
+                    "flow": "payment-process",
+                    "version": "1.2.3"
+                  }
+                ]
+              },
+              "description": "Workflow ile ilişkili extension referansları"
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                    "pattern": "^[a-z0-9-]+$",
+                    "maxLength": 255
+                  },
+                  "domain": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                    "pattern": "^[a-zA-Z\\-]+$",
+                    "maxLength": 100,
+                    "examples": [
+                      "core",
+                      "idm",
+                      "banking",
+                      "payment"
+                    ]
+                  },
+                  "flow": {
+                    "type": "string",
+                    "description": "Referans edilen kaydın bulunduğu flow adı",
+                    "pattern": "^[a-z0-9-]+$",
+                    "maxLength": 100
+                  },
+                  "version": {
+                    "type": "string",
+                    "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                    "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                    "maxLength": 50
+                  }
+                },
+                "required": [
+                  "key",
+                  "domain",
+                  "flow",
+                  "version"
+                ],
+                "additionalProperties": false,
+                "examples": [
+                  {
+                    "key": "user-authentication-workflow",
+                    "domain": "idm",
+                    "flow": "user-authentication",
+                    "version": "1.0.0"
+                  },
+                  {
+                    "key": "user-login-state",
+                    "domain": "core",
+                    "flow": "authentication",
+                    "version": "2.1.0"
+                  },
+                  {
+                    "key": "payment-validation-task",
+                    "domain": "banking",
+                    "flow": "payment-process",
+                    "version": "1.2.3"
+                  }
+                ]
+              },
+              "description": "Workflow ile ilişkili feature referansları"
+            },
+            "startTransition": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
+                  "pattern": "^[a-z0-9-]+$",
+                  "maxLength": 255
+                },
+                "target": {
+                  "type": "string",
+                  "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
+                  "pattern": "^[a-z0-9-]+$",
+                  "maxLength": 255
+                },
+                "from": {
+                  "type": "string",
+                  "description": "Kaynak state key'i",
+                  "pattern": "^[a-z0-9-]+$",
+                  "maxLength": 255
+                },
+                "versionStrategy": {
+                  "type": "string",
+                  "enum": [
+                    "Minor",
+                    "Major"
+                  ],
+                  "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
+                  "maxLength": 50
+                },
+                "triggerType": {
+                  "type": "integer",
+                  "enum": [
+                    0,
+                    1,
+                    2,
+                    3
+                  ],
+                  "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                },
+                "availableIn": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                },
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                          "pattern": "^[a-z0-9-]+$",
+                          "maxLength": 255
+                        },
+                        "domain": {
+                          "type": "string",
+                          "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                          "pattern": "^[a-z]+$",
+                          "maxLength": 100,
+                          "examples": [
+                            "core",
+                            "idm",
+                            "banking",
+                            "payment"
+                          ]
+                        },
+                        "flow": {
+                          "type": "string",
+                          "description": "Referans edilen kaydın bulunduğu flow adı",
+                          "pattern": "^[a-z0-9-]+$",
+                          "maxLength": 100
+                        },
+                        "version": {
+                          "type": "string",
+                          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                          "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                          "maxLength": 50
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "domain",
+                        "flow",
+                        "version"
+                      ],
+                      "additionalProperties": false,
+                      "examples": [
+                        {
+                          "key": "user-authentication-workflow",
+                          "domain": "idm",
+                          "flow": "user-authentication",
+                          "version": "1.0.0"
+                        },
+                        {
+                          "key": "user-login-state",
+                          "domain": "core",
+                          "flow": "authentication",
+                          "version": "2.1.0"
+                        },
+                        {
+                          "key": "payment-validation-task",
+                          "domain": "banking",
+                          "flow": "payment-process",
+                          "version": "1.2.3"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
+                },
+                "rule": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "location"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Rule kodu"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "Kod dosyasının konumu"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
+                },
+                "timer": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "reset",
+                        "duration"
+                      ],
+                      "properties": {
+                        "reset": {
+                          "type": "string",
+                          "description": "Zamanlayıcı reset stratejisi"
+                        },
+                        "duration": {
+                          "type": "string",
+                          "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                          "description": "Süre bilgisi (ISO 8601 formatında)",
+                          "maxLength": 100
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
+                },
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "label",
+                      "language"
+                    ],
+                    "properties": {
+                      "label": {
+                        "type": "string",
+                        "description": "Kullanıcıya gösterilecek metin içeriği",
+                        "maxLength": 500
+                      },
+                      "language": {
+                        "type": "string",
+                        "description": "ISO 639 formatında dil kodu",
+                        "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                        "maxLength": 10
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "examples": [
+                    [
+                      {
+                        "label": "User Login",
+                        "language": "en"
+                      },
+                      {
+                        "label": "Kullanıcı Girişi",
+                        "language": "tr"
+                      }
+                    ],
+                    [
+                      {
+                        "label": "Data Processing",
+                        "language": "en-US"
+                      },
+                      {
+                        "label": "Veri İşleme",
+                        "language": "tr-TR"
+                      }
+                    ]
+                  ],
+                  "description": "Çok dilli geçiş ismi"
+                },
+                "view": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                          "pattern": "^[a-z0-9-]+$",
+                          "maxLength": 255
+                        },
+                        "domain": {
+                          "type": "string",
+                          "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                          "pattern": "^[a-zA-Z\\-]+$",
+                          "maxLength": 100,
+                          "examples": [
+                            "core",
+                            "idm",
+                            "banking",
+                            "payment"
+                          ]
+                        },
+                        "flow": {
+                          "type": "string",
+                          "description": "Referans edilen kaydın bulunduğu flow adı",
+                          "pattern": "^[a-z\\-]+$",
+                          "maxLength": 100
+                        },
+                        "version": {
+                          "type": "string",
+                          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                          "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                          "maxLength": 50
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "domain",
+                        "flow",
+                        "version"
+                      ],
+                      "additionalProperties": false,
+                      "examples": [
+                        {
+                          "key": "user-authentication-workflow",
+                          "domain": "idm",
+                          "flow": "user-authentication",
+                          "version": "1.0.0"
+                        },
+                        {
+                          "key": "user-login-state",
+                          "domain": "core",
+                          "flow": "authentication",
+                          "version": "2.1.0"
+                        },
+                        {
+                          "key": "payment-validation-task",
+                          "domain": "banking",
+                          "flow": "payment-process",
+                          "version": "1.2.3"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "Geçişte kullanılacak view referansı"
+                },
+                "onExecutionTasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "order",
+                      "task",
+                      "mapping"
+                    ],
+                    "properties": {
+                      "order": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": "Görevin çalışma sırası"
+                      },
+                      "task": {
+                        "type": "object",
+                        "properties": {
+                          "key": {
+                            "type": "string",
+                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                            "pattern": "^[a-z0-9-]+$",
+                            "maxLength": 255
+                          },
+                          "domain": {
+                            "type": "string",
+                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                            "pattern": "^[a-zA-Z\\-]+$",
+                            "maxLength": 100,
+                            "examples": [
+                              "core",
+                              "idm",
+                              "banking",
+                              "payment"
+                            ]
+                          },
+                          "flow": {
+                            "type": "string",
+                            "description": "Referans edilen kaydın bulunduğu flow adı",
+                            "pattern": "^[a-z\\-]+$",
+                            "maxLength": 100
+                          },
+                          "version": {
+                            "type": "string",
+                            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                            "maxLength": 50
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "domain",
+                          "flow",
+                          "version"
+                        ],
+                        "additionalProperties": false,
+                        "examples": [
+                          {
+                            "key": "user-authentication-workflow",
+                            "domain": "idm",
+                            "flow": "user-authentication",
+                            "version": "1.0.0"
+                          },
+                          {
+                            "key": "user-login-state",
+                            "domain": "core",
+                            "flow": "authentication",
+                            "version": "2.1.0"
+                          },
+                          {
+                            "key": "payment-validation-task",
+                            "domain": "banking",
+                            "flow": "payment-process",
+                            "version": "1.2.3"
+                          }
+                        ],
+                        "description": "Çalıştırılacak task referansı"
+                      },
+                      "mapping": {
+                        "type": "object",
+                        "required": [
+                          "code",
+                          "location"
+                        ],
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping kodu"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Kod dosyasının konumu"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+                }
+              },
+              "required": [
+                "key",
+                "target",
+                "versionStrategy",
+                "triggerType",
+                "labels"
+              ],
+              "additionalProperties": false,
+              "description": "Workflow'u başlatan initial transition"
+            },
+            "states": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "State'in anahtar değeri. Workflow içinde benzersiz olmalıdır.",
+                    "pattern": "^[a-z0-9-]+$",
+                    "maxLength": 255
+                  },
+                  "stateType": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ],
+                    "description": "State'in türü. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow"
+                  },
+                  "stateSubType": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ],
+                    "description": "Final state'ler için alt tür. 1=Success, 2=Failed, 3=Cancelled"
+                  },
+                  "versionStrategy": {
+                    "type": "string",
+                    "enum": [
+                      "Minor",
+                      "Major"
+                    ],
+                    "description": "State'in versiyon yönetim stratejisi",
+                    "maxLength": 50
+                  },
+                  "labels": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "label",
+                        "language"
+                      ],
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "description": "Kullanıcıya gösterilecek metin içeriği",
+                          "maxLength": 500
+                        },
+                        "language": {
+                          "type": "string",
+                          "description": "ISO 639 formatında dil kodu",
+                          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                          "maxLength": 10
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "minItems": 1,
+                    "examples": [
+                      [
+                        {
+                          "label": "User Login",
+                          "language": "en"
+                        },
+                        {
+                          "label": "Kullanıcı Girişi",
+                          "language": "tr"
+                        }
+                      ],
+                      [
+                        {
+                          "label": "Data Processing",
+                          "language": "en-US"
+                        },
+                        {
+                          "label": "Veri İşleme",
+                          "language": "tr-TR"
+                        }
+                      ]
+                    ],
+                    "description": "State'in çoklu dil etiketleri"
+                  },
+                  "view": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "key": {
+                            "type": "string",
+                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                            "pattern": "^[a-z0-9-]+$",
+                            "maxLength": 255
+                          },
+                          "domain": {
+                            "type": "string",
+                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                            "pattern": "^[a-zA-Z\\-]+$",
+                            "maxLength": 100,
+                            "examples": [
+                              "core",
+                              "idm",
+                              "banking",
+                              "payment"
+                            ]
+                          },
+                          "flow": {
+                            "type": "string",
+                            "description": "Referans edilen kaydın bulunduğu flow adı",
+                            "pattern": "^[a-z\\-]+$",
+                            "maxLength": 100
+                          },
+                          "version": {
+                            "type": "string",
+                            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                            "maxLength": 50
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "domain",
+                          "flow",
+                          "version"
+                        ],
+                        "additionalProperties": false,
+                        "examples": [
+                          {
+                            "key": "user-authentication-workflow",
+                            "domain": "idm",
+                            "flow": "user-authentication",
+                            "version": "1.0.0"
+                          },
+                          {
+                            "key": "user-login-state",
+                            "domain": "core",
+                            "flow": "authentication",
+                            "version": "2.1.0"
+                          },
+                          {
+                            "key": "payment-validation-task",
+                            "domain": "banking",
+                            "flow": "payment-process",
+                            "version": "1.2.3"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "State ile ilişkili view referansı"
+                  },
+                  "subFlow": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "process"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "C",
+                              "F",
+                              "S",
+                              "P"
+                            ],
+                            "description": "SubFlow türü. C=Core, F=Flow, S=SubFlow, P=SubProcess",
+                            "maxLength": 10
+                          },
+                          "process": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                "pattern": "^[a-zA-Z0-9\\-]+$",
+                                "maxLength": 255
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                "pattern": "^[a-zA-Z\\-]+$",
+                                "maxLength": 100,
+                                "examples": [
+                                  "core",
+                                  "idm",
+                                  "banking",
+                                  "payment"
+                                ]
+                              },
+                              "flow": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu flow adı",
+                                "pattern": "^[a-z\\-]+$",
+                                "maxLength": 100
+                              },
+                              "version": {
+                                "type": "string",
+                                "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "domain",
+                              "flow",
+                              "version"
+                            ],
+                            "additionalProperties": false,
+                            "examples": [
+                              {
+                                "key": "user-authentication-workflow",
+                                "domain": "idm",
+                                "flow": "user-authentication",
+                                "version": "1.0.0"
+                              },
+                              {
+                                "key": "user-login-state",
+                                "domain": "core",
+                                "flow": "authentication",
+                                "version": "2.1.0"
+                              },
+                              {
+                                "key": "payment-validation-task",
+                                "domain": "banking",
+                                "flow": "payment-process",
+                                "version": "1.2.3"
+                              }
+                            ],
+                            "description": "SubFlow process referansı"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "SubFlow state türü için çağrılacak alt workflow'un bilgisi"
+                  },
+                  "transitions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
+                          "pattern": "^[a-z0-9-]+$",
+                          "maxLength": 255
+                        },
+                        "target": {
+                          "type": "string",
+                          "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
+                          "pattern": "^[a-z0-9-]+$",
+                          "maxLength": 255
+                        },
+                        "from": {
+                          "type": "string",
+                          "description": "Kaynak state key'i",
+                          "pattern": "^[a-z0-9-]+$",
+                          "maxLength": 255
+                        },
+                        "versionStrategy": {
+                          "type": "string",
+                          "enum": [
+                            "Minor",
+                            "Major"
+                          ],
+                          "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
+                          "maxLength": 50
+                        },
+                        "triggerType": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1,
+                            2,
+                            3
+                          ],
+                          "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                        },
+                        "availableIn": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                        },
+                        "schema": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "key": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                  "pattern": "^[a-z0-9-]+$",
+                                  "maxLength": 255
+                                },
+                                "domain": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                  "pattern": "^[a-zA-Z\\-]+$",
+                                  "maxLength": 100,
+                                  "examples": [
+                                    "core",
+                                    "idm",
+                                    "banking",
+                                    "payment"
+                                  ]
+                                },
+                                "flow": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın bulunduğu flow adı",
+                                  "pattern": "^[a-z\\-]+$",
+                                  "maxLength": 100
+                                },
+                                "version": {
+                                  "type": "string",
+                                  "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                  "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                  "maxLength": 50
+                                }
+                              },
+                              "required": [
+                                "key",
+                                "domain",
+                                "flow",
+                                "version"
+                              ],
+                              "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "key": "user-authentication-workflow",
+                                  "domain": "idm",
+                                  "flow": "user-authentication",
+                                  "version": "1.0.0"
+                                },
+                                {
+                                  "key": "user-login-state",
+                                  "domain": "core",
+                                  "flow": "authentication",
+                                  "version": "2.1.0"
+                                },
+                                {
+                                  "key": "payment-validation-task",
+                                  "domain": "banking",
+                                  "flow": "payment-process",
+                                  "version": "1.2.3"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
+                        },
+                        "rule": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Rule kodu"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Kod dosyasının konumu"
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
+                        },
+                        "timer": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "required": [
+                                "reset",
+                                "duration"
+                              ],
+                              "properties": {
+                                "reset": {
+                                  "type": "string",
+                                  "description": "Zamanlayıcı reset stratejisi"
+                                },
+                                "duration": {
+                                  "type": "string",
+                                  "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                                  "description": "Süre bilgisi (ISO 8601 formatında)",
+                                  "maxLength": 100
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
+                        },
+                        "labels": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "label",
+                              "language"
+                            ],
+                            "properties": {
+                              "label": {
+                                "type": "string",
+                                "description": "Kullanıcıya gösterilecek metin içeriği",
+                                "maxLength": 500
+                              },
+                              "language": {
+                                "type": "string",
+                                "description": "ISO 639 formatında dil kodu",
+                                "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                                "maxLength": 10
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "minItems": 1,
+                          "examples": [
+                            [
+                              {
+                                "label": "User Login",
+                                "language": "en"
+                              },
+                              {
+                                "label": "Kullanıcı Girişi",
+                                "language": "tr"
+                              }
+                            ],
+                            [
+                              {
+                                "label": "Data Processing",
+                                "language": "en-US"
+                              },
+                              {
+                                "label": "Veri İşleme",
+                                "language": "tr-TR"
+                              }
+                            ]
+                          ],
+                          "description": "Çok dilli geçiş ismi"
+                        },
+                        "view": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "key": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                  "pattern": "^[a-z0-9-]+$",
+                                  "maxLength": 255
+                                },
+                                "domain": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                  "pattern": "^[a-zA-Z\\-]+$",
+                                  "maxLength": 100,
+                                  "examples": [
+                                    "core",
+                                    "idm",
+                                    "banking",
+                                    "payment"
+                                  ]
+                                },
+                                "flow": {
+                                  "type": "string",
+                                  "description": "Referans edilen kaydın bulunduğu flow adı",
+                                  "pattern": "^[a-z\\-]+$",
+                                  "maxLength": 100
+                                },
+                                "version": {
+                                  "type": "string",
+                                  "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                  "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                  "maxLength": 50
+                                }
+                              },
+                              "required": [
+                                "key",
+                                "domain",
+                                "flow",
+                                "version"
+                              ],
+                              "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "key": "user-authentication-workflow",
+                                  "domain": "idm",
+                                  "flow": "user-authentication",
+                                  "version": "1.0.0"
+                                },
+                                {
+                                  "key": "user-login-state",
+                                  "domain": "core",
+                                  "flow": "authentication",
+                                  "version": "2.1.0"
+                                },
+                                {
+                                  "key": "payment-validation-task",
+                                  "domain": "banking",
+                                  "flow": "payment-process",
+                                  "version": "1.2.3"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "description": "Geçişte kullanılacak view referansı"
+                        },
+                        "onExecutionTasks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "order",
+                              "task",
+                              "mapping"
+                            ],
+                            "properties": {
+                              "order": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "description": "Görevin çalışma sırası"
+                              },
+                              "task": {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string",
+                                    "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                    "pattern": "^[a-zA-Z0-9\\-]+$",
+                                    "maxLength": 255
+                                  },
+                                  "domain": {
+                                    "type": "string",
+                                    "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                    "pattern": "^[a-zA-Z\\-]+$",
+                                    "maxLength": 100,
+                                    "examples": [
+                                      "core",
+                                      "idm",
+                                      "banking",
+                                      "payment"
+                                    ]
+                                  },
+                                  "flow": {
+                                    "type": "string",
+                                    "description": "Referans edilen kaydın bulunduğu flow adı",
+                                    "pattern": "^[a-z\\-]+$",
+                                    "maxLength": 100
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                    "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                    "maxLength": 50
+                                  }
+                                },
+                                "required": [
+                                  "key",
+                                  "domain",
+                                  "flow",
+                                  "version"
+                                ],
+                                "additionalProperties": false,
+                                "examples": [
+                                  {
+                                    "key": "user-authentication-workflow",
+                                    "domain": "idm",
+                                    "flow": "user-authentication",
+                                    "version": "1.0.0"
+                                  },
+                                  {
+                                    "key": "user-login-state",
+                                    "domain": "core",
+                                    "flow": "authentication",
+                                    "version": "2.1.0"
+                                  },
+                                  {
+                                    "key": "payment-validation-task",
+                                    "domain": "banking",
+                                    "flow": "payment-process",
+                                    "version": "1.2.3"
+                                  }
+                                ],
+                                "description": "Çalıştırılacak task referansı"
+                              },
+                              "mapping": {
+                                "type": "object",
+                                "required": [
+                                  "code",
+                                  "location"
+                                ],
+                                "properties": {
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping kodu"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Kod dosyasının konumu"
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "target",
+                        "versionStrategy",
+                        "triggerType",
+                        "labels"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "description": "Bu state'den çıkış yapılabilecek geçişlerin listesi"
+                  },
+                  "onEntries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "order",
+                        "task",
+                        "mapping"
+                      ],
+                      "properties": {
+                        "order": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "description": "Görevin çalışma sırası"
+                        },
+                        "task": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "pattern": "^[a-z0-9-]+$",
+                              "maxLength": 255
+                            },
+                            "domain": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "pattern": "^[a-zA-Z\\-]+$",
+                              "maxLength": 100,
+                              "examples": [
+                                "core",
+                                "idm",
+                                "banking",
+                                "payment"
+                              ]
+                            },
+                            "flow": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "pattern": "^[a-z\\-]+$",
+                              "maxLength": 100
+                            },
+                            "version": {
+                              "type": "string",
+                              "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "maxLength": 50
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "domain",
+                            "flow",
+                            "version"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "key": "user-authentication-workflow",
+                              "domain": "idm",
+                              "flow": "user-authentication",
+                              "version": "1.0.0"
+                            },
+                            {
+                              "key": "user-login-state",
+                              "domain": "core",
+                              "flow": "authentication",
+                              "version": "2.1.0"
+                            },
+                            {
+                              "key": "payment-validation-task",
+                              "domain": "banking",
+                              "flow": "payment-process",
+                              "version": "1.2.3"
+                            }
+                          ],
+                          "description": "Çalıştırılacak task referansı"
+                        },
+                        "mapping": {
+                          "type": "object",
+                          "required": [
+                            "code",
+                            "location"
+                          ],
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping kodu"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Kod dosyasının konumu"
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "description": "State'e girildiğinde çalıştırılacak görevler"
+                  },
+                  "onExits": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "order",
+                        "task",
+                        "mapping"
+                      ],
+                      "properties": {
+                        "order": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "description": "Görevin çalışma sırası"
+                        },
+                        "task": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "pattern": "^[a-z0-9-]+$",
+                              "maxLength": 255
+                            },
+                            "domain": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "pattern": "^[a-zA-Z\\-]+$",
+                              "maxLength": 100,
+                              "examples": [
+                                "core",
+                                "idm",
+                                "banking",
+                                "payment"
+                              ]
+                            },
+                            "flow": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "pattern": "^[a-z\\-]+$",
+                              "maxLength": 100
+                            },
+                            "version": {
+                              "type": "string",
+                              "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "maxLength": 50
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "domain",
+                            "flow",
+                            "version"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "key": "user-authentication-workflow",
+                              "domain": "idm",
+                              "flow": "user-authentication",
+                              "version": "1.0.0"
+                            },
+                            {
+                              "key": "user-login-state",
+                              "domain": "core",
+                              "flow": "authentication",
+                              "version": "2.1.0"
+                            },
+                            {
+                              "key": "payment-validation-task",
+                              "domain": "banking",
+                              "flow": "payment-process",
+                              "version": "1.2.3"
+                            }
+                          ],
+                          "description": "Çalıştırılacak task referansı"
+                        },
+                        "mapping": {
+                          "type": "object",
+                          "required": [
+                            "code",
+                            "location"
+                          ],
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping kodu"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Kod dosyasının konumu"
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "description": "State'den çıkılırken çalıştırılacak görevler"
+                  },
+                  "onExecutionTasks": {
+                    "type": "array",
+                    "description": "State execution sırasında çalıştırılacak görevler dizisi",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "order": {
+                          "type": "integer",
+                          "description": "Görevin çalışma sırası. Aynı sıradaki görevler paralel çalıştırılır.",
+                          "minimum": 1
+                        },
+                        "task": {
+                          "type": "object",
+                          "required": [
+                            "key",
+                            "domain",
+                            "flow",
+                            "version"
+                          ],
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "description": "Task key"
+                            },
+                            "domain": {
+                              "type": "string",
+                              "description": "Domain name"
+                            },
+                            "flow": {
+                              "type": "string",
+                              "description": "Flow name for tasks",
+                              "const": "sys-tasks"
+                            },
+                            "version": {
+                              "type": "string",
+                              "description": "Version in Major.Minor.Patch format",
+                              "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                            }
+                          }
+                        },
+                        "mapping": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping script kod içeriği"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Mapping kod dosyasının konumu"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "location"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "code": "return { userId: input.id, name: input.fullName };",
+                              "location": "./src/mappings/userMapping.js"
+                            },
+                            {
+                              "code": "return input.data.map(item => ({ id: item.key, value: item.val }));",
+                              "location": "./src/mappings/dataTransform.js"
+                            }
+                          ],
+                          "description": "Göreve iletilecek ve geri dönüşümde alınacak verilerin mapping tanımı"
+                        }
+                      },
+                      "required": [
+                        "order",
+                        "task"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "key",
+                  "stateType",
+                  "versionStrategy",
+                  "labels"
+                ],
+                "additionalProperties": false
+              },
+              "description": "Workflow'u oluşturan state'lerin listesi"
+            }
+          },
+          "required": [
+            "type",
+            "labels",
+            "sharedTransitions",
+            "startTransition",
+            "states"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }  
+  ]
 }
