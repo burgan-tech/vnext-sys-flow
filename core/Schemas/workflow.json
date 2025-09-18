@@ -368,19 +368,17 @@
                       {
                         "type": "object",
                         "required": [
-                          "reset",
-                          "duration"
+                          "code",
+                          "location"
                         ],
                         "properties": {
-                          "reset": {
+                          "code": {
                             "type": "string",
-                            "description": "Zamanlayıcı reset stratejisi"
+                            "description": "Rule kodu"
                           },
-                          "duration": {
+                          "location": {
                             "type": "string",
-                            "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                            "description": "Süre bilgisi (ISO 8601 formatında)",
-                            "maxLength": 100
+                            "description": "Kod dosyasının konumu"
                           }
                         },
                         "additionalProperties": false
@@ -919,19 +917,17 @@
                 {
                   "type": "object",
                   "required": [
-                    "reset",
-                    "duration"
+                    "code",
+                    "location"
                   ],
                   "properties": {
-                    "reset": {
+                    "code": {
                       "type": "string",
-                      "description": "Zamanlayıcı reset stratejisi"
+                      "description": "Rule kodu"
                     },
-                    "duration": {
+                    "location": {
                       "type": "string",
-                      "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                      "description": "Süre bilgisi (ISO 8601 formatında)",
-                      "maxLength": 100
+                      "description": "Kod dosyasının konumu"
                     }
                   },
                   "additionalProperties": false
@@ -1411,6 +1407,32 @@
                           }
                         ],
                         "description": "SubFlow process referansı"
+                      },
+                      "mapping": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "code",
+                              "location"
+                            ],
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "SubFlow mapping kodu"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "Mapping kod dosyasının konumu"
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "SubFlow ile veri alışverişi için mapping tanımı"
                       }
                     },
                     "additionalProperties": false
@@ -1419,7 +1441,7 @@
                     "type": "null"
                   }
                 ],
-                "description": "SubFlow state türü için çağrılacak alt workflow'un bilgisi"
+                "description": "SubFlow state türü için çağrılacak alt workflow'un bilgisi. Geliştiricinin subflow tanımı yoksa null olabilir."
               },
               "transitions": {
                 "type": "array",
@@ -1571,19 +1593,17 @@
                         {
                           "type": "object",
                           "required": [
-                            "reset",
-                            "duration"
+                            "code",
+                            "location"
                           ],
                           "properties": {
-                            "reset": {
+                            "code": {
                               "type": "string",
-                              "description": "Zamanlayıcı reset stratejisi"
+                              "description": "Rule kodu"
                             },
-                            "duration": {
+                            "location": {
                               "type": "string",
-                              "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                              "description": "Süre bilgisi (ISO 8601 formatında)",
-                              "maxLength": 100
+                              "description": "Kod dosyasının konumu"
                             }
                           },
                           "additionalProperties": false
