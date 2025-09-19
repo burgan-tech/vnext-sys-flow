@@ -7,9 +7,11 @@ public class InvalidateCacheMapping : IMapping
     public Task<ScriptResponse> InputHandler(WorkflowTask task, ScriptContext context)
     {
         var daprTask = task as DaprPubSubTask;
-        var appId = Environment.GetEnvironmentVariable("DAPR_APP_ID");
+        var pubsubName = Environment.GetEnvironmentVariable("DAPR_PUBSUB_BROADCAST_STORE_NAME");
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-        daprTask.SetTopic(appId);
+        daprTask.SetPubSubName(pubsubName);
+        daprTask.SetTopic(daprTask.Topic.Replace("{ENVIRONMENT}", environment));
         
         daprTask.SetData(new
         {

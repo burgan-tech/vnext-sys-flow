@@ -11,7 +11,7 @@ public class AvailableTransitionMapping : IMapping
     var daprTask = task as DaprServiceTask;
     var appId = Environment.GetEnvironmentVariable("DAPR_APP_ID");
 
-    daprTask.SetTopic(appId);
+    daprTask.SetAppId(appId);
 
     var methodName = daprTask!.MethodName
         .Replace("{domain}", context.Runtime.Domain)
