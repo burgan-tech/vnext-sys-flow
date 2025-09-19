@@ -1,42 +1,31 @@
-#load "../../../.vscode/examples/template/src/ScriptGlobals.csx"
-
+using System;
 using System.Threading.Tasks;
 using BBT.Workflow.Scripting;
 using BBT.Workflow.Definitions;
 
 public class InvalidateCacheMapping : IMapping
 {
-  public Task<ScriptResponse> InputHandler(WorkflowTask task, ScriptContext context)
-  {
-    var daprTask = task as DaprServiceTask;
-    daprTask.SetMethodName("/api/v1/admin/invalidate");
-    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-    if (environment == "Development")
+    public Task<ScriptResponse> InputHandler(WorkflowTask task, ScriptContext context)
     {
-      // Local development
-      daprTask.SetAppId("vnext-app");
+        var daprTask = task as DaprPubSubTask;
+        var pubsubName = Environment.GetEnvironmentVariable("DAPR_PUBSUB_BROADCAST_STORE_NAME");
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+        daprTask.SetPubSubName(pubsubName);
+        daprTask.SetTopic(daprTask.Topic.Replace("{ENVIRONMENT}", environment));
+        
+        daprTask.SetData(new
+        {
+            key = context.Instance.Key,
+            flow = context.Workflow.Key,
+            domain = context.Runtime.Domain,
+            version = context.Instance.LatestData?.Version ?? "1.0.0"
+        });
+        return Task.FromResult(new ScriptResponse());
     }
-    else
+
+    public Task<ScriptResponse> OutputHandler(ScriptContext context)
     {
-      daprTask.SetAppId($"vnext-vnext.{environment.ToLower()}-vnext-vnext");
+        return Task.FromResult(new ScriptResponse());
     }
-
-    return Task.FromResult(new ScriptResponse
-    {
-      Data = new
-      {
-        key = context.Instance.Key,
-        flow = context.Workflow.Key,
-        domain = context.Runtime.Domain,
-        version = context.Instance.LatestData?.Version ?? "1.0.0"
-      },
-      Headers = null
-    });
-  }
-
-  public Task<ScriptResponse> OutputHandler(ScriptContext context)
-  {
-    return Task.FromResult(new ScriptResponse());
-  }
 }

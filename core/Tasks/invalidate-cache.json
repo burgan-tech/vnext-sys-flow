@@ -11,14 +11,12 @@
     "task"
   ],
   "attributes": {
-    "type": "3",
+    "type": "4",
     "config": {
-      "appId": "vnext-app",
-      "methodName": "/api/v1/admin/invalidate",
-      "httpVerb": "POST",
+      "pubSubName": "vnext-pubsub-broadcast",
+      "topic": "{ENVIRONMENT}.vnext.invalidate-cache",
       "data": {},
-      "queryString": "",
-      "timeoutSeconds": 2
+      "metadata": {}
     }
   }
 }

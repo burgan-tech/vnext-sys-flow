@@ -1,7 +1,6 @@
-#load "../../../.vscode/examples/template/src/ScriptGlobals.csx"
-
 using System;
 using System.Threading.Tasks;
+using BBT.Workflow.Scripting;
 using BBT.Workflow.Definitions;
 
 namespace BBT.Workflow.Scripting;
@@ -11,17 +10,9 @@ public class AvailableTransitionMapping : IMapping
   public Task<ScriptResponse> InputHandler(WorkflowTask task, ScriptContext context)
   {
     var daprTask = task as DaprServiceTask;
-    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    var appId = Environment.GetEnvironmentVariable("DAPR_APP_ID");
 
-    if (environment == "Development")
-    {
-      // Local development
-      daprTask.SetAppId("vnext-app");
-    }
-    else
-    {
-      daprTask.SetAppId($"vnext-vnext.{environment.ToLower()}-vnext-vnext");
-    }
+    daprTask.SetAppId(appId);
 
     var methodName = daprTask!.MethodName
         .Replace("{domain}", context.Runtime.Domain)

@@ -17,7 +17,7 @@
       "httpVerb": "GET",
       "data": {},
       "queryString": "",
-      "timeoutSeconds": 2
+      "timeoutSeconds": 60
     }
   }
 }
