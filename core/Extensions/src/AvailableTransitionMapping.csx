@@ -10,9 +10,6 @@ public class AvailableTransitionMapping : IMapping
   public Task<ScriptResponse> InputHandler(WorkflowTask task, ScriptContext context)
   {
     var daprTask = task as DaprServiceTask;
-    var appId = Environment.GetEnvironmentVariable("DAPR_APP_ID");
-
-    daprTask.SetAppId(appId);
 
     var methodName = daprTask!.MethodName
         .Replace("{domain}", context.Runtime.Domain)
@@ -30,7 +27,8 @@ public class AvailableTransitionMapping : IMapping
       {
         items = context.Body?.data?.items,
         status = context.Body?.data?.status,
-        currentState = context.Body?.data?.currentState
+        currentState = context.Body?.data?.currentState,
+        activeCorrelations = context.Body?.data?.activeCorrelations
       }
     });
   }
