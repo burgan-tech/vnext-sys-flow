@@ -1,312 +1,457 @@
 {
-  "key": "sys-extensions",
-  "version": "1.0.0",
-  "domain": "core",
-  "flow": "sys-flows",
-  "flowVersion": "1.0.0",
-  "tags": [
-    "Core",
-    "Extension",
-    "Lifecycle",
-    "Repository"
-  ],
-  "attributes": {
-    "timeout": null,
-    "type": "F",
-    "labels": [
-      {
-        "language": "en-US",
-        "label": "Extension Lifecycle Management"
-      },
-      {
-        "language": "tr-TR",
-        "label": "Eklenti Yaşam Döngüsü Yönetimi"
-      }
+    "key": "sys-extensions",
+    "version": "1.0.0",
+    "domain": "core",
+    "flow": "sys-flows",
+    "flowVersion": "1.0.0",
+    "tags": [
+        "Core",
+        "Extension",
+        "Lifecycle",
+        "Repository"
     ],
-    "functions": [],
-    "sharedTransitions": [],
-    "extensions": [],
-    "features": [],
-    "startTransition": {
-      "key": "create",
-      "target": "draft",
-      "triggerType": 0,
-      "labels": [
+    "attributes": {
+        "timeout": null,
+        "type": "F",
+        "labels": [
+            {
+                "language": "en-US",
+                "label": "Extension Lifecycle Management"
+            },
+            {
+                "language": "tr-TR",
+                "label": "Eklenti Yaşam Döngüsü Yönetimi"
+            }
+        ],
+        "functions": [],
+        "sharedTransitions": [],
+        "extensions": [],
+        "features": [],
+        "startTransition": {
+            "key": "create",
+            "target": "draft",
+            "triggerType": 0,
+            "labels": [
+                {
+                    "language": "en-US",
+                    "label": "Create Extension"
+                },
+                {
+                    "language": "tr-TR",
+                    "label": "Eklenti Oluştur"
+                }
+            ],
+            "versionStrategy": "Minor",
+            "schema": null,
+            "onExecutionTasks": [],
+            "view": null
+        },
+        "states": [
+            {
+                "key": "draft",
+                "stateType": 1,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Draft State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Taslak Durumu"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "activate",
+                        "from": "draft",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Activate Extension"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Eklentiyi Aktifleştir"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [
+                            {
+                                "order": 1,
+                                "task": {
+                                    "ref": "Tasks/invalidate-cache.json"
+                                },
+                                "mapping": {
+                                    "location": "./src/InvalideCacheMapping.csx",
+                                    "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                                }
+                            }
+                        ],
+                        "view": null
+                    },
+                    {
+                        "key": "delete",
+                        "from": "draft",
+                        "target": "deleted",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Delete Draft"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Taslağı Sil"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            },
+            {
+                "key": "active",
+                "stateType": 2,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Active State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Aktif Durumu"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "deactivate",
+                        "from": "active",
+                        "target": "passive",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Deactivate Extension"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Eklentiyi Pasifleştir"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    },
+                    {
+                        "key": "update",
+                        "from": "active",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Update Extension"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Eklentiyi Güncelle"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [
+                            {
+                                "order": 1,
+                                "task": {
+                                    "ref": "Tasks/invalidate-cache.json"
+                                },
+                                "mapping": {
+                                    "location": "./src/InvalideCacheMapping.csx",
+                                    "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                                }
+                            }
+                        ],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            },
+            {
+                "key": "passive",
+                "stateType": 2,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Passive State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Pasif Durumu"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "reactivate",
+                        "from": "passive",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Reactivate Extension"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Eklentiyi Yeniden Aktifleştir"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    },
+                    {
+                        "key": "archive",
+                        "from": "passive",
+                        "target": "deleted",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Archive Extension"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Eklentiyi Arşivle"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            },
+            {
+                "key": "deleted",
+                "stateType": 2,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Deleted State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Silinmiş Durum"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "recover",
+                        "from": "deleted",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Recover"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Geri Al"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            }
+        ]
+    },
+    "data": [
         {
-          "language": "en-US",
-          "label": "Create Extension"
+            "key": "data",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "data"
+            ],
+            "attributes": {
+                "type": 1,
+                "scope": 1,
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "script-task",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0RGF0YU1hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9CgogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IE91dHB1dEhhbmRsZXIoU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkKICAgICAgICB7CiAgICAgICAgICAgIERhdGEgPSBuZXcKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaHJlZiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4gKyAiL3dvcmtmbG93cy8iICsgY29udGV4dC5Xb3JrZmxvdy5LZXkgKyAiL2luc3RhbmNlcy8iICsgY29udGV4dC5JbnN0YW5jZS5JZC5Ub1N0cmluZygpICsgIi9mdW5jdGlvbnMvZGF0YT9hc3luYz1mYWxzZSIKICAgICAgICAgICAgfQogICAgICAgIH0pOwogICAgfQoKfQ=="
+                    }
+                }
+            }
         },
         {
-          "language": "tr-TR",
-          "label": "Eklenti Oluştur"
+            "key": "view",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "view"
+            ],
+            "attributes": {
+                "type": 1,
+                "scope": 1,
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "script-task",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0Vmlld01hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CgogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpCiAgICAgICAgewogICAgICAgICAgICBEYXRhID0gbmV3CiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIExvYWREYXRhID0gdHJ1ZSwKICAgICAgICAgICAgICAgIGhyZWYgPSBjb250ZXh0LlJ1bnRpbWUuRG9tYWluICsgIi93b3JrZmxvd3MvIiArIGNvbnRleHQuV29ya2Zsb3cuS2V5ICsgIi9pbnN0YW5jZXMvIiArIGNvbnRleHQuSW5zdGFuY2UuSWQuVG9TdHJpbmcoKSArICIvZnVuY3Rpb25zL3ZpZXc/YXN5bmM9ZmFsc2UiCiAgICAgICAgICAgIH0KICAgICAgICB9KTsKICAgIH0KCn0="
+                    }
+                }
+            }
+        },
+        {
+            "key": "CurrentState",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "state"
+            ],
+            "attributes": {
+                "type": 1,
+                "scope": 1,
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "script-task",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0U3RhdGVNYXBwaW5nIDogSU1hcHBpbmcKewogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IElucHV0SGFuZGxlcihXb3JrZmxvd1Rhc2sgdGFzaywgU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewoKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KCiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gT3V0cHV0SGFuZGxlcihTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKQogICAgICAgIHsKICAgICAgICAgICAgRGF0YSA9IGNvbnRleHQuSW5zdGFuY2UuQ3VycmVudFN0YXRlCiAgICAgICAgICAgIAogICAgICAgIH0pOwogICAgfQoKfQ=="
+                    }
+                }
+            }
+        },
+        {
+            "key": "Status",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "state"
+            ],
+            "attributes": {
+                "type": 1,
+                "scope": 1,
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "script-task",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0U3RhdGVNYXBwaW5nIDogSU1hcHBpbmcKewogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IElucHV0SGFuZGxlcihXb3JrZmxvd1Rhc2sgdGFzaywgU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewoKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KCiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gT3V0cHV0SGFuZGxlcihTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKQogICAgICAgIHsKICAgICAgICAgICAgRGF0YSA9IGNvbnRleHQuSW5zdGFuY2UuU3RhdHVzCgogICAgICAgIH0pOwogICAgfQoKfQ=="
+                    }
+                }
+            }
+        },
+        {
+            "key": "transitions",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "view"
+            ],
+            "attributes": {
+                "type": 1,
+                "scope": 1,
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "sys-get-transitions",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0VHJhbnNpdGlvbk1hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgdmFyIGRhcHJUYXNrID0gdGFzayBhcyBEYXByU2VydmljZVRhc2s7CiAgICAgICAgc3RyaW5nPyBNZXRob2ROYW1lID0gZGFwclRhc2s/Lk1ldGhvZE5hbWUuUmVwbGFjZSgie3dvcmtmbG93fSIsIGNvbnRleHQuV29ya2Zsb3cuS2V5KTsKICAgICAgICBNZXRob2ROYW1lID0gTWV0aG9kTmFtZT8uUmVwbGFjZSgie2RvbWFpbn0iLCBjb250ZXh0LlJ1bnRpbWUuRG9tYWluKTsKICAgICAgICBNZXRob2ROYW1lID0gTWV0aG9kTmFtZT8uUmVwbGFjZSgie2luc3RhbmNlfSIsIGNvbnRleHQuSW5zdGFuY2UuSWQuVG9TdHJpbmcoKSk7CiAgICAgICAgZGFwclRhc2s/LlNldE1ldGhvZE5hbWUoTWV0aG9kTmFtZSk7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9CgogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IE91dHB1dEhhbmRsZXIoU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgICB2YXIgcmVzcG9uc2VEYXRhID0gY29udGV4dC5Cb2R5Py5kYXRhOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkKICAgICAgICB7CiAgICAgICAgICAgIERhdGEgPSByZXNwb25zZURhdGEuaXRlbXMKICAgICAgICB9KTsKICAgIH0KCn0="
+                    }
+                }
+            }
+        },
+        {
+            "key": "activeCorrelations",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "correlation"
+            ],
+            "attributes": {
+                "type": 1,
+                "scope": 1,
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "sys-get-correlations",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0QWN0aXZlQ29ycmVsYXRpb25NYXBwaW5nIDogSU1hcHBpbmcKewogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IElucHV0SGFuZGxlcihXb3JrZmxvd1Rhc2sgdGFzaywgU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgIHZhciBkYXByVGFzayA9IHRhc2sgYXMgRGFwclNlcnZpY2VUYXNrOwogICAgICAgIHN0cmluZz8gTWV0aG9kTmFtZSA9IGRhcHJUYXNrPy5NZXRob2ROYW1lLlJlcGxhY2UoInt3b3JrZmxvd30iLCBjb250ZXh0LldvcmtmbG93LktleSk7CiAgICAgICAgTWV0aG9kTmFtZSA9IE1ldGhvZE5hbWU/LlJlcGxhY2UoIntkb21haW59IiwgY29udGV4dC5SdW50aW1lLkRvbWFpbik7CiAgICAgICAgTWV0aG9kTmFtZSA9IE1ldGhvZE5hbWU/LlJlcGxhY2UoIntpbnN0YW5jZX0iLCBjb250ZXh0Lkluc3RhbmNlLklkLlRvU3RyaW5nKCkpOwogICAgICAgIGRhcHJUYXNrPy5TZXRNZXRob2ROYW1lKE1ldGhvZE5hbWUpOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICAgdmFyIHJlc3BvbnNlRGF0YSA9IGNvbnRleHQuQm9keT8uZGF0YTsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpCiAgICAgICAgewogICAgICAgICAgICBEYXRhID0gcmVzcG9uc2VEYXRhLmFjdGl2ZUNvcnJlbGF0aW9ucwogICAgICAgIH0pOwogICAgfQoKfQ=="
+                    }
+                }
+            }
         }
-      ],
-      "versionStrategy": "Minor",
-      "schema": null,
-      "onExecutionTasks": [],
-      "view": null
-    },
-    "states": [
-      {
-        "key": "draft",
-        "stateType": 1,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Draft State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Taslak Durumu"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "activate",
-            "from": "draft",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Activate Extension"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Eklentiyi Aktifleştir"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [
-              {
-                "order": 1,
-                "task": {
-                  "ref": "Tasks/invalidate-cache.json"
-                },
-                "mapping": {
-                  "location": "./src/InvalideCacheMapping.csx",
-                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
-                }
-              }
-            ],
-            "view": null
-          },
-          {
-            "key": "delete",
-            "from": "draft",
-            "target": "deleted",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Delete Draft"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Taslağı Sil"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      },
-      {
-        "key": "active",
-        "stateType": 2,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Active State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Aktif Durumu"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "deactivate",
-            "from": "active",
-            "target": "passive",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Deactivate Extension"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Eklentiyi Pasifleştir"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          },
-          {
-            "key": "update",
-            "from": "active",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Update Extension"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Eklentiyi Güncelle"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [
-              {
-                "order": 1,
-                "task": {
-                  "ref": "Tasks/invalidate-cache.json"
-                },
-                "mapping": {
-                  "location": "./src/InvalideCacheMapping.csx",
-                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
-                }
-              }
-            ],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      },
-      {
-        "key": "passive",
-        "stateType": 2,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Passive State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Pasif Durumu"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "reactivate",
-            "from": "passive",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Reactivate Extension"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Eklentiyi Yeniden Aktifleştir"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          },
-          {
-            "key": "archive",
-            "from": "passive",
-            "target": "deleted",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Archive Extension"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Eklentiyi Arşivle"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      },
-      {
-        "key": "deleted",
-        "stateType": 2,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Deleted State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Silinmiş Durum"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "recover",
-            "from": "deleted",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Recover"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Geri Al"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      }
     ]
-  },
-  "data": [
-    {
-      "key": "available-transitions",
-      "version": "1.0.0",
-      "tags": [
-        "core",
-        "sys-extensions",
-        "components"
-      ],
-      "attributes": {
-        "type": 1,
-        "scope": 1,
-        "task": {
-          "order": 1,
-          "task": {
-            "ref": "Tasks/available-transitions.json"
-          },
-          "mapping": {
-            "location": "./src/AvailableTransitionMapping.csx",
-            "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpuYW1lc3BhY2UgQkJULldvcmtmbG93LlNjcmlwdGluZzsKCnB1YmxpYyBjbGFzcyBBdmFpbGFibGVUcmFuc2l0aW9uTWFwcGluZyA6IElNYXBwaW5nCnsKICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgewogICAgdmFyIGRhcHJUYXNrID0gdGFzayBhcyBEYXByU2VydmljZVRhc2s7CiAgICB2YXIgYXBwSWQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJEQVBSX0FQUF9JRCIpOwoKICAgIGRhcHJUYXNrLlNldEFwcElkKGFwcElkKTsKCiAgICB2YXIgbWV0aG9kTmFtZSA9IGRhcHJUYXNrIS5NZXRob2ROYW1lCiAgICAgICAgLlJlcGxhY2UoIntkb21haW59IiwgY29udGV4dC5SdW50aW1lLkRvbWFpbikKICAgICAgICAuUmVwbGFjZSgie3dvcmtmbG93fSIsIGNvbnRleHQuV29ya2Zsb3cuS2V5KQogICAgICAgIC5SZXBsYWNlKCJ7aW5zdGFuY2V9IiwgY29udGV4dC5JbnN0YW5jZS5LZXkpOwogICAgZGFwclRhc2suU2V0TWV0aG9kTmFtZShtZXRob2ROYW1lICsgJCI/dmVyc2lvbj17Y29udGV4dC5Xb3JrZmxvdy5WZXJzaW9ufSIpOwogICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgfQoKICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gT3V0cHV0SGFuZGxlcihTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgewogICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UKICAgIHsKICAgICAgRGF0YSA9IG5ldwogICAgICB7CiAgICAgICAgaXRlbXMgPSBjb250ZXh0LkJvZHk/LmRhdGE/Lml0ZW1zLAogICAgICAgIHN0YXR1cyA9IGNvbnRleHQuQm9keT8uZGF0YT8uc3RhdHVzLAogICAgICAgIGN1cnJlbnRTdGF0ZSA9IGNvbnRleHQuQm9keT8uZGF0YT8uY3VycmVudFN0YXRlCiAgICAgIH0KICAgIH0pOwogIH0KfQo="
-          }
-        }
-      }
-    }
-  ]
 }

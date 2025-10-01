@@ -1,0 +1,28 @@
+{
+    "key": "view",
+    "domain": "core",
+    "tags": [
+        "system",
+        "core",
+        "sys-extensions",
+        "view"
+    ],
+    "attributes": {
+        "type": 1,
+        "scope": 1,
+        "task": {
+            "order": 1,
+            "task": {
+                "key": "script-task",
+                "flow": "sys-tasks",
+                "domain": "core",
+                "version": "1.0.0"
+            },
+            "mapping": {
+                "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                "location": "/src/ScriptExtension.csx",
+                "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0Vmlld01hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CgogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpCiAgICAgICAgewogICAgICAgICAgICBEYXRhID0gbmV3CiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIExvYWREYXRhID0gdHJ1ZSwKICAgICAgICAgICAgICAgIGhyZWYgPSBjb250ZXh0LlJ1bnRpbWUuRG9tYWluICsgIi93b3JrZmxvd3MvIiArIGNvbnRleHQuV29ya2Zsb3cuS2V5ICsgIi9pbnN0YW5jZXMvIiArIGNvbnRleHQuSW5zdGFuY2UuSWQuVG9TdHJpbmcoKSArICIvZnVuY3Rpb25zL3ZpZXc/YXN5bmM9ZmFsc2UiCiAgICAgICAgICAgIH0KICAgICAgICB9KTsKICAgIH0KCn0="
+            }
+        }
+    }
+}
