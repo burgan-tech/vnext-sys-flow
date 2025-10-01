@@ -1,0 +1,26 @@
+{
+  "key": "current-state",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-extensions",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "sys-extensions",
+    "components"
+  ],
+  "attributes": {
+    "type": 1,
+    "scope": 1,
+    "task": {
+      "order": 1,
+      "task": {
+        "ref": "Tasks/script-task.json"
+      },
+      "mapping": {
+        "location": "./src/GetStateMapping.csx",
+        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0U3RhdGVNYXBwaW5nIDogSU1hcHBpbmcKewogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IElucHV0SGFuZGxlcihXb3JrZmxvd1Rhc2sgdGFzaywgU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpCiAgICAgICAgewogICAgICAgICAgICBEYXRhID0gY29udGV4dC5JbnN0YW5jZS5DdXJyZW50U3RhdGUgICAKICAgICAgICB9KTsKICAgIH0KfQ=="
+      }
+    }
+  }
+}

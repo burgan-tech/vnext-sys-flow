@@ -6,8 +6,8 @@
     "flowVersion": "1.0.0",
     "tags": [
         "core",
-        "system",
-        "sys-tasks"
+        "sys-tasks",
+        "components"
     ],
     "attributes": {
         "type": "3",

@@ -1,0 +1,26 @@
+{
+  "key": "active-correlations",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-extensions",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "sys-extensions",
+    "components"
+  ],
+  "attributes": {
+    "type": 1,
+    "scope": 1,
+    "task": {
+      "order": 1,
+      "task": {
+        "ref": "Tasks/sys-get-correlations.json"
+      },
+      "mapping": {
+        "location": "./src/GetActiveCorrelationMapping.csx",
+        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0QWN0aXZlQ29ycmVsYXRpb25NYXBwaW5nIDogSU1hcHBpbmcKewogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IElucHV0SGFuZGxlcihXb3JrZmxvd1Rhc2sgdGFzaywgU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgIHZhciBkYXByVGFzayA9IHRhc2sgYXMgRGFwclNlcnZpY2VUYXNrOwogICAgICAgIHN0cmluZz8gTWV0aG9kTmFtZSA9IGRhcHJUYXNrPy5NZXRob2ROYW1lLlJlcGxhY2UoInt3b3JrZmxvd30iLCBjb250ZXh0LldvcmtmbG93LktleSk7CiAgICAgICAgTWV0aG9kTmFtZSA9IE1ldGhvZE5hbWU/LlJlcGxhY2UoIntkb21haW59IiwgY29udGV4dC5SdW50aW1lLkRvbWFpbik7CiAgICAgICAgTWV0aG9kTmFtZSA9IE1ldGhvZE5hbWU/LlJlcGxhY2UoIntpbnN0YW5jZX0iLCBjb250ZXh0Lkluc3RhbmNlLklkLlRvU3RyaW5nKCkpOwogICAgICAgIGRhcHJUYXNrPy5TZXRNZXRob2ROYW1lKE1ldGhvZE5hbWUpOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICAgdmFyIHJlc3BvbnNlRGF0YSA9IGNvbnRleHQuQm9keT8uZGF0YTsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpCiAgICAgICAgewogICAgICAgICAgICBEYXRhID0gcmVzcG9uc2VEYXRhLmFjdGl2ZUNvcnJlbGF0aW9ucwogICAgICAgIH0pOwogICAgfQp9"
+      }
+    }
+  }
+}

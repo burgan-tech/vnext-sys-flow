@@ -1,28 +1,26 @@
 {
-    "key": "data",
-    "domain": "core",
-    "tags": [
-        "system",
-        "core",
-        "sys-extensions",
-        "data"
-    ],
-    "attributes": {
-        "type": 1,
-        "scope": 1,
-        "task": {
-            "order": 1,
-            "task": {
-                "key": "script-task",
-                "flow": "sys-tasks",
-                "domain": "core",
-                "version": "1.0.0"
-            },
-            "mapping": {
-                "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
-                "location": "/src/ScriptExtension.csx",
-                "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0RGF0YU1hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9CgogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IE91dHB1dEhhbmRsZXIoU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkKICAgICAgICB7CiAgICAgICAgICAgIERhdGEgPSBuZXcKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaHJlZiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4gKyAiL3dvcmtmbG93cy8iICsgY29udGV4dC5Xb3JrZmxvdy5LZXkgKyAiL2luc3RhbmNlcy8iICsgY29udGV4dC5JbnN0YW5jZS5JZC5Ub1N0cmluZygpICsgIi9mdW5jdGlvbnMvZGF0YT9hc3luYz1mYWxzZSIKICAgICAgICAgICAgfQogICAgICAgIH0pOwogICAgfQoKfQ=="
-            }
-        }
+  "key": "data",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-extensions",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "sys-extensions",
+    "components"
+  ],
+  "attributes": {
+    "type": 1,
+    "scope": 1,
+    "task": {
+      "order": 1,
+      "task": {
+        "ref": "Tasks/script-task.json"
+      },
+      "mapping": {
+        "location": "./src/GetDataMapping.csx",
+        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0RGF0YU1hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9CgogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IE91dHB1dEhhbmRsZXIoU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkKICAgICAgICB7CiAgICAgICAgICAgIERhdGEgPSBuZXcKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgaHJlZiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4gKyAiL3dvcmtmbG93cy8iICsgY29udGV4dC5Xb3JrZmxvdy5LZXkgKyAiL2luc3RhbmNlcy8iICsgY29udGV4dC5JbnN0YW5jZS5JZC5Ub1N0cmluZygpICsgIi9mdW5jdGlvbnMvZGF0YT9hc3luYz1mYWxzZSIKICAgICAgICAgICAgfQogICAgICAgIH0pOwogICAgfQp9"
+      }
     }
+  }
 }

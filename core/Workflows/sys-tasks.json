@@ -1,418 +1,417 @@
 {
-    "key": "sys-tasks",
-    "version": "1.0.0",
-    "domain": "core",
-    "flow": "sys-flows",
-    "flowVersion": "1.0.0",
-    "tags": [
-        "core",
-        "task",
-        "lifecycle",
-        "repository"
+  "key": "sys-tasks",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-flows",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "task",
+    "lifecycle",
+    "repository"
+  ],
+  "attributes": {
+    "timeout": null,
+    "type": "F",
+    "labels": [
+      {
+        "language": "en-US",
+        "label": "Task Lifecycle Management"
+      },
+      {
+        "language": "tr-TR",
+        "label": "Görev Yaşam Döngüsü Yönetimi"
+      }
     ],
-    "attributes": {
-        "timeout": null,
-        "type": "F",
+    "functions": [],
+    "sharedTransitions": [],
+    "extensions": [],
+    "features": [],
+    "startTransition": {
+      "key": "create",
+      "target": "draft",
+      "triggerType": 0,
+      "labels": [
+        {
+          "language": "en-US",
+          "label": "Create Task"
+        },
+        {
+          "language": "tr-TR",
+          "label": "Görev Oluştur"
+        }
+      ],
+      "versionStrategy": "Minor",
+      "schema": {
+        "ref": "Schemas/task.json"
+      },
+      "onExecutionTasks": [],
+      "view": null
+    },
+    "states": [
+      {
+        "key": "draft",
+        "stateType": 1,
         "labels": [
-            {
-                "language": "en-US",
-                "label": "Task Lifecycle Management"
-            },
-            {
-                "language": "tr-TR",
-                "label": "Görev Yaşam Döngüsü Yönetimi"
-            }
+          {
+            "language": "en-US",
+            "label": "Draft State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Taslak Durumu"
+          }
         ],
-        "functions": [],
-        "sharedTransitions": [],
-        "extensions": [],
-        "features": [],
-        "startTransition": {
-            "key": "create",
+        "transitions": [
+          {
+            "key": "activate",
+            "from": "draft",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Activate Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Aktifleştir"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [
+              {
+                "order": 1,
+                "task": {
+                  "ref": "Tasks/invalidate-cache.json"
+                },
+                "mapping": {
+                  "location": "./src/InvalideCacheMapping.csx",
+                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                }
+              }
+            ],
+            "view": null
+          },
+          {
+            "key": "delete",
+            "from": "draft",
             "target": "draft",
             "triggerType": 0,
             "labels": [
-                {
-                    "language": "en-US",
-                    "label": "Create Task"
-                },
-                {
-                    "language": "tr-TR",
-                    "label": "Görev Oluştur"
-                }
+              {
+                "language": "en-US",
+                "label": "Delete Draft"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Taslağı Sil"
+              }
             ],
             "versionStrategy": "Minor",
-            "schema": {
-                "ref": "Schemas/task.json"
-            },
             "onExecutionTasks": [],
             "view": null
-        },
-        "states": [
-            {
-                "key": "draft",
-                "stateType": 1,
-                "labels": [
-                    {
-                        "language": "en-US",
-                        "label": "Draft State"
-                    },
-                    {
-                        "language": "tr-TR",
-                        "label": "Taslak Durumu"
-                    }
-                ],
-                "transitions": [
-                    {
-                        "key": "activate",
-                        "from": "draft",
-                        "target": "active",
-                        "triggerType": 0,
-                        "labels": [
-                            {
-                                "language": "en-US",
-                                "label": "Activate Task"
-                            },
-                            {
-                                "language": "tr-TR",
-                                "label": "Görevi Aktifleştir"
-                            }
-                        ],
-                        "versionStrategy": "Minor",
-                        "onExecutionTasks": [
-                            {
-                                "order": 1,
-                                "task": {
-                                    "ref": "Tasks/invalidate-cache.json"
-                                },
-                                "mapping": {
-                                    "location": "./src/InvalideCacheMapping.csx",
-                                    "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
-                                }
-                            }
-                        ],
-                        "view": null
-                    },
-                    {
-                        "key": "delete",
-                        "from": "draft",
-                        "target": "draft",
-                        "triggerType": 0,
-                        "labels": [
-                            {
-                                "language": "en-US",
-                                "label": "Delete Draft"
-                            },
-                            {
-                                "language": "tr-TR",
-                                "label": "Taslağı Sil"
-                            }
-                        ],
-                        "versionStrategy": "Minor",
-                        "onExecutionTasks": [],
-                        "view": null
-                    }
-                ],
-                "view": null,
-                "onEntries": [],
-                "onExits": [],
-                "versionStrategy": "Minor"
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      },
+      {
+        "key": "active",
+        "stateType": 2,
+        "labels": [
+          {
+            "language": "en-US",
+            "label": "Active State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Aktif Durumu"
+          }
+        ],
+        "transitions": [
+          {
+            "key": "deactivate",
+            "from": "active",
+            "target": "passive",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Deactivate Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Pasifleştir"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          },
+          {
+            "key": "update",
+            "from": "active",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Update Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Güncelle"
+              }
+            ],
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [
+              {
+                "order": 1,
+                "task": {
+                  "ref": "Tasks/invalidate-cache.json"
+                },
+                "mapping": {
+                  "location": "./src/InvalideCacheMapping.csx",
+                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                }
+              }
+            ],
+            "schema": {
+              "ref": "Schemas/task.json"
             },
-            {
-                "key": "active",
-                "stateType": 2,
-                "labels": [
-                    {
-                        "language": "en-US",
-                        "label": "Active State"
-                    },
-                    {
-                        "language": "tr-TR",
-                        "label": "Aktif Durumu"
-                    }
-                ],
-                "transitions": [
-                    {
-                        "key": "deactivate",
-                        "from": "active",
-                        "target": "passive",
-                        "triggerType": 0,
-                        "labels": [
-                            {
-                                "language": "en-US",
-                                "label": "Deactivate Task"
-                            },
-                            {
-                                "language": "tr-TR",
-                                "label": "Görevi Pasifleştir"
-                            }
-                        ],
-                        "versionStrategy": "Minor",
-                        "onExecutionTasks": [],
-                        "view": null
-                    },
-                    {
-                        "key": "update",
-                        "from": "active",
-                        "target": "active",
-                        "triggerType": 0,
-                        "labels": [
-                            {
-                                "language": "en-US",
-                                "label": "Update Task"
-                            },
-                            {
-                                "language": "tr-TR",
-                                "label": "Görevi Güncelle"
-                            }
-                        ],
-                        "versionStrategy": "Minor",
-                        "onExecutionTasks": [
-                            {
-                                "order": 1,
-                                "task": {
-                                    "ref": "Tasks/invalidate-cache.json"
-                                },
-                                "mapping": {
-                                    "location": "./src/InvalideCacheMapping.csx",
-                                    "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
-                                }
-                            }
-                        ],
-                        "schema": {
-                            "ref": "Schemas/task.json"
-                        },
-                        "view": null
-                    }
-                ],
-                "view": null,
-                "onEntries": [],
-                "onExits": [],
-                "versionStrategy": "Minor"
-            },
-            {
-                "key": "passive",
-                "stateType": 2,
-                "labels": [
-                    {
-                        "language": "en-US",
-                        "label": "Passive State"
-                    },
-                    {
-                        "language": "tr-TR",
-                        "label": "Pasif Durumu"
-                    }
-                ],
-                "transitions": [
-                    {
-                        "key": "reactivate",
-                        "from": "passive",
-                        "target": "active",
-                        "triggerType": 0,
-                        "labels": [
-                            {
-                                "language": "en-US",
-                                "label": "Reactivate Task"
-                            },
-                            {
-                                "language": "tr-TR",
-                                "label": "Görevi Yeniden Aktifleştir"
-                            }
-                        ],
-                        "versionStrategy": "Minor",
-                        "onExecutionTasks": [],
-                        "view": null
-                    },
-                    {
-                        "key": "archive",
-                        "from": "passive",
-                        "target": "deleted",
-                        "triggerType": 0,
-                        "labels": [
-                            {
-                                "language": "en-US",
-                                "label": "Archive Task"
-                            },
-                            {
-                                "language": "tr-TR",
-                                "label": "Görevi Arşivle"
-                            }
-                        ],
-                        "versionStrategy": "Minor",
-                        "onExecutionTasks": [],
-                        "view": null
-                    }
-                ],
-                "view": null,
-                "onEntries": [],
-                "onExits": [],
-                "versionStrategy": "Minor"
-            },
-            {
-                "key": "deleted",
-                "stateType": 2,
-                "labels": [
-                    {
-                        "language": "en-US",
-                        "label": "Deleted State"
-                    },
-                    {
-                        "language": "tr-TR",
-                        "label": "Silinmiş Durum"
-                    }
-                ],
-                "transitions": [
-                    {
-                        "key": "recover",
-                        "from": "deleted",
-                        "target": "active",
-                        "triggerType": 0,
-                        "labels": [
-                            {
-                                "language": "en-US",
-                                "label": "Recover"
-                            },
-                            {
-                                "language": "tr-TR",
-                                "label": "Geri Al"
-                            }
-                        ],
-                        "versionStrategy": "Minor",
-                        "onExecutionTasks": [],
-                        "view": null
-                    }
-                ],
-                "view": null,
-                "onEntries": [],
-                "onExits": [],
-                "versionStrategy": "Minor"
-            }
-        ]
-    },
-    "data": [
-        {
-            "key": "invalidate-cache",
-            "version": "1.0.0",
-            "tags": [
-                "core",
-                "sys-tasks",
-                "components",
-                "task"
+            "view": null
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      },
+      {
+        "key": "passive",
+        "stateType": 2,
+        "labels": [
+          {
+            "language": "en-US",
+            "label": "Passive State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Pasif Durumu"
+          }
+        ],
+        "transitions": [
+          {
+            "key": "reactivate",
+            "from": "passive",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Reactivate Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Yeniden Aktifleştir"
+              }
             ],
-            "attributes": {
-                "type": "4",
-                "config": {
-                    "pubSubName": "vnext-pubsub-broadcast",
-                    "topic": "{ENVIRONMENT}.vnext.invalidate-cache",
-                    "data": {},
-                    "metadata": {}
-                }
-            }
-        },
-        {
-            "key": "script-task",
-            "version": "1.0.0",
-            "tags": [
-                "core",
-                "sys-tasks",
-                "components"
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          },
+          {
+            "key": "archive",
+            "from": "passive",
+            "target": "deleted",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Archive Task"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Görevi Arşivle"
+              }
             ],
-            "attributes": {
-                "type": "7",
-                "config": {}
-            }
-        },
-        {
-            "key": "sys-get-data",
-            "version": "1.0.0",
-            "domain": "core",
-            "flow": "sys-tasks",
-            "flowVersion": "1.0.0",
-            "tags": [
-                "core",
-                "system",
-                "sys-tasks"
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      },
+      {
+        "key": "deleted",
+        "stateType": 2,
+        "labels": [
+          {
+            "language": "en-US",
+            "label": "Deleted State"
+          },
+          {
+            "language": "tr-TR",
+            "label": "Silinmiş Durum"
+          }
+        ],
+        "transitions": [
+          {
+            "key": "recover",
+            "from": "deleted",
+            "target": "active",
+            "triggerType": 0,
+            "labels": [
+              {
+                "language": "en-US",
+                "label": "Recover"
+              },
+              {
+                "language": "tr-TR",
+                "label": "Geri Al"
+              }
             ],
-            "attributes": {
-                "type": "3",
-                "config": {
-                    "appId": "vnext-app",
-                    "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/data",
-                    "httpVerb": "GET",
-                    "data": {},
-                    "queryString": "",
-                    "timeoutSeconds": 60
-                }
-            }
-        },
-        {
-            "key": "sys-get-transitions",
-            "version": "1.0.0",
-            "domain": "core",
-            "flow": "sys-tasks",
-            "flowVersion": "1.0.0",
-            "tags": [
-                "core",
-                "system",
-                "sys-tasks"
-            ],
-            "attributes": {
-                "type": "3",
-                "config": {
-                    "appId": "vnext-app",
-                    "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/transitions/items",
-                    "httpVerb": "GET",
-                    "data": {},
-                    "queryString": "",
-                    "timeoutSeconds": 60
-                }
-            }
-        },
-        {
-            "key": "sys-get-view",
-            "version": "1.0.0",
-            "domain": "core",
-            "flow": "sys-tasks",
-            "flowVersion": "1.0.0",
-            "tags": [
-                "core",
-                "system",
-                "sys-tasks"
-            ],
-            "attributes": {
-                "type": "3",
-                "config": {
-                    "appId": "vnext-app",
-                    "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/view",
-                    "httpVerb": "GET",
-                    "data": {},
-                    "queryString": "",
-                    "timeoutSeconds": 60
-                }
-            }
-        },
-        {
-            "key": "sys-get-correlations",
-            "version": "1.0.0",
-            "domain": "core",
-            "flow": "sys-tasks",
-            "flowVersion": "1.0.0",
-            "tags": [
-                "core",
-                "system",
-                "sys-tasks"
-            ],
-            "attributes": {
-                "type": "3",
-                "config": {
-                    "appId": "vnext-app",
-                    "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/correlations/active",
-                    "httpVerb": "GET",
-                    "data": {},
-                    "queryString": "",
-                    "timeoutSeconds": 60
-                }
-            }
-        }
+            "versionStrategy": "Minor",
+            "onExecutionTasks": [],
+            "view": null
+          }
+        ],
+        "view": null,
+        "onEntries": [],
+        "onExits": [],
+        "versionStrategy": "Minor"
+      }
     ]
+  },
+  "data": [
+    {
+      "key": "invalidate-cache",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "sys-tasks",
+        "components"
+      ],
+      "attributes": {
+        "type": "4",
+        "config": {
+          "pubSubName": "vnext-pubsub-broadcast",
+          "topic": "{ENVIRONMENT}.vnext.invalidate-cache",
+          "data": {},
+          "metadata": {}
+        }
+      }
+    },
+    {
+      "key": "script-task",
+      "version": "1.0.0",
+      "tags": [
+        "core",
+        "sys-tasks",
+        "components"
+      ],
+      "attributes": {
+        "type": "7",
+        "config": {}
+      }
+    },
+    {
+      "key": "sys-get-data",
+      "version": "1.0.0",
+      "domain": "core",
+      "flow": "sys-tasks",
+      "flowVersion": "1.0.0",
+      "tags": [
+        "core",
+        "system",
+        "sys-tasks"
+      ],
+      "attributes": {
+        "type": "3",
+        "config": {
+          "appId": "vnext-app",
+          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/data",
+          "httpVerb": "GET",
+          "data": {},
+          "queryString": "",
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    {
+      "key": "sys-get-transitions",
+      "version": "1.0.0",
+      "domain": "core",
+      "flow": "sys-tasks",
+      "flowVersion": "1.0.0",
+      "tags": [
+        "core",
+        "system",
+        "sys-tasks"
+      ],
+      "attributes": {
+        "type": "3",
+        "config": {
+          "appId": "vnext-app",
+          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/transitions/items",
+          "httpVerb": "GET",
+          "data": {},
+          "queryString": "",
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    {
+      "key": "sys-get-view",
+      "version": "1.0.0",
+      "domain": "core",
+      "flow": "sys-tasks",
+      "flowVersion": "1.0.0",
+      "tags": [
+        "core",
+        "system",
+        "sys-tasks"
+      ],
+      "attributes": {
+        "type": "3",
+        "config": {
+          "appId": "vnext-app",
+          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/view",
+          "httpVerb": "GET",
+          "data": {},
+          "queryString": "",
+          "timeoutSeconds": 60
+        }
+      }
+    },
+    {
+      "key": "sys-get-correlations",
+      "version": "1.0.0",
+      "domain": "core",
+      "flow": "sys-tasks",
+      "flowVersion": "1.0.0",
+      "tags": [
+        "core",
+        "system",
+        "sys-tasks"
+      ],
+      "attributes": {
+        "type": "3",
+        "config": {
+          "appId": "vnext-app",
+          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/correlations/active",
+          "httpVerb": "GET",
+          "data": {},
+          "queryString": "",
+          "timeoutSeconds": 60
+        }
+      }
+    }
+  ]
 }

@@ -2,7 +2,8 @@
   "version": "1.0.0",
   "description": "vNext Core Domain Definition Configuration",
   "domain": "core",
-  "runtimeVersion": "0.0.10",
+  "runtimeVersion": "0.0.12",
+  "schemaVersion": "0.0.13",
   "paths": {
     "componentsRoot": "core",
     "tasks": "Tasks",
@@ -18,9 +19,7 @@
     "tasks": [],
     "views": [],
     "schemas": [],
-    "extensions": [
-      "available-transitions.json"
-    ],
+    "extensions": [],
     "visibility": "public",
     "metadata": {
       "description": "Exported components for core domain",
