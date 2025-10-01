@@ -1,287 +1,343 @@
 {
-  "key": "sys-functions",
-  "version": "1.0.0",
-  "domain": "core",
-  "flow": "sys-flows",
-  "flowVersion": "1.0.0",
-  "tags": [
-    "core",
-    "function",
-    "lifecycle",
-    "repository"
-  ],
-  "attributes": {
-    "timeout": null,
-    "type": "F",
-    "labels": [
-      {
-        "language": "en-US",
-        "label": "Function Lifecycle Management"
-      },
-      {
-        "language": "tr-TR",
-        "label": "Fonksiyon Yaşam Döngüsü Yönetimi"
-      }
+    "key": "sys-functions",
+    "version": "1.0.0",
+    "domain": "core",
+    "flow": "sys-flows",
+    "flowVersion": "1.0.0",
+    "tags": [
+        "core",
+        "function",
+        "lifecycle",
+        "repository"
     ],
-    "functions": [],
-    "sharedTransitions": [],
-    "extensions": [],
-    "features": [],
-    "startTransition": {
-      "key": "create",
-      "target": "draft",
-      "triggerType": 0,
-      "labels": [
+    "attributes": {
+        "timeout": null,
+        "type": "F",
+        "labels": [
+            {
+                "language": "en-US",
+                "label": "Function Lifecycle Management"
+            },
+            {
+                "language": "tr-TR",
+                "label": "Fonksiyon Yaşam Döngüsü Yönetimi"
+            }
+        ],
+        "functions": [],
+        "sharedTransitions": [],
+        "extensions": [],
+        "features": [],
+        "startTransition": {
+            "key": "create",
+            "target": "draft",
+            "triggerType": 0,
+            "labels": [
+                {
+                    "language": "en-US",
+                    "label": "Create Function"
+                },
+                {
+                    "language": "tr-TR",
+                    "label": "Fonksiyon Oluştur"
+                }
+            ],
+            "versionStrategy": "Minor",
+            "schema": null,
+            "onExecutionTasks": [],
+            "view": null
+        },
+        "states": [
+            {
+                "key": "draft",
+                "stateType": 1,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Draft State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Taslak Durumu"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "activate",
+                        "from": "draft",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Activate Function"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Fonksiyonu Aktifleştir"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [
+                            {
+                                "order": 1,
+                                "task": {
+                                    "ref": "Tasks/invalidate-cache.json"
+                                },
+                                "mapping": {
+                                    "location": "./src/InvalideCacheMapping.csx",
+                                    "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                                }
+                            }
+                        ],
+                        "view": null
+                    },
+                    {
+                        "key": "delete",
+                        "from": "draft",
+                        "target": "deleted",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Delete Draft"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Taslağı Sil"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            },
+            {
+                "key": "active",
+                "stateType": 2,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Active State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Aktif Durumu"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "deactivate",
+                        "from": "active",
+                        "target": "passive",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Deactivate Function"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Fonksiyonu Pasifleştir"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    },
+                    {
+                        "key": "update",
+                        "from": "active",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Update Function"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Fonksiyonu Güncelle"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [
+                            {
+                                "order": 1,
+                                "task": {
+                                    "ref": "Tasks/invalidate-cache.json"
+                                },
+                                "mapping": {
+                                    "location": "./src/InvalideCacheMapping.csx",
+                                    "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                                }
+                            }
+                        ],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            },
+            {
+                "key": "passive",
+                "stateType": 2,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Passive State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Pasif Durumu"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "reactivate",
+                        "from": "passive",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Reactivate Function"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Fonksiyonu Yeniden Aktifleştir"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    },
+                    {
+                        "key": "archive",
+                        "from": "passive",
+                        "target": "deleted",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Archive Function"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Fonksiyonu Arşivle"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            },
+            {
+                "key": "deleted",
+                "stateType": 2,
+                "labels": [
+                    {
+                        "language": "en-US",
+                        "label": "Deleted State"
+                    },
+                    {
+                        "language": "tr-TR",
+                        "label": "Silinmiş Durum"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "key": "recover",
+                        "from": "deleted",
+                        "target": "active",
+                        "triggerType": 0,
+                        "labels": [
+                            {
+                                "language": "en-US",
+                                "label": "Recover"
+                            },
+                            {
+                                "language": "tr-TR",
+                                "label": "Geri Al"
+                            }
+                        ],
+                        "versionStrategy": "Minor",
+                        "onExecutionTasks": [],
+                        "view": null
+                    }
+                ],
+                "view": null,
+                "onEntries": [],
+                "onExitss": [],
+                "versionStrategy": "Minor"
+            }
+        ]
+    },
+    "data": [
         {
-          "language": "en-US",
-          "label": "Create Function"
+            "key": "data",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "components"
+            ],
+            "attributes": {
+                "scope": "I",
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "sys-get-data",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0VHJhbnNpdGlvbk1hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgdmFyIGRhcHJUYXNrID0gdGFzayBhcyBEYXByU2VydmljZVRhc2s7CiAgICAgICAgc3RyaW5nPyBNZXRob2ROYW1lID0gZGFwclRhc2s/Lk1ldGhvZE5hbWUuUmVwbGFjZSgie3dvcmtmbG93fSIsIGNvbnRleHQuV29ya2Zsb3cuS2V5KTsKICAgICAgICBNZXRob2ROYW1lID0gTWV0aG9kTmFtZT8uUmVwbGFjZSgie2RvbWFpbn0iLCBjb250ZXh0LlJ1bnRpbWUuRG9tYWluKTsKICAgICAgICBNZXRob2ROYW1lID0gTWV0aG9kTmFtZT8uUmVwbGFjZSgie2luc3RhbmNlfSIsIGNvbnRleHQuSW5zdGFuY2UuSWQuVG9TdHJpbmcoKSk7CiAgICAgICAgZGFwclRhc2s/LlNldE1ldGhvZE5hbWUoTWV0aG9kTmFtZSk7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9CgogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IE91dHB1dEhhbmRsZXIoU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgICB2YXIgcmVzcG9uc2VEYXRhID0gY29udGV4dC5Cb2R5Py5kYXRhOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkKICAgICAgICB7CiAgICAgICAgICAgIERhdGEgPSByZXNwb25zZURhdGEKICAgICAgICB9KTsKICAgIH0KCn0="
+                    }
+                }
+            }
         },
         {
-          "language": "tr-TR",
-          "label": "Fonksiyon Oluştur"
+            "key": "view",
+            "domain": "core",
+            "tags": [
+                "system",
+                "core",
+                "sys-extensions",
+                "components"
+            ],
+            "attributes": {
+                "scope": "I",
+                "task": {
+                    "order": 1,
+                    "task": {
+                        "key": "sys-get-view",
+                        "flow": "sys-tasks",
+                        "domain": "core",
+                        "version": "1.0.0"
+                    },
+                    "mapping": {
+                        "_comment": "Code base64 olarak pipeline icerisinde donusturulerek json icerisinde runtime icerisinde saklanir.",
+                        "location": "/src/ScriptExtension.csx",
+                        "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgR2V0VHJhbnNpdGlvbk1hcHBpbmcgOiBJTWFwcGluZwp7CiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gSW5wdXRIYW5kbGVyKFdvcmtmbG93VGFzayB0YXNrLCBTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgdmFyIGRhcHJUYXNrID0gdGFzayBhcyBEYXByU2VydmljZVRhc2s7CiAgICAgICAgc3RyaW5nPyBNZXRob2ROYW1lID0gZGFwclRhc2s/Lk1ldGhvZE5hbWUuUmVwbGFjZSgie3dvcmtmbG93fSIsIGNvbnRleHQuV29ya2Zsb3cuS2V5KTsKICAgICAgICBNZXRob2ROYW1lID0gTWV0aG9kTmFtZT8uUmVwbGFjZSgie2RvbWFpbn0iLCBjb250ZXh0LlJ1bnRpbWUuRG9tYWluKTsKICAgICAgICBNZXRob2ROYW1lID0gTWV0aG9kTmFtZT8uUmVwbGFjZSgie2luc3RhbmNlfSIsIGNvbnRleHQuSW5zdGFuY2UuSWQuVG9TdHJpbmcoKSk7CiAgICAgICAgZGFwclRhc2s/LlNldE1ldGhvZE5hbWUoTWV0aG9kTmFtZSk7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9CgogICAgcHVibGljIFRhc2s8U2NyaXB0UmVzcG9uc2U+IE91dHB1dEhhbmRsZXIoU2NyaXB0Q29udGV4dCBjb250ZXh0KQogICAgewogICAgICAgICB2YXIgcmVzcG9uc2VEYXRhID0gY29udGV4dC5Cb2R5Py5kYXRhOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkKICAgICAgICB7CiAgICAgICAgICAgIERhdGEgPSByZXNwb25zZURhdGEKICAgICAgICB9KTsKICAgIH0KCn0="
+                    }
+                }
+            }
         }
-      ],
-      "versionStrategy": "Minor",
-      "schema": null,
-      "onExecutionTasks": [],
-      "view": null
-    },
-    "states": [
-      {
-        "key": "draft",
-        "stateType": 1,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Draft State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Taslak Durumu"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "activate",
-            "from": "draft",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Activate Function"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Fonksiyonu Aktifleştir"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [
-              {
-                "order": 1,
-                "task": {
-                  "ref": "Tasks/invalidate-cache.json"
-                },
-                "mapping": {
-                  "location": "./src/InvalideCacheMapping.csx",
-                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
-                }
-              }
-            ],
-            "view": null
-          },
-          {
-            "key": "delete",
-            "from": "draft",
-            "target": "deleted",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Delete Draft"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Taslağı Sil"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      },
-      {
-        "key": "active",
-        "stateType": 2,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Active State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Aktif Durumu"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "deactivate",
-            "from": "active",
-            "target": "passive",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Deactivate Function"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Fonksiyonu Pasifleştir"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          },
-          {
-            "key": "update",
-            "from": "active",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Update Function"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Fonksiyonu Güncelle"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [
-              {
-                "order": 1,
-                "task": {
-                  "ref": "Tasks/invalidate-cache.json"
-                },
-                "mapping": {
-                  "location": "./src/InvalideCacheMapping.csx",
-                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
-                }
-              }
-            ],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      },
-      {
-        "key": "passive",
-        "stateType": 2,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Passive State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Pasif Durumu"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "reactivate",
-            "from": "passive",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Reactivate Function"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Fonksiyonu Yeniden Aktifleştir"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          },
-          {
-            "key": "archive",
-            "from": "passive",
-            "target": "deleted",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Archive Function"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Fonksiyonu Arşivle"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      },
-      {
-        "key": "deleted",
-        "stateType": 2,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Deleted State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Silinmiş Durum"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "recover",
-            "from": "deleted",
-            "target": "active",
-            "triggerType": 0,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Recover"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Geri Al"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExitss": [],
-        "versionStrategy": "Minor"
-      }
     ]
-  }
 }
