@@ -11,6 +11,10 @@
     "base"
   ],
   "attributes": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.vnext.com/core/schema.json",
+    "title": "Schema Definition",
+    "description": "Gerçek JSON Schema tanımının bulunduğu alan. Bu alan valid bir JSON Schema olmalıdır.",
     "type": "schema",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",

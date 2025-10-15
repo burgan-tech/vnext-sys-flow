@@ -12,6 +12,10 @@
   ],
   "attributes": {
     "type": "workflow",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.vnext.com/core/workflow.json",
+    "title": "Workflow Definition",
+    "description": "vNext platformunda iş akışı tanımlarını yapılandıran şema. Sadece workflow attributes yapısını tanımlar.",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "https://schemas.vnext.com/core/workflow.json",
@@ -1185,9 +1189,10 @@
                   1,
                   2,
                   3,
-                  4
+                  4,
+                  5
                 ],
-                "description": "State'in türü. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow"
+                "description": "State'in türü. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
               },
               "stateSubType": {
                 "type": "integer",
@@ -2131,7 +2136,21 @@
               "versionStrategy",
               "labels"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "if": {
+              "properties": {
+                "stateType": {
+                  "const": 5
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "transitions": {
+                  "maxItems": 1
+                }
+              }
+            }
           },
           "description": "Workflow'u oluşturan state'lerin listesi"
         }
