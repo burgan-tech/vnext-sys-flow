@@ -11,6 +11,10 @@
     "polymorphic"
   ],
   "attributes": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.vnext.com/core/task.json",
+    "title": "Task Definition",
+    "description": "Polimorfik task tanımları. Task tipine göre farklı konfigürasyon şemaları kullanır.",
     "type": "task",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",

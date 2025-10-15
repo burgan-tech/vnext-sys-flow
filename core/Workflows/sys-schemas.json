@@ -301,6 +301,10 @@
       ],
       "attributes": {
         "type": "schema",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://schemas.vnext.com/core/schema.json",
+        "title": "Schema Definition",
+        "description": "Gerçek JSON Schema tanımının bulunduğu alan. Bu alan valid bir JSON Schema olmalıdır.",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "$id": "https://schemas.vnext.com/core/schema.json",
@@ -355,6 +359,10 @@
         "polymorphic"
       ],
       "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://schemas.vnext.com/core/task.json",
+        "title": "Task Definition",
+        "description": "Polimorfik task tanımları. Task tipine göre farklı konfigürasyon şemaları kullanır.",
         "type": "task",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -802,6 +810,10 @@
       ],
       "attributes": {
         "type": "view",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://schemas.vnext.com/core/view.json",
+        "title": "View Definition",
+        "description": "vNext platformunda view tanımları için şema. View içerik türü, hedef ve içerik bilgilerini içerir.",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "$id": "https://schemas.vnext.com/core/view.json",
@@ -849,6 +861,268 @@
               "type": "string",
               "description": "View'in içeriği. Json, Html veya Markdown formatında olabilir.",
               "minLength": 1
+            },
+            "display": {
+              "type": "string",
+              "description": "View'in display tipi. Örnek full-page",
+              "minLength": 1
+            },
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "label",
+                  "language"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "description": "Kullanıcıya gösterilecek metin içeriği",
+                    "maxLength": 500
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "ISO 639 formatında dil kodu",
+                    "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                    "maxLength": 10
+                  }
+                },
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "examples": [
+                [
+                  {
+                    "label": "User Login",
+                    "language": "en-US"
+                  },
+                  {
+                    "label": "Kullanıcı Girişi",
+                    "language": "tr-TR"
+                  }
+                ],
+                [
+                  {
+                    "label": "Data Processing",
+                    "language": "en-US"
+                  },
+                  {
+                    "label": "Veri İşleme",
+                    "language": "tr-TR"
+                  }
+                ]
+              ],
+              "description": "Workflow'un çoklu dil etiketleri"
+            },
+            "platformOverrides": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "android": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "integer",
+                              "description": "Android ortamda override edilecek View ın  içerik türü",
+                              "oneOf": [
+                                {
+                                  "const": 1,
+                                  "description": "Json içerik türü"
+                                },
+                                {
+                                  "const": 2,
+                                  "description": "Html içerik türü"
+                                },
+                                {
+                                  "const": 3,
+                                  "description": "Markdown içerik türü"
+                                }
+                              ]
+                            },
+                            "content": {
+                              "description": "Android ortamda override edilecek View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "display": {
+                              "type": "string",
+                              "description": "View'in display tipi.",
+                              "pattern": "^[a-z\\-]+$",
+                              "maxLength": 100,
+                              "examples": [
+                                "full-page",
+                                "popup",
+                                "bottom-sheet",
+                                "inline"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "content",
+                            "display"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "type": 1,
+                              "content": "{ \"widget\": \"MaterialCard\", \"title\": \"Android Profile\" }",
+                              "display": "full-page"
+                            },
+                            {
+                              "type": 2,
+                              "content": "<div class=\"profile\">Android Profile</div>",
+                              "display": "inline"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "Android ortamda override edilecek View"
+                    },
+                    "ios": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "integer",
+                              "description": "Ios ortamda override edilecek View ın  içerik türü",
+                              "oneOf": [
+                                {
+                                  "const": 1,
+                                  "description": "Json içerik türü"
+                                },
+                                {
+                                  "const": 2,
+                                  "description": "Html içerik türü"
+                                },
+                                {
+                                  "const": 3,
+                                  "description": "Markdown içerik türü"
+                                }
+                              ]
+                            },
+                            "content": {
+                              "description": "Ios ortamda override edilecek View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "display": {
+                              "type": "string",
+                              "description": "View'in display tipi.",
+                              "pattern": "^[a-z\\-]+$",
+                              "maxLength": 100,
+                              "examples": [
+                                "full-page",
+                                "popup",
+                                "bottom-sheet",
+                                "inline"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "content",
+                            "display"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "type": 1,
+                              "content": "{ \"widget\": \"MaterialCard\", \"title\": \"Ios Profile\" }",
+                              "display": "full-page"
+                            },
+                            {
+                              "type": 2,
+                              "content": "<div class=\"profile\">Ios Profile</div>",
+                              "display": "inline"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "Ios ortamda override edilecek View"
+                    },
+                    "web": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "integer",
+                              "description": "Web ortamda override edilecek View ın  içerik türü",
+                              "oneOf": [
+                                {
+                                  "const": 1,
+                                  "description": "Json içerik türü"
+                                },
+                                {
+                                  "const": 2,
+                                  "description": "Html içerik türü"
+                                },
+                                {
+                                  "const": 3,
+                                  "description": "Markdown içerik türü"
+                                }
+                              ]
+                            },
+                            "content": {
+                              "description": "Web ortamda override edilecek View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "display": {
+                              "type": "string",
+                              "description": "View'in display tipi.",
+                              "pattern": "^[a-z\\-]+$",
+                              "maxLength": 100,
+                              "examples": [
+                                "full-page",
+                                "popup",
+                                "bottom-sheet",
+                                "inline"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "content",
+                            "display"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "type": 1,
+                              "content": "{ \"widget\": \"MaterialCard\", \"title\": \"Web Profile\" }",
+                              "display": "full-page"
+                            },
+                            {
+                              "type": 2,
+                              "content": "<div class=\"profile\">Web Profile</div>",
+                              "display": "inline"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "Web ortamda override edilecek View"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Platform bazında override edilecek view lar"
             }
           },
           "required": [
@@ -870,6 +1144,10 @@
         "schema"
       ],
       "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://schemas.vnext.com/core/workflow.json",
+        "title": "Workflow Definition",
+        "description": "vNext platformunda iş akışı tanımlarını yapılandıran şema. Sadece workflow attributes yapısını tanımlar.",
         "type": "workflow",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -2044,9 +2322,10 @@
                       1,
                       2,
                       3,
-                      4
+                      4,
+                      5
                     ],
-                    "description": "State'in türü. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow"
+                    "description": "State'in türü. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
                   },
                   "stateSubType": {
                     "type": "integer",
@@ -2990,7 +3269,21 @@
                   "versionStrategy",
                   "labels"
                 ],
-                "additionalProperties": false
+                "additionalProperties": false,
+                "if": {
+                  "properties": {
+                    "stateType": {
+                      "const": 5
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "transitions": {
+                      "maxItems": 1
+                    }
+                  }
+                }
               },
               "description": "Workflow'u oluşturan state'lerin listesi"
             }
