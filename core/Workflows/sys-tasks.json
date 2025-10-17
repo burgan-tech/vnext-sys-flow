@@ -414,23 +414,19 @@
       }
     },
     {
-      "key": "send-signalr-notification",
+      "key": "signalr-task",
       "version": "1.0.0",
       "domain": "core",
       "flow": "sys-tasks",
       "flowVersion": "1.0.0",
+      "tags": [
+        "core",
+        "sys-tasks",
+        "components"
+      ],
       "attributes": {
-        "type": "6",
-        "config": {
-          "url": "http://localhost:3200/sendMessage/public",
-          "method": "POST",
-          "headers": {
-            "Content-Type": "application/json"
-          },
-          "body": {},
-          "timeoutSeconds": 30,
-          "validateSsl": true
-        }
+        "type": "10",
+        "config": {}
       }
     }
   ]

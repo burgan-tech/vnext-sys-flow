@@ -1,0 +1,23 @@
+
+
+{
+  "key": "signalr-task",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-tasks",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "sys-tasks",
+    "components"
+  ],
+  "attributes": {
+    "type": "10",
+    "config": {
+      "allowedHeaders": [
+      "x-installation-id",
+      "x-device-id"
+    ]
+    }
+  }
+}
