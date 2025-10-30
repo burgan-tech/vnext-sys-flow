@@ -446,70 +446,94 @@
                       {
                         "type": "object",
                         "properties": {
-                          "key": {
-                            "type": "string",
-                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                            "pattern": "^[a-z0-9-]+$",
-                            "maxLength": 255
+                          "extensions": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           },
-                          "domain": {
-                            "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                            "pattern": "^[a-zA-Z\\-]+$",
-                            "maxLength": 100,
-                            "examples": [
-                              "core",
-                              "idm",
-                              "banking",
-                              "payment"
-                            ]
+                          "loadData": {
+                            "type": "boolean"
                           },
-                          "flow": {
-                            "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu flow adı",
-                            "pattern": "^[a-z\\-]+$",
-                            "maxLength": 100
-                          },
-                          "version": {
-                            "type": "string",
-                            "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                            "maxLength": 50
+                          "view": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string",
+                                    "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                    "pattern": "^[a-z0-9-]+$",
+                                    "maxLength": 255
+                                  },
+                                  "domain": {
+                                    "type": "string",
+                                    "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                    "pattern": "^[a-zA-Z\\-]+$",
+                                    "maxLength": 100,
+                                    "examples": [
+                                      "core",
+                                      "idm",
+                                      "banking",
+                                      "payment"
+                                    ]
+                                  },
+                                  "flow": {
+                                    "type": "string",
+                                    "description": "Referans edilen kaydın bulunduğu flow adı",
+                                    "pattern": "^[a-z\\-]+$",
+                                    "maxLength": 100
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                    "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                    "maxLength": 50
+                                  }
+                                },
+                                "required": [
+                                  "key",
+                                  "domain",
+                                  "flow",
+                                  "version"
+                                ],
+                                "additionalProperties": false,
+                                "examples": [
+                                  {
+                                    "key": "user-authentication-workflow",
+                                    "domain": "idm",
+                                    "flow": "user-authentication",
+                                    "version": "1.0.0"
+                                  },
+                                  {
+                                    "key": "user-login-state",
+                                    "domain": "core",
+                                    "flow": "authentication",
+                                    "version": "2.1.0"
+                                  },
+                                  {
+                                    "key": "payment-validation-task",
+                                    "domain": "banking",
+                                    "flow": "payment-process",
+                                    "version": "1.2.3"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "View referansı"
                           }
                         },
                         "required": [
-                          "key",
-                          "domain",
-                          "flow",
-                          "version"
-                        ],
-                        "additionalProperties": false,
-                        "examples": [
-                          {
-                            "key": "user-authentication-workflow",
-                            "domain": "idm",
-                            "flow": "user-authentication",
-                            "version": "1.0.0"
-                          },
-                          {
-                            "key": "user-login-state",
-                            "domain": "core",
-                            "flow": "authentication",
-                            "version": "2.1.0"
-                          },
-                          {
-                            "key": "payment-validation-task",
-                            "domain": "banking",
-                            "flow": "payment-process",
-                            "version": "1.2.3"
-                          }
+                          "view"
                         ]
                       },
                       {
                         "type": "null"
                       }
-                    ],
-                    "description": "Geçişte kullanılacak view referansı"
+                    ]
                   },
                   "onExecutionTasks": {
                     "type": "array",
@@ -995,70 +1019,94 @@
                 {
                   "type": "object",
                   "properties": {
-                    "key": {
-                      "type": "string",
-                      "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                      "pattern": "^[a-z0-9-]+$",
-                      "maxLength": 255
+                    "extensions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     },
-                    "domain": {
-                      "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                      "pattern": "^[a-zA-Z\\-]+$",
-                      "maxLength": 100,
-                      "examples": [
-                        "core",
-                        "idm",
-                        "banking",
-                        "payment"
-                      ]
+                    "loadData": {
+                      "type": "boolean"
                     },
-                    "flow": {
-                      "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu flow adı",
-                      "pattern": "^[a-z\\-]+$",
-                      "maxLength": 100
-                    },
-                    "version": {
-                      "type": "string",
-                      "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                      "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                      "maxLength": 50
+                    "view": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "pattern": "^[a-z0-9-]+$",
+                              "maxLength": 255
+                            },
+                            "domain": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "pattern": "^[a-zA-Z\\-]+$",
+                              "maxLength": 100,
+                              "examples": [
+                                "core",
+                                "idm",
+                                "banking",
+                                "payment"
+                              ]
+                            },
+                            "flow": {
+                              "type": "string",
+                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "pattern": "^[a-z\\-]+$",
+                              "maxLength": 100
+                            },
+                            "version": {
+                              "type": "string",
+                              "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "maxLength": 50
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "domain",
+                            "flow",
+                            "version"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "key": "user-authentication-workflow",
+                              "domain": "idm",
+                              "flow": "user-authentication",
+                              "version": "1.0.0"
+                            },
+                            {
+                              "key": "user-login-state",
+                              "domain": "core",
+                              "flow": "authentication",
+                              "version": "2.1.0"
+                            },
+                            {
+                              "key": "payment-validation-task",
+                              "domain": "banking",
+                              "flow": "payment-process",
+                              "version": "1.2.3"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "View referansı"
                     }
                   },
                   "required": [
-                    "key",
-                    "domain",
-                    "flow",
-                    "version"
-                  ],
-                  "additionalProperties": false,
-                  "examples": [
-                    {
-                      "key": "user-authentication-workflow",
-                      "domain": "idm",
-                      "flow": "user-authentication",
-                      "version": "1.0.0"
-                    },
-                    {
-                      "key": "user-login-state",
-                      "domain": "core",
-                      "flow": "authentication",
-                      "version": "2.1.0"
-                    },
-                    {
-                      "key": "payment-validation-task",
-                      "domain": "banking",
-                      "flow": "payment-process",
-                      "version": "1.2.3"
-                    }
+                    "view"
                   ]
                 },
                 {
                   "type": "null"
                 }
-              ],
-              "description": "Geçişte kullanılacak view referansı"
+              ]
             },
             "onExecutionTasks": {
               "type": "array",
@@ -1265,70 +1313,94 @@
                   {
                     "type": "object",
                     "properties": {
-                      "key": {
-                        "type": "string",
-                        "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                        "pattern": "^[a-z0-9-]+$",
-                        "maxLength": 255
+                      "extensions": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
                       },
-                      "domain": {
-                        "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                        "pattern": "^[a-zA-Z\\-]+$",
-                        "maxLength": 100,
-                        "examples": [
-                          "core",
-                          "idm",
-                          "banking",
-                          "payment"
-                        ]
+                      "loadData": {
+                        "type": "boolean"
                       },
-                      "flow": {
-                        "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu flow adı",
-                        "pattern": "^[a-z\\-]+$",
-                        "maxLength": 100
-                      },
-                      "version": {
-                        "type": "string",
-                        "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                        "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                        "maxLength": 50
+                      "view": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                "pattern": "^[a-z0-9-]+$",
+                                "maxLength": 255
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                "pattern": "^[a-zA-Z\\-]+$",
+                                "maxLength": 100,
+                                "examples": [
+                                  "core",
+                                  "idm",
+                                  "banking",
+                                  "payment"
+                                ]
+                              },
+                              "flow": {
+                                "type": "string",
+                                "description": "Referans edilen kaydın bulunduğu flow adı",
+                                "pattern": "^[a-z\\-]+$",
+                                "maxLength": 100
+                              },
+                              "version": {
+                                "type": "string",
+                                "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "domain",
+                              "flow",
+                              "version"
+                            ],
+                            "additionalProperties": false,
+                            "examples": [
+                              {
+                                "key": "user-authentication-workflow",
+                                "domain": "idm",
+                                "flow": "user-authentication",
+                                "version": "1.0.0"
+                              },
+                              {
+                                "key": "user-login-state",
+                                "domain": "core",
+                                "flow": "authentication",
+                                "version": "2.1.0"
+                              },
+                              {
+                                "key": "payment-validation-task",
+                                "domain": "banking",
+                                "flow": "payment-process",
+                                "version": "1.2.3"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "View referansı"
                       }
                     },
                     "required": [
-                      "key",
-                      "domain",
-                      "flow",
-                      "version"
-                    ],
-                    "additionalProperties": false,
-                    "examples": [
-                      {
-                        "key": "user-authentication-workflow",
-                        "domain": "idm",
-                        "flow": "user-authentication",
-                        "version": "1.0.0"
-                      },
-                      {
-                        "key": "user-login-state",
-                        "domain": "core",
-                        "flow": "authentication",
-                        "version": "2.1.0"
-                      },
-                      {
-                        "key": "payment-validation-task",
-                        "domain": "banking",
-                        "flow": "payment-process",
-                        "version": "1.2.3"
-                      }
+                      "view"
                     ]
                   },
                   {
                     "type": "null"
                   }
-                ],
-                "description": "State ile ilişkili view referansı"
+                ]
               },
               "subFlow": {
                 "anyOf": [
@@ -1672,70 +1744,94 @@
                         {
                           "type": "object",
                           "properties": {
-                            "key": {
-                              "type": "string",
-                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                              "pattern": "^[a-z0-9-]+$",
-                              "maxLength": 255
+                            "extensions": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
                             },
-                            "domain": {
-                              "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                              "pattern": "^[a-zA-Z\\-]+$",
-                              "maxLength": 100,
-                              "examples": [
-                                "core",
-                                "idm",
-                                "banking",
-                                "payment"
-                              ]
+                            "loadData": {
+                              "type": "boolean"
                             },
-                            "flow": {
-                              "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu flow adı",
-                              "pattern": "^[a-z\\-]+$",
-                              "maxLength": 100
-                            },
-                            "version": {
-                              "type": "string",
-                              "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                              "maxLength": 50
+                            "view": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "key": {
+                                      "type": "string",
+                                      "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                      "pattern": "^[a-z0-9-]+$",
+                                      "maxLength": 255
+                                    },
+                                    "domain": {
+                                      "type": "string",
+                                      "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                      "pattern": "^[a-zA-Z\\-]+$",
+                                      "maxLength": 100,
+                                      "examples": [
+                                        "core",
+                                        "idm",
+                                        "banking",
+                                        "payment"
+                                      ]
+                                    },
+                                    "flow": {
+                                      "type": "string",
+                                      "description": "Referans edilen kaydın bulunduğu flow adı",
+                                      "pattern": "^[a-z\\-]+$",
+                                      "maxLength": 100
+                                    },
+                                    "version": {
+                                      "type": "string",
+                                      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                      "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                      "maxLength": 50
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "domain",
+                                    "flow",
+                                    "version"
+                                  ],
+                                  "additionalProperties": false,
+                                  "examples": [
+                                    {
+                                      "key": "user-authentication-workflow",
+                                      "domain": "idm",
+                                      "flow": "user-authentication",
+                                      "version": "1.0.0"
+                                    },
+                                    {
+                                      "key": "user-login-state",
+                                      "domain": "core",
+                                      "flow": "authentication",
+                                      "version": "2.1.0"
+                                    },
+                                    {
+                                      "key": "payment-validation-task",
+                                      "domain": "banking",
+                                      "flow": "payment-process",
+                                      "version": "1.2.3"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "description": "View referansı"
                             }
                           },
                           "required": [
-                            "key",
-                            "domain",
-                            "flow",
-                            "version"
-                          ],
-                          "additionalProperties": false,
-                          "examples": [
-                            {
-                              "key": "user-authentication-workflow",
-                              "domain": "idm",
-                              "flow": "user-authentication",
-                              "version": "1.0.0"
-                            },
-                            {
-                              "key": "user-login-state",
-                              "domain": "core",
-                              "flow": "authentication",
-                              "version": "2.1.0"
-                            },
-                            {
-                              "key": "payment-validation-task",
-                              "domain": "banking",
-                              "flow": "payment-process",
-                              "version": "1.2.3"
-                            }
+                            "view"
                           ]
                         },
                         {
                           "type": "null"
                         }
-                      ],
-                      "description": "Geçişte kullanılacak view referansı"
+                      ]
                     },
                     "onExecutionTasks": {
                       "type": "array",
