@@ -450,10 +450,12 @@
                             "type": "array",
                             "items": {
                               "type": "string"
-                            }
+                            },
+                            "description": "View'e uygulanacak eklentilerin listesi."
                           },
                           "loadData": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
                           },
                           "view": {
                             "anyOf": [
@@ -1023,10 +1025,12 @@
                       "type": "array",
                       "items": {
                         "type": "string"
-                      }
+                      },
+                      "description": "View'e uygulanacak eklentilerin listesi."
                     },
                     "loadData": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
                     },
                     "view": {
                       "anyOf": [
@@ -1317,10 +1321,12 @@
                         "type": "array",
                         "items": {
                           "type": "string"
-                        }
+                        },
+                        "description": "View'e uygulanacak eklentilerin listesi."
                       },
                       "loadData": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
                       },
                       "view": {
                         "anyOf": [
@@ -1748,10 +1754,12 @@
                               "type": "array",
                               "items": {
                                 "type": "string"
-                              }
+                              },
+                              "description": "View'e uygulanacak eklentilerin listesi."
                             },
                             "loadData": {
-                              "type": "boolean"
+                              "type": "boolean",
+                              "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
                             },
                             "view": {
                               "anyOf": [
