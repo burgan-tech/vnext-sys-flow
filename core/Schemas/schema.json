@@ -12,41 +12,47 @@
   ],
   "attributes": {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://schemas.vnext.com/core/schema.json",
+    "$id": "https://vnext.io/schemas/core/schema.json",
     "title": "Schema Definition",
-    "description": "Gerçek JSON Schema tanımının bulunduğu alan. Bu alan valid bir JSON Schema olmalıdır.",
+    "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
     "type": "schema",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://schemas.vnext.com/core/schema.json",
+      "$id": "https://vnext.io/schemas/core/schema.json",
       "title": "Schema Definition",
-      "description": "Gerçek JSON Schema tanımının bulunduğu alan. Bu alan valid bir JSON Schema olmalıdır.",
+      "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
       "type": "object",
       "properties": {
         "$schema": {
           "type": "string",
           "format": "uri",
-          "description": "JSON Schema versiyonu"
+          "description": "JSON Schema version"
         },
         "$id": {
           "type": "string",
           "format": "uri",
-          "description": "Şemanın benzersiz URI'si"
+          "description": "Unique URI of the schema"
         },
         "title": {
           "type": "string",
-          "description": "Şemanın başlığı"
+          "description": "Schema title"
         },
         "description": {
           "type": "string",
-          "description": "Şemanın açıklaması"
+          "description": "Schema description"
         },
         "type": {
-          "type": [
+          "type": "string",
+          "enum": [
+            "object",
+            "array",
             "string",
-            "array"
+            "number",
+            "integer",
+            "boolean",
+            "null"
           ],
-          "description": "JSON Schema type tanımı"
+          "description": "JSON Schema type description"
         }
       },
       "required": [

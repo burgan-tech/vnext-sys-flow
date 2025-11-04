@@ -13,21 +13,21 @@
   "attributes": {
     "type": "workflow",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://schemas.vnext.com/core/workflow.json",
+    "$id": "https://vnext.io/schemas/core/workflow.json",
     "title": "Workflow Definition",
-    "description": "vNext platformunda iş akışı tanımlarını yapılandıran şema. Sadece workflow attributes yapısını tanımlar.",
+    "description": "Schema that configures workflow definitions in vNext platform. Only defines workflow attributes structure.",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://schemas.vnext.com/core/workflow.json",
+      "$id": "https://vnext.io/schemas/core/workflow.json",
       "title": "Workflow Definition",
-      "description": "vNext platformunda iş akışı tanımlarını yapılandıran şema. Sadece workflow attributes yapısını tanımlar.",
+      "description": "Schema that configures workflow definitions in vNext platform. Only defines workflow attributes structure.",
       "type": "object",
       "properties": {
         "timeout": {
           "anyOf": [
             {
               "type": "object",
-              "description": "Workflow timeout yapılandırması",
+              "description": "Workflow timeout configuration",
               "required": [
                 "key",
                 "target",
@@ -37,13 +37,13 @@
               "properties": {
                 "key": {
                   "type": "string",
-                  "description": "Timeout anahtar değeri",
+                  "description": "Timeout key value",
                   "pattern": "^[a-z0-9-]+$",
                   "maxLength": 255
                 },
                 "target": {
                   "type": "string",
-                  "description": "Timeout durumunda hedef state",
+                  "description": "Target state in case of timeout",
                   "pattern": "^[a-z0-9-]+$",
                   "maxLength": 255
                 },
@@ -53,7 +53,7 @@
                     "Minor",
                     "Major"
                   ],
-                  "description": "Timeout sonrası versiyon stratejisi",
+                  "description": "Version strategy after timeout",
                   "maxLength": 50
                 },
                 "timer": {
@@ -65,12 +65,12 @@
                   "properties": {
                     "reset": {
                       "type": "string",
-                      "description": "Timer reset stratejisi"
+                      "description": "Timer reset strategy"
                     },
                     "duration": {
                       "type": "string",
                       "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                      "description": "Süre bilgisi (ISO 8601 formatında)",
+                      "description": "Duration information (in ISO 8601 format)",
                       "maxLength": 100
                     }
                   },
@@ -83,28 +83,28 @@
               "type": "null"
             }
           ],
-          "description": "Workflow genel timeout tanımı"
+          "description": "Workflow general timeout definition"
         },
         "type": {
           "oneOf": [
             {
               "const": "C",
-              "description": "Core workflow türü"
+              "description": "Core workflow type"
             },
             {
               "const": "F",
-              "description": "Flow workflow türü"
+              "description": "Flow workflow type"
             },
             {
               "const": "S",
-              "description": "SubFlow workflow türü"
+              "description": "SubFlow workflow type"
             },
             {
               "const": "P",
-              "description": "Sub Process workflow türü"
+              "description": "Sub Process workflow type"
             }
           ],
-          "description": "Workflow'un türü"
+          "description": "Workflow type"
         },
         "labels": {
           "type": "array",
@@ -117,12 +117,12 @@
             "properties": {
               "label": {
                 "type": "string",
-                "description": "Kullanıcıya gösterilecek metin içeriği",
+                "description": "Text content to be displayed to the user",
                 "maxLength": 500
               },
               "language": {
                 "type": "string",
-                "description": "ISO 639 formatında dil kodu",
+                "description": "Language code in ISO 639 format",
                 "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                 "maxLength": 10
               }
@@ -152,7 +152,7 @@
               }
             ]
           ],
-          "description": "Workflow'un çoklu dil etiketleri"
+          "description": "Multi-language labels of the workflow"
         },
         "functions": {
           "type": "array",
@@ -161,13 +161,13 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                "description": "Key value of the referenced record (readable identifier)",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 255
               },
               "domain": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                "description": "Domain where the referenced record is located (required for cross-domain references)",
                 "pattern": "^[a-zA-Z\\-]+$",
                 "maxLength": 100,
                 "examples": [
@@ -179,14 +179,14 @@
               },
               "flow": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu flow adı",
+                "description": "Flow name where the referenced record is located",
                 "pattern": "^[a-z\\-]+$",
                 "maxLength": 100
               },
               "version": {
                 "type": "string",
                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                 "maxLength": 50
               }
             },
@@ -218,7 +218,7 @@
               }
             ]
           },
-          "description": "Workflow ile ilişkili function referansları"
+          "description": "Function references associated with the workflow"
         },
         "sharedTransitions": {
           "type": "array",
@@ -229,19 +229,19 @@
                 "properties": {
                   "key": {
                     "type": "string",
-                    "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
+                    "description": "Transition key value. Used in transition requests and is unique within the flow.",
                     "pattern": "^[a-z0-9-]+$",
                     "maxLength": 255
                   },
                   "target": {
                     "type": "string",
-                    "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
+                    "description": "State key that will be reached when the transition is successfully completed",
                     "pattern": "^[a-zA-Z0-9\\-]+$",
                     "maxLength": 255
                   },
                   "from": {
                     "type": "string",
-                    "description": "Kaynak state key'i",
+                    "description": "Source state key",
                     "pattern": "^[a-zA-Z0-9\\-]+$",
                     "maxLength": 255
                   },
@@ -251,7 +251,7 @@
                       "Minor",
                       "Major"
                     ],
-                    "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
+                    "description": "Version increment strategy after successful transition",
                     "maxLength": 50
                   },
                   "triggerType": {
@@ -262,14 +262,14 @@
                       2,
                       3
                     ],
-                    "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                    "description": "Trigger type. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
                   },
                   "availableIn": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
-                    "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                    "description": "List of states where this transition can be used"
                   },
                   "schema": {
                     "anyOf": [
@@ -278,13 +278,13 @@
                         "properties": {
                           "key": {
                             "type": "string",
-                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                            "description": "Key value of the referenced record (readable identifier)",
                             "pattern": "^[a-z0-9-]+$",
                             "maxLength": 255
                           },
                           "domain": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                            "description": "Domain where the referenced record is located (required for cross-domain references)",
                             "pattern": "^[a-zA-Z\\-]+$",
                             "maxLength": 100,
                             "examples": [
@@ -296,14 +296,14 @@
                           },
                           "flow": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu flow adı",
+                            "description": "Flow name where the referenced record is located",
                             "pattern": "^[a-zA-Z\\-]+$",
                             "maxLength": 100
                           },
                           "version": {
                             "type": "string",
                             "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                            "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                             "maxLength": 50
                           }
                         },
@@ -339,7 +339,7 @@
                         "type": "null"
                       }
                     ],
-                    "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
+                    "description": "Data schema reference that must be sent to execute the transition"
                   },
                   "rule": {
                     "anyOf": [
@@ -352,11 +352,11 @@
                         "properties": {
                           "code": {
                             "type": "string",
-                            "description": "Rule kodu"
+                            "description": "Rule code"
                           },
                           "location": {
                             "type": "string",
-                            "description": "Kod dosyasının konumu"
+                            "description": "Location of the code file"
                           }
                         },
                         "additionalProperties": false
@@ -365,7 +365,7 @@
                         "type": "null"
                       }
                     ],
-                    "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
+                    "description": "Code where the rule is defined if rule-based progression will occur"
                   },
                   "timer": {
                     "anyOf": [
@@ -378,11 +378,11 @@
                         "properties": {
                           "code": {
                             "type": "string",
-                            "description": "Rule kodu"
+                            "description": "Rule code"
                           },
                           "location": {
                             "type": "string",
-                            "description": "Kod dosyasının konumu"
+                            "description": "Location of the code file"
                           }
                         },
                         "additionalProperties": false
@@ -391,7 +391,7 @@
                         "type": "null"
                       }
                     ],
-                    "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
+                    "description": "Timing information if the transition will run automatically"
                   },
                   "labels": {
                     "type": "array",
@@ -404,12 +404,12 @@
                       "properties": {
                         "label": {
                           "type": "string",
-                          "description": "Kullanıcıya gösterilecek metin içeriği",
+                          "description": "Text content to be displayed to the user",
                           "maxLength": 500
                         },
                         "language": {
                           "type": "string",
-                          "description": "ISO 639 formatında dil kodu",
+                          "description": "Language code in ISO 639 format",
                           "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                           "maxLength": 10
                         }
@@ -439,7 +439,7 @@
                         }
                       ]
                     ],
-                    "description": "Çok dilli geçiş ismi"
+                    "description": "Multi-language transition name"
                   },
                   "view": {
                     "anyOf": [
@@ -451,11 +451,11 @@
                             "items": {
                               "type": "string"
                             },
-                            "description": "View'e uygulanacak eklentilerin listesi."
+                            "description": "List of extensions to be applied to the View."
                           },
                           "loadData": {
                             "type": "boolean",
-                            "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
+                            "description": "Specifies whether data will be loaded for the View."
                           },
                           "view": {
                             "anyOf": [
@@ -464,13 +464,13 @@
                                 "properties": {
                                   "key": {
                                     "type": "string",
-                                    "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                    "description": "Key value of the referenced record (readable identifier)",
                                     "pattern": "^[a-z0-9-]+$",
                                     "maxLength": 255
                                   },
                                   "domain": {
                                     "type": "string",
-                                    "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                    "description": "Domain where the referenced record is located (required for cross-domain references)",
                                     "pattern": "^[a-zA-Z\\-]+$",
                                     "maxLength": 100,
                                     "examples": [
@@ -482,14 +482,14 @@
                                   },
                                   "flow": {
                                     "type": "string",
-                                    "description": "Referans edilen kaydın bulunduğu flow adı",
+                                    "description": "Flow name where the referenced record is located",
                                     "pattern": "^[a-z\\-]+$",
                                     "maxLength": 100
                                   },
                                   "version": {
                                     "type": "string",
                                     "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                                    "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                    "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                                     "maxLength": 50
                                   }
                                 },
@@ -525,7 +525,7 @@
                                 "type": "null"
                               }
                             ],
-                            "description": "View referansı"
+                            "description": "View reference"
                           }
                         },
                         "required": [
@@ -550,20 +550,20 @@
                         "order": {
                           "type": "integer",
                           "minimum": 1,
-                          "description": "Görevin çalışma sırası"
+                          "description": "Task execution order"
                         },
                         "task": {
                           "type": "object",
                           "properties": {
                             "key": {
                               "type": "string",
-                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "description": "Key value of the referenced record (readable identifier)",
                               "pattern": "^[a-zA-Z0-9\\-]+$",
                               "maxLength": 255
                             },
                             "domain": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "description": "Domain where the referenced record is located (required for cross-domain references)",
                               "pattern": "^[a-zA-Z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -575,14 +575,14 @@
                             },
                             "flow": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "description": "Flow name where the referenced record is located",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100
                             },
                             "version": {
                               "type": "string",
                               "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                               "maxLength": 50
                             }
                           },
@@ -613,7 +613,7 @@
                               "version": "1.2.3"
                             }
                           ],
-                          "description": "Çalıştırılacak task referansı"
+                          "description": "Task reference to be executed"
                         },
                         "mapping": {
                           "type": "object",
@@ -624,11 +624,11 @@
                           "properties": {
                             "code": {
                               "type": "string",
-                              "description": "Mapping kodu"
+                              "description": "Mapping code"
                             },
                             "location": {
                               "type": "string",
-                              "description": "Kod dosyasının konumu"
+                              "description": "Location of the code file"
                             }
                           },
                           "additionalProperties": false
@@ -636,7 +636,7 @@
                       },
                       "additionalProperties": false
                     },
-                    "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+                    "description": "Tasks to be executed when the transition is triggered"
                   }
                 },
                 "required": [
@@ -659,13 +659,13 @@
                     "items": {
                       "type": "string"
                     },
-                    "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                    "description": "List of states where this transition can be used"
                   }
                 }
               }
             ]
           },
-          "description": "Birden fazla state'de kullanılabilecek ortak transition'lar"
+          "description": "Common transitions that can be used in multiple states"
         },
         "extensions": {
           "type": "array",
@@ -674,13 +674,13 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                "description": "Key value of the referenced record (readable identifier)",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 255
               },
               "domain": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                "description": "Domain where the referenced record is located (required for cross-domain references)",
                 "pattern": "^[a-zA-Z\\-]+$",
                 "maxLength": 100,
                 "examples": [
@@ -692,14 +692,14 @@
               },
               "flow": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu flow adı",
+                "description": "Flow name where the referenced record is located",
                 "pattern": "^[a-z\\-]+$",
                 "maxLength": 100
               },
               "version": {
                 "type": "string",
                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                 "maxLength": 50
               }
             },
@@ -731,7 +731,7 @@
               }
             ]
           },
-          "description": "Workflow ile ilişkili extension referansları"
+          "description": "Extension references associated with the workflow"
         },
         "features": {
           "type": "array",
@@ -740,13 +740,13 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                "description": "Key value of the referenced record (readable identifier)",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 255
               },
               "domain": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                "description": "Domain where the referenced record is located (required for cross-domain references)",
                 "pattern": "^[a-zA-Z\\-]+$",
                 "maxLength": 100,
                 "examples": [
@@ -758,14 +758,14 @@
               },
               "flow": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu flow adı",
+                "description": "Flow name where the referenced record is located",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 100
               },
               "version": {
                 "type": "string",
                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                 "maxLength": 50
               }
             },
@@ -797,7 +797,7 @@
               }
             ]
           },
-          "description": "Workflow ile ilişkili feature referansları"
+          "description": "Feature references associated with the workflow"
         },
         "startTransition": {
           "type": "object",
@@ -853,13 +853,13 @@
                   "properties": {
                     "key": {
                       "type": "string",
-                      "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                      "description": "Key value of the referenced record (readable identifier)",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
                     "domain": {
                       "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                      "description": "Domain where the referenced record is located (required for cross-domain references)",
                       "pattern": "^[a-z]+$",
                       "maxLength": 100,
                       "examples": [
@@ -871,14 +871,14 @@
                     },
                     "flow": {
                       "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu flow adı",
+                      "description": "Flow name where the referenced record is located",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 100
                     },
                     "version": {
                       "type": "string",
                       "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                      "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                      "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                       "maxLength": 50
                     }
                   },
@@ -927,11 +927,11 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "description": "Rule kodu"
+                      "description": "Rule code"
                     },
                     "location": {
                       "type": "string",
-                      "description": "Kod dosyasının konumu"
+                      "description": "Location of the code file"
                     }
                   },
                   "additionalProperties": false
@@ -953,11 +953,11 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "description": "Rule kodu"
+                      "description": "Rule code"
                     },
                     "location": {
                       "type": "string",
-                      "description": "Kod dosyasının konumu"
+                      "description": "Location of the code file"
                     }
                   },
                   "additionalProperties": false
@@ -979,12 +979,12 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "description": "Kullanıcıya gösterilecek metin içeriği",
+                    "description": "Text content to be displayed to the user",
                     "maxLength": 500
                   },
                   "language": {
                     "type": "string",
-                    "description": "ISO 639 formatında dil kodu",
+                    "description": "Language code in ISO 639 format",
                     "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                     "maxLength": 10
                   }
@@ -1026,11 +1026,11 @@
                       "items": {
                         "type": "string"
                       },
-                      "description": "View'e uygulanacak eklentilerin listesi."
+                      "description": "List of extensions to be applied to the View."
                     },
                     "loadData": {
                       "type": "boolean",
-                      "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
+                      "description": "Specifies whether data will be loaded for the View."
                     },
                     "view": {
                       "anyOf": [
@@ -1039,13 +1039,13 @@
                           "properties": {
                             "key": {
                               "type": "string",
-                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "description": "Key value of the referenced record (readable identifier)",
                               "pattern": "^[a-z0-9-]+$",
                               "maxLength": 255
                             },
                             "domain": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "description": "Domain where the referenced record is located (required for cross-domain references)",
                               "pattern": "^[a-zA-Z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -1057,14 +1057,14 @@
                             },
                             "flow": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "description": "Flow name where the referenced record is located",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100
                             },
                             "version": {
                               "type": "string",
                               "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                               "maxLength": 50
                             }
                           },
@@ -1132,13 +1132,13 @@
                     "properties": {
                       "key": {
                         "type": "string",
-                        "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                        "description": "Key value of the referenced record (readable identifier)",
                         "pattern": "^[a-z0-9-]+$",
                         "maxLength": 255
                       },
                       "domain": {
                         "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                        "description": "Domain where the referenced record is located (required for cross-domain references)",
                         "pattern": "^[a-zA-Z\\-]+$",
                         "maxLength": 100,
                         "examples": [
@@ -1150,14 +1150,14 @@
                       },
                       "flow": {
                         "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu flow adı",
+                        "description": "Flow name where the referenced record is located",
                         "pattern": "^[a-z\\-]+$",
                         "maxLength": 100
                       },
                       "version": {
                         "type": "string",
                         "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                        "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                        "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                         "maxLength": 50
                       }
                     },
@@ -1203,7 +1203,7 @@
                       },
                       "location": {
                         "type": "string",
-                        "description": "Kod dosyasının konumu"
+                        "description": "Location of the code file"
                       }
                     },
                     "additionalProperties": false
@@ -1222,7 +1222,7 @@
             "labels"
           ],
           "additionalProperties": false,
-          "description": "Workflow'u başlatan initial transition"
+          "description": "Initial transition that starts the workflow"
         },
         "states": {
           "type": "array",
@@ -1231,7 +1231,7 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "State'in anahtar değeri. Workflow içinde benzersiz olmalıdır.",
+                "description": "State key value. Must be unique within the workflow.",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 255
               },
@@ -1244,7 +1244,7 @@
                   4,
                   5
                 ],
-                "description": "State'in türü. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
+                "description": "State type. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
               },
               "stateSubType": {
                 "type": "integer",
@@ -1253,7 +1253,7 @@
                   2,
                   3
                 ],
-                "description": "Final state'ler için alt tür. 1=Success, 2=Failed, 3=Cancelled"
+                "description": "Sub-type for final states. 1=Success, 2=Failed, 3=Cancelled"
               },
               "versionStrategy": {
                 "type": "string",
@@ -1261,7 +1261,7 @@
                   "Minor",
                   "Major"
                 ],
-                "description": "State'in versiyon yönetim stratejisi",
+                "description": "State version management strategy",
                 "maxLength": 50
               },
               "labels": {
@@ -1275,12 +1275,12 @@
                   "properties": {
                     "label": {
                       "type": "string",
-                      "description": "Kullanıcıya gösterilecek metin içeriği",
+                      "description": "Text content to be displayed to the user",
                       "maxLength": 500
                     },
                     "language": {
                       "type": "string",
-                      "description": "ISO 639 formatında dil kodu",
+                      "description": "Language code in ISO 639 format",
                       "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                       "maxLength": 10
                     }
@@ -1310,7 +1310,7 @@
                     }
                   ]
                 ],
-                "description": "State'in çoklu dil etiketleri"
+                "description": "Multi-language labels of the state"
               },
               "view": {
                 "anyOf": [
@@ -1322,11 +1322,11 @@
                         "items": {
                           "type": "string"
                         },
-                        "description": "View'e uygulanacak eklentilerin listesi."
+                        "description": "List of extensions to be applied to the View."
                       },
                       "loadData": {
                         "type": "boolean",
-                        "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
+                        "description": "Specifies whether data will be loaded for the View."
                       },
                       "view": {
                         "anyOf": [
@@ -1335,13 +1335,13 @@
                             "properties": {
                               "key": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                "description": "Key value of the referenced record (readable identifier)",
                                 "pattern": "^[a-z0-9-]+$",
                                 "maxLength": 255
                               },
                               "domain": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                "description": "Domain where the referenced record is located (required for cross-domain references)",
                                 "pattern": "^[a-zA-Z\\-]+$",
                                 "maxLength": 100,
                                 "examples": [
@@ -1353,14 +1353,14 @@
                               },
                               "flow": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın bulunduğu flow adı",
+                                "description": "Flow name where the referenced record is located",
                                 "pattern": "^[a-z\\-]+$",
                                 "maxLength": 100
                               },
                               "version": {
                                 "type": "string",
                                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                                 "maxLength": 50
                               }
                             },
@@ -1414,18 +1414,17 @@
                     "type": "object",
                     "required": [
                       "type",
-                      "process"
+                      "process",
+                      "mapping"
                     ],
                     "properties": {
                       "type": {
                         "type": "string",
                         "enum": [
-                          "C",
-                          "F",
                           "S",
                           "P"
                         ],
-                        "description": "SubFlow türü. C=Core, F=Flow, S=SubFlow, P=SubProcess",
+                        "description": "SubFlow type. S=SubFlow, P=SubProcess",
                         "maxLength": 10
                       },
                       "process": {
@@ -1433,13 +1432,13 @@
                         "properties": {
                           "key": {
                             "type": "string",
-                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                            "description": "Key value of the referenced record (readable identifier)",
                             "pattern": "^[a-zA-Z0-9\\-]+$",
                             "maxLength": 255
                           },
                           "domain": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                            "description": "Domain where the referenced record is located (required for cross-domain references)",
                             "pattern": "^[a-zA-Z\\-]+$",
                             "maxLength": 100,
                             "examples": [
@@ -1451,14 +1450,14 @@
                           },
                           "flow": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu flow adı",
+                            "description": "Flow name where the referenced record is located",
                             "pattern": "^[a-z\\-]+$",
                             "maxLength": 100
                           },
                           "version": {
                             "type": "string",
                             "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                            "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                             "maxLength": 50
                           }
                         },
@@ -1489,7 +1488,7 @@
                             "version": "1.2.3"
                           }
                         ],
-                        "description": "SubFlow process referansı"
+                        "description": "SubFlow process reference"
                       },
                       "mapping": {
                         "anyOf": [
@@ -1502,11 +1501,11 @@
                             "properties": {
                               "code": {
                                 "type": "string",
-                                "description": "SubFlow mapping kodu"
+                                "description": "SubFlow mapping code"
                               },
                               "location": {
                                 "type": "string",
-                                "description": "Mapping kod dosyasının konumu"
+                                "description": "Location of the mapping code file"
                               }
                             },
                             "additionalProperties": false
@@ -1515,7 +1514,74 @@
                             "type": "null"
                           }
                         ],
-                        "description": "SubFlow ile veri alışverişi için mapping tanımı"
+                        "description": "Mapping definition for data exchange with SubFlow"
+                      },
+                      "viewOverrides": {
+                        "type": "object",
+                        "description": "Dictionary of view overrides for subflow views. Key is the original view key, value is the reference to the new view definition.",
+                        "patternProperties": {
+                          "^[a-zA-Z0-9\\-]+$": {
+                            "description": "Generic reference - can be either explicit reference or ref",
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "description": "Explicit reference",
+                                "required": [
+                                  "key",
+                                  "domain",
+                                  "flow",
+                                  "version"
+                                ],
+                                "properties": {
+                                  "key": {
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "domain": {
+                                    "type": "string"
+                                  },
+                                  "flow": {
+                                    "type": "string"
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                                  }
+                                },
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "key"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "id"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "description": "Reference using ref",
+                                "required": [
+                                  "ref"
+                                ],
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "description": "Reference to component file"
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "additionalProperties": false
                       }
                     },
                     "additionalProperties": false
@@ -1524,7 +1590,7 @@
                     "type": "null"
                   }
                 ],
-                "description": "SubFlow state türü için çağrılacak alt workflow'un bilgisi. Geliştiricinin subflow tanımı yoksa null olabilir."
+                "description": "Information of the sub-workflow to be called for SubFlow state type. Can be null if the developer has no subflow definition."
               },
               "transitions": {
                 "type": "array",
@@ -1533,19 +1599,19 @@
                   "properties": {
                     "key": {
                       "type": "string",
-                      "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
+                      "description": "Transition key value. Used in transition requests and is unique within the flow.",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
                     "target": {
                       "type": "string",
-                      "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
+                      "description": "State key that will be reached when the transition is successfully completed",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
                     "from": {
                       "type": "string",
-                      "description": "Kaynak state key'i",
+                      "description": "Source state key",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
@@ -1555,7 +1621,7 @@
                         "Minor",
                         "Major"
                       ],
-                      "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
+                      "description": "Version increment strategy after successful transition",
                       "maxLength": 50
                     },
                     "triggerType": {
@@ -1566,14 +1632,14 @@
                         2,
                         3
                       ],
-                      "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                      "description": "Trigger type. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
                     },
                     "availableIn": {
                       "type": "array",
                       "items": {
                         "type": "string"
                       },
-                      "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                      "description": "List of states where this transition can be used"
                     },
                     "schema": {
                       "anyOf": [
@@ -1582,13 +1648,13 @@
                           "properties": {
                             "key": {
                               "type": "string",
-                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "description": "Key value of the referenced record (readable identifier)",
                               "pattern": "^[a-z0-9-]+$",
                               "maxLength": 255
                             },
                             "domain": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "description": "Domain where the referenced record is located (required for cross-domain references)",
                               "pattern": "^[a-zA-Z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -1600,14 +1666,14 @@
                             },
                             "flow": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "description": "Flow name where the referenced record is located",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100
                             },
                             "version": {
                               "type": "string",
                               "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                               "maxLength": 50
                             }
                           },
@@ -1643,7 +1709,7 @@
                           "type": "null"
                         }
                       ],
-                      "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
+                      "description": "Data schema reference that must be sent to execute the transition"
                     },
                     "rule": {
                       "anyOf": [
@@ -1656,11 +1722,11 @@
                           "properties": {
                             "code": {
                               "type": "string",
-                              "description": "Rule kodu"
+                              "description": "Rule code"
                             },
                             "location": {
                               "type": "string",
-                              "description": "Kod dosyasının konumu"
+                              "description": "Location of the code file"
                             }
                           },
                           "additionalProperties": false
@@ -1669,7 +1735,7 @@
                           "type": "null"
                         }
                       ],
-                      "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
+                      "description": "Code where the rule is defined if rule-based progression will occur"
                     },
                     "timer": {
                       "anyOf": [
@@ -1682,11 +1748,11 @@
                           "properties": {
                             "code": {
                               "type": "string",
-                              "description": "Rule kodu"
+                              "description": "Rule code"
                             },
                             "location": {
                               "type": "string",
-                              "description": "Kod dosyasının konumu"
+                              "description": "Location of the code file"
                             }
                           },
                           "additionalProperties": false
@@ -1695,7 +1761,7 @@
                           "type": "null"
                         }
                       ],
-                      "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
+                      "description": "Timing information if the transition will run automatically"
                     },
                     "labels": {
                       "type": "array",
@@ -1708,12 +1774,12 @@
                         "properties": {
                           "label": {
                             "type": "string",
-                            "description": "Kullanıcıya gösterilecek metin içeriği",
+                            "description": "Text content to be displayed to the user",
                             "maxLength": 500
                           },
                           "language": {
                             "type": "string",
-                            "description": "ISO 639 formatında dil kodu",
+                            "description": "Language code in ISO 639 format",
                             "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                             "maxLength": 10
                           }
@@ -1743,7 +1809,7 @@
                           }
                         ]
                       ],
-                      "description": "Çok dilli geçiş ismi"
+                      "description": "Multi-language transition name"
                     },
                     "view": {
                       "anyOf": [
@@ -1755,11 +1821,11 @@
                               "items": {
                                 "type": "string"
                               },
-                              "description": "View'e uygulanacak eklentilerin listesi."
+                              "description": "List of extensions to be applied to the View."
                             },
                             "loadData": {
                               "type": "boolean",
-                              "description": "View için verinin yüklenip yüklenmeyeceğini belirtir."
+                              "description": "Specifies whether data will be loaded for the View."
                             },
                             "view": {
                               "anyOf": [
@@ -1768,13 +1834,13 @@
                                   "properties": {
                                     "key": {
                                       "type": "string",
-                                      "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                      "description": "Key value of the referenced record (readable identifier)",
                                       "pattern": "^[a-z0-9-]+$",
                                       "maxLength": 255
                                     },
                                     "domain": {
                                       "type": "string",
-                                      "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                      "description": "Domain where the referenced record is located (required for cross-domain references)",
                                       "pattern": "^[a-zA-Z\\-]+$",
                                       "maxLength": 100,
                                       "examples": [
@@ -1786,14 +1852,14 @@
                                     },
                                     "flow": {
                                       "type": "string",
-                                      "description": "Referans edilen kaydın bulunduğu flow adı",
+                                      "description": "Flow name where the referenced record is located",
                                       "pattern": "^[a-z\\-]+$",
                                       "maxLength": 100
                                     },
                                     "version": {
                                       "type": "string",
                                       "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                                      "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                      "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                                       "maxLength": 50
                                     }
                                   },
@@ -1829,7 +1895,7 @@
                                   "type": "null"
                                 }
                               ],
-                              "description": "View referansı"
+                              "description": "View reference"
                             }
                           },
                           "required": [
@@ -1854,20 +1920,20 @@
                           "order": {
                             "type": "integer",
                             "minimum": 1,
-                            "description": "Görevin çalışma sırası"
+                            "description": "Task execution order"
                           },
                           "task": {
                             "type": "object",
                             "properties": {
                               "key": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                "description": "Key value of the referenced record (readable identifier)",
                                 "pattern": "^[a-zA-Z0-9\\-]+$",
                                 "maxLength": 255
                               },
                               "domain": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                "description": "Domain where the referenced record is located (required for cross-domain references)",
                                 "pattern": "^[a-zA-Z\\-]+$",
                                 "maxLength": 100,
                                 "examples": [
@@ -1879,14 +1945,14 @@
                               },
                               "flow": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın bulunduğu flow adı",
+                                "description": "Flow name where the referenced record is located",
                                 "pattern": "^[a-z\\-]+$",
                                 "maxLength": 100
                               },
                               "version": {
                                 "type": "string",
                                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                                 "maxLength": 50
                               }
                             },
@@ -1917,7 +1983,7 @@
                                 "version": "1.2.3"
                               }
                             ],
-                            "description": "Çalıştırılacak task referansı"
+                            "description": "Task reference to be executed"
                           },
                           "mapping": {
                             "type": "object",
@@ -1928,11 +1994,11 @@
                             "properties": {
                               "code": {
                                 "type": "string",
-                                "description": "Mapping kodu"
+                                "description": "Mapping code"
                               },
                               "location": {
                                 "type": "string",
-                                "description": "Kod dosyasının konumu"
+                                "description": "Location of the code file"
                               }
                             },
                             "additionalProperties": false
@@ -1940,7 +2006,7 @@
                         },
                         "additionalProperties": false
                       },
-                      "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+                      "description": "Tasks to be executed when the transition is triggered"
                     }
                   },
                   "required": [
@@ -1952,7 +2018,7 @@
                   ],
                   "additionalProperties": false
                 },
-                "description": "Bu state'den çıkış yapılabilecek geçişlerin listesi"
+                "description": "List of transitions that can exit from this state"
               },
               "onEntries": {
                 "type": "array",
@@ -1974,13 +2040,13 @@
                       "properties": {
                         "key": {
                           "type": "string",
-                          "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                          "description": "Key value of the referenced record (readable identifier)",
                           "pattern": "^[a-z0-9-]+$",
                           "maxLength": 255
                         },
                         "domain": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                          "description": "Domain where the referenced record is located (required for cross-domain references)",
                           "pattern": "^[a-zA-Z\\-]+$",
                           "maxLength": 100,
                           "examples": [
@@ -1992,14 +2058,14 @@
                         },
                         "flow": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu flow adı",
+                          "description": "Flow name where the referenced record is located",
                           "pattern": "^[a-z\\-]+$",
                           "maxLength": 100
                         },
                         "version": {
                           "type": "string",
                           "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                          "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                          "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                           "maxLength": 50
                         }
                       },
@@ -2045,7 +2111,7 @@
                         },
                         "location": {
                           "type": "string",
-                          "description": "Kod dosyasının konumu"
+                          "description": "Location of the code file"
                         }
                       },
                       "additionalProperties": false
@@ -2053,7 +2119,7 @@
                   },
                   "additionalProperties": false
                 },
-                "description": "State'e girildiğinde çalıştırılacak görevler"
+                "description": "Tasks to be executed when entering the state"
               },
               "onExits": {
                 "type": "array",
@@ -2075,13 +2141,13 @@
                       "properties": {
                         "key": {
                           "type": "string",
-                          "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                          "description": "Key value of the referenced record (readable identifier)",
                           "pattern": "^[a-z0-9-]+$",
                           "maxLength": 255
                         },
                         "domain": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                          "description": "Domain where the referenced record is located (required for cross-domain references)",
                           "pattern": "^[a-zA-Z\\-]+$",
                           "maxLength": 100,
                           "examples": [
@@ -2093,14 +2159,14 @@
                         },
                         "flow": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu flow adı",
+                          "description": "Flow name where the referenced record is located",
                           "pattern": "^[a-z\\-]+$",
                           "maxLength": 100
                         },
                         "version": {
                           "type": "string",
                           "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                          "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                          "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                           "maxLength": 50
                         }
                       },
@@ -2146,7 +2212,7 @@
                         },
                         "location": {
                           "type": "string",
-                          "description": "Kod dosyasının konumu"
+                          "description": "Location of the code file"
                         }
                       },
                       "additionalProperties": false
@@ -2154,17 +2220,17 @@
                   },
                   "additionalProperties": false
                 },
-                "description": "State'den çıkılırken çalıştırılacak görevler"
+                "description": "Tasks to be executed when exiting the state"
               },
               "onExecutionTasks": {
                 "type": "array",
-                "description": "State execution sırasında çalıştırılacak görevler dizisi",
+                "description": "Array of tasks to be executed during state execution",
                 "items": {
                   "type": "object",
                   "properties": {
                     "order": {
                       "type": "integer",
-                      "description": "Görevin çalışma sırası. Aynı sıradaki görevler paralel çalıştırılır.",
+                      "description": "Task execution order. Tasks with the same order are executed in parallel.",
                       "minimum": 1
                     },
                     "task": {
@@ -2201,11 +2267,11 @@
                       "properties": {
                         "code": {
                           "type": "string",
-                          "description": "Mapping script kod içeriği"
+                          "description": "Mapping script code content"
                         },
                         "location": {
                           "type": "string",
-                          "description": "Mapping kod dosyasının konumu"
+                          "description": "Location of the mapping code file"
                         }
                       },
                       "required": [
@@ -2223,7 +2289,7 @@
                           "location": "./src/mappings/dataTransform.js"
                         }
                       ],
-                      "description": "Göreve iletilecek ve geri dönüşümde alınacak verilerin mapping tanımı"
+                      "description": "Mapping definition for data to be sent to the task and received on return"
                     }
                   },
                   "required": [
@@ -2256,7 +2322,7 @@
               }
             }
           },
-          "description": "Workflow'u oluşturan state'lerin listesi"
+          "description": "List of states that make up the workflow"
         }
       },
       "required": [
