@@ -616,22 +616,72 @@
                           "description": "Task reference to be executed"
                         },
                         "mapping": {
-                          "type": "object",
-                          "required": [
-                            "code",
-                            "location"
-                          ],
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Mapping code"
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "G",
+                                  "description": "Global mapping - code and location not reqired"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "additionalProperties": false
                             },
-                            "location": {
-                              "type": "string",
-                              "description": "Location of the code file"
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "oneOf": [
+                                    {
+                                      "const": "L",
+                                      "description": "Local mapping - code and location is reqired"
+                                    }
+                                  ],
+                                  "description": "Task type"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
                             }
-                          },
-                          "additionalProperties": false
+                          ],
+                          "description": "Mapping definition"
                         }
                       },
                       "additionalProperties": false
@@ -1188,26 +1238,76 @@
                         "version": "1.2.3"
                       }
                     ],
-                    "description": "Çalıştırılacak task referansı"
+                    "description": "Task reference to be run"
                   },
                   "mapping": {
-                    "type": "object",
-                    "required": [
-                      "code",
-                      "location"
-                    ],
-                    "properties": {
-                      "code": {
-                        "type": "string",
-                        "description": "Mapping kodu"
-                      },
-                      "location": {
-                        "type": "string",
-                        "description": "Location of the code file"
-                      }
-                    },
-                    "additionalProperties": false
-                  }
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "G",
+                                  "description": "Global mapping - code ve location not required"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "oneOf": [
+                                    {
+                                      "const": "L",
+                                      "description": "Local mapping - code and location is reqired"
+                                    }
+                                  ],
+                                  "description": "Task type"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ],
+                          "description": "Mapping definition"
+                        }
                 },
                 "additionalProperties": false
               },
@@ -1986,23 +2086,73 @@
                             "description": "Task reference to be executed"
                           },
                           "mapping": {
-                            "type": "object",
-                            "required": [
-                              "code",
-                              "location"
-                            ],
-                            "properties": {
-                              "code": {
-                                "type": "string",
-                                "description": "Mapping code"
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "G",
+                                  "description": "Global mapping - code and location not reqired"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
                               },
-                              "location": {
-                                "type": "string",
-                                "description": "Location of the code file"
-                              }
+                              "additionalProperties": false
                             },
-                            "additionalProperties": false
-                          }
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "oneOf": [
+                                    {
+                                      "const": "L",
+                                      "description": "Local mapping - code and location is reqired"
+                                    }
+                                  ],
+                                  "description": "Task type"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ],
+                          "description": "Mapping definition"
+                        }
                         },
                         "additionalProperties": false
                       },
@@ -2096,26 +2246,76 @@
                           "version": "1.2.3"
                         }
                       ],
-                      "description": "Çalıştırılacak task referansı"
+                      "description": "Task reference to be run"
                     },
                     "mapping": {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Mapping kodu"
-                        },
-                        "location": {
-                          "type": "string",
-                          "description": "Location of the code file"
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "G",
+                                  "description": "Global mapping - code and location not reqired"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "oneOf": [
+                                    {
+                                      "const": "L",
+                                      "description": "Local mapping - code and location is reqired"
+                                    }
+                                  ],
+                                  "description": "Task type"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ],
+                          "description": "Mapping definition"
                         }
-                      },
-                      "additionalProperties": false
-                    }
                   },
                   "additionalProperties": false
                 },
@@ -2197,26 +2397,76 @@
                           "version": "1.2.3"
                         }
                       ],
-                      "description": "Çalıştırılacak task referansı"
+                      "description": "Task reference to be run"
                     },
                     "mapping": {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Mapping kodu"
-                        },
-                        "location": {
-                          "type": "string",
-                          "description": "Location of the code file"
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "G",
+                                  "description": "Global mapping - code and location not reqired"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "oneOf": [
+                                    {
+                                      "const": "L",
+                                      "description": "Local mapping - code and location is reqired"
+                                    }
+                                  ],
+                                  "description": "Task type"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ],
+                          "description": "Mapping definition"
                         }
-                      },
-                      "additionalProperties": false
-                    }
                   },
                   "additionalProperties": false
                 },
@@ -2263,34 +2513,73 @@
                       }
                     },
                     "mapping": {
-                      "type": "object",
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Mapping script code content"
-                        },
-                        "location": {
-                          "type": "string",
-                          "description": "Location of the mapping code file"
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "G",
+                                  "description": "Global mapping - code and location not reqired"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "oneOf": [
+                                    {
+                                      "const": "L",
+                                      "description": "Local mapping - code and location is reqired"
+                                    }
+                                  ],
+                                  "description": "Task type"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "location"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ],
+                          "description": "Mapping definition"
                         }
-                      },
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "additionalProperties": false,
-                      "examples": [
-                        {
-                          "code": "return { userId: input.id, name: input.fullName };",
-                          "location": "./src/mappings/userMapping.js"
-                        },
-                        {
-                          "code": "return input.data.map(item => ({ id: item.key, value: item.val }));",
-                          "location": "./src/mappings/dataTransform.js"
-                        }
-                      ],
-                      "description": "Mapping definition for data to be sent to the task and received on return"
-                    }
                   },
                   "required": [
                     "order",
