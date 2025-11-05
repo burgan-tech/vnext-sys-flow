@@ -13,60 +13,42 @@
     "attributes": {
         "type": "view",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://schemas.vnext.com/core/view.json",
+        "$id": "https://vnext.io/schemas/core/view.json",
         "title": "View Definition",
-        "description": "vNext platformunda view tanımları için şema. View içerik türü, hedef ve içerik bilgilerini içerir.",
+        "description": "Schema for view definitions in vNext platform. Contains view content type, target and content information.",
         "schema": {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
-            "$id": "https://schemas.vnext.com/core/view.json",
+            "$id": "https://vnext.io/schemas/core/view.json",
             "title": "View Definition",
-            "description": "vNext platformunda view tanımları için şema. View içerik türü, hedef ve içerik bilgilerini içerir.",
+            "description": "Schema for view definitions in vNext platform. Contains view content type, target and content information.",
             "type": "object",
             "properties": {
                 "type": {
                     "type": "integer",
-                    "description": "View içerik türü",
+                    "description": "View content type",
                     "oneOf": [
                         {
                             "const": 1,
-                            "description": "Json içerik türü"
+                            "description": "Json content type"
                         },
                         {
                             "const": 2,
-                            "description": "Html içerik türü"
+                            "description": "Html content type"
                         },
                         {
                             "const": 3,
-                            "description": "Markdown içerik türü"
-                        }
-                    ]
-                },
-                "target": {
-                    "type": "integer",
-                    "description": "View'in hedef aldığı workflow component türü",
-                    "oneOf": [
-                        {
-                            "const": 1,
-                            "description": "State hedefli view"
-                        },
-                        {
-                            "const": 2,
-                            "description": "Transition hedefli view"
-                        },
-                        {
-                            "const": 3,
-                            "description": "Task hedefli view"
+                            "description": "Markdown content type"
                         }
                     ]
                 },
                 "content": {
                     "type": "string",
-                    "description": "View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+                    "description": "View content. Can be in Json, Html or Markdown format.",
                     "minLength": 1
                 },
                 "display": {
                     "type": "string",
-                    "description": "View'in display tipi. Örnek full-page",
+                    "description": "View display type. Example: full-page",
                     "minLength": 1
                 },
                 "labels": {
@@ -80,12 +62,12 @@
                         "properties": {
                             "label": {
                                 "type": "string",
-                                "description": "Kullanıcıya gösterilecek metin içeriği",
+                                "description": "Text content to be displayed to the user",
                                 "maxLength": 500
                             },
                             "language": {
                                 "type": "string",
-                                "description": "ISO 639 formatında dil kodu",
+                                "description": "Language code in ISO 639 format",
                                 "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                                 "maxLength": 10
                             }
@@ -115,7 +97,7 @@
                             }
                         ]
                     ],
-                    "description": "Workflow'un çoklu dil etiketleri"
+                    "description": "Multi-language labels of the workflow"
                 },
                 "platformOverrides": {
                     "anyOf": [
@@ -129,30 +111,30 @@
                                             "properties": {
                                                 "type": {
                                                     "type": "integer",
-                                                    "description": "Android ortamda override edilecek View ın  içerik türü",
+                                                    "description": "Content type of the View to be overridden in Android environment",
                                                     "oneOf": [
                                                         {
                                                             "const": 1,
-                                                            "description": "Json içerik türü"
+                                                            "description": "Json content type"
                                                         },
                                                         {
                                                             "const": 2,
-                                                            "description": "Html içerik türü"
+                                                            "description": "Html content type"
                                                         },
                                                         {
                                                             "const": 3,
-                                                            "description": "Markdown içerik türü"
+                                                            "description": "Markdown content type"
                                                         }
                                                     ]
                                                 },
                                                 "content": {
-                                                    "description": "Android ortamda override edilecek View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+                                                    "description": "Content of the View to be overridden in Android environment. Can be in Json, Html or Markdown format.",
                                                     "type": "string",
                                                     "minLength": 1
                                                 },
                                                 "display": {
                                                     "type": "string",
-                                                    "description": "View'in display tipi.",
+                                                    "description": "View display type.",
                                                     "pattern": "^[a-z\\-]+$",
                                                     "maxLength": 100,
                                                     "examples": [
@@ -185,7 +167,7 @@
                                             "type": "null"
                                         }
                                     ],
-                                    "description": "Android ortamda override edilecek View"
+                                    "description": "View to be overridden in Android environment"
                                 },
                                 "ios": {
                                     "anyOf": [
@@ -194,30 +176,30 @@
                                             "properties": {
                                                 "type": {
                                                     "type": "integer",
-                                                    "description": "Ios ortamda override edilecek View ın  içerik türü",
+                                                    "description": "Content type of the View to be overridden in iOS environment",
                                                     "oneOf": [
                                                         {
                                                             "const": 1,
-                                                            "description": "Json içerik türü"
+                                                            "description": "Json content type"
                                                         },
                                                         {
                                                             "const": 2,
-                                                            "description": "Html içerik türü"
+                                                            "description": "Html content type"
                                                         },
                                                         {
                                                             "const": 3,
-                                                            "description": "Markdown içerik türü"
+                                                            "description": "Markdown content type"
                                                         }
                                                     ]
                                                 },
                                                 "content": {
-                                                    "description": "Ios ortamda override edilecek View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+                                                    "description": "Content of the View to be overridden in iOS environment. Can be in Json, Html or Markdown format.",
                                                     "type": "string",
                                                     "minLength": 1
                                                 },
                                                 "display": {
                                                     "type": "string",
-                                                    "description": "View'in display tipi.",
+                                                    "description": "View display type.",
                                                     "pattern": "^[a-z\\-]+$",
                                                     "maxLength": 100,
                                                     "examples": [
@@ -250,7 +232,7 @@
                                             "type": "null"
                                         }
                                     ],
-                                    "description": "Ios ortamda override edilecek View"
+                                    "description": "View to be overridden in iOS environment"
                                 },
                                 "web": {
                                     "anyOf": [
@@ -259,30 +241,30 @@
                                             "properties": {
                                                 "type": {
                                                     "type": "integer",
-                                                    "description": "Web ortamda override edilecek View ın  içerik türü",
+                                                    "description": "Content type of the View to be overridden in Web environment",
                                                     "oneOf": [
                                                         {
                                                             "const": 1,
-                                                            "description": "Json içerik türü"
+                                                            "description": "Json content type"
                                                         },
                                                         {
                                                             "const": 2,
-                                                            "description": "Html içerik türü"
+                                                            "description": "Html content type"
                                                         },
                                                         {
                                                             "const": 3,
-                                                            "description": "Markdown içerik türü"
+                                                            "description": "Markdown content type"
                                                         }
                                                     ]
                                                 },
                                                 "content": {
-                                                    "description": "Web ortamda override edilecek View'in içeriği. Json, Html veya Markdown formatında olabilir.",
+                                                    "description": "Content of the View to be overridden in Web environment. Can be in Json, Html or Markdown format.",
                                                     "type": "string",
                                                     "minLength": 1
                                                 },
                                                 "display": {
                                                     "type": "string",
-                                                    "description": "View'in display tipi.",
+                                                    "description": "View display type.",
                                                     "pattern": "^[a-z\\-]+$",
                                                     "maxLength": 100,
                                                     "examples": [
@@ -315,7 +297,7 @@
                                             "type": "null"
                                         }
                                     ],
-                                    "description": "Web ortamda override edilecek View"
+                                    "description": "View to be overridden in Web environment"
                                 }
                             },
                             "additionalProperties": false
@@ -324,12 +306,11 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Platform bazında override edilecek view lar"
+                    "description": "Views to be overridden on a platform basis"
                 }
             },
             "required": [
                 "type",
-                "target",
                 "content"
             ],
             "additionalProperties": false

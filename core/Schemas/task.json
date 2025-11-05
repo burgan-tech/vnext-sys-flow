@@ -12,20 +12,20 @@
   ],
   "attributes": {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://schemas.vnext.com/core/task.json",
+    "$id": "https://vnext.io/schemas/core/task.json",
     "title": "Task Definition",
-    "description": "Polimorfik task tanımları. Task tipine göre farklı konfigürasyon şemaları kullanır.",
+    "description": "Polymorphic task definitions. Uses different configuration schemas based on task type.",
     "type": "task",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://schemas.vnext.com/core/task.json",
+      "$id": "https://vnext.io/schemas/core/task.json",
       "title": "Task Definition",
-      "description": "Polimorfik task tanımları. Task tipine göre farklı konfigürasyon şemaları kullanır.",
+      "description": "Polymorphic task definitions. Uses different configuration schemas based on task type.",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "description": "Task tipi (TaskType enum değeri string olarak)",
+          "description": "Task type (TaskType enum value as string)",
           "enum": [
             "1",
             "2",
@@ -38,7 +38,7 @@
         },
         "config": {
           "type": "object",
-          "description": "Task konfigürasyon objesi"
+          "description": "Task configuration object"
         }
       },
       "required": [
@@ -62,11 +62,11 @@
               },
               "config": {
                 "type": "object",
-                "description": "Dapr HTTP Endpoint konfigürasyonu",
+                "description": "Dapr HTTP Endpoint configuration",
                 "properties": {
                   "endpointName": {
                     "type": "string",
-                    "description": "Dapr HTTP endpoint adı",
+                    "description": "Dapr HTTP endpoint name",
                     "minLength": 1
                   },
                   "path": {
@@ -76,7 +76,7 @@
                   },
                   "method": {
                     "type": "string",
-                    "description": "HTTP metodu",
+                    "description": "HTTP method",
                     "enum": [
                       "GET",
                       "POST",
@@ -88,7 +88,7 @@
                   },
                   "headers": {
                     "type": "object",
-                    "description": "HTTP header bilgileri"
+                    "description": "HTTP header information"
                   }
                 },
                 "required": [
@@ -122,25 +122,25 @@
               },
               "config": {
                 "type": "object",
-                "description": "Dapr Binding konfigürasyonu",
+                "description": "Dapr Binding configuration",
                 "properties": {
                   "bindingName": {
                     "type": "string",
-                    "description": "Dapr binding adı",
+                    "description": "Dapr binding name",
                     "minLength": 1
                   },
                   "operation": {
                     "type": "string",
-                    "description": "Binding operasyonu",
+                    "description": "Binding operation",
                     "minLength": 1
                   },
                   "metadata": {
                     "type": "object",
-                    "description": "Binding metadata bilgileri"
+                    "description": "Binding metadata information"
                   },
                   "data": {
                     "type": "object",
-                    "description": "Binding data bilgileri"
+                    "description": "Binding data information"
                   }
                 },
                 "required": [
@@ -173,7 +173,7 @@
               },
               "config": {
                 "type": "object",
-                "description": "Dapr Service konfigürasyonu",
+                "description": "Dapr Service configuration",
                 "properties": {
                   "appId": {
                     "type": "string",
@@ -182,7 +182,7 @@
                   },
                   "methodName": {
                     "type": "string",
-                    "description": "Servis method adı",
+                    "description": "Service method name",
                     "minLength": 1
                   },
                   "httpVerb": {
@@ -198,15 +198,15 @@
                   },
                   "data": {
                     "type": "object",
-                    "description": "Servis çağrısı data"
+                    "description": "Service call data"
                   },
                   "queryString": {
                     "type": "string",
-                    "description": "Query string parametreleri"
+                    "description": "Query string parameters"
                   },
                   "timeoutSeconds": {
                     "type": "integer",
-                    "description": "Timeout süresi (saniye)",
+                    "description": "Timeout duration (seconds)",
                     "minimum": 1,
                     "default": 30
                   }
@@ -241,16 +241,16 @@
               },
               "config": {
                 "type": "object",
-                "description": "Dapr PubSub konfigürasyonu",
+                "description": "Dapr PubSub configuration",
                 "properties": {
                   "pubSubName": {
                     "type": "string",
-                    "description": "PubSub component adı",
+                    "description": "PubSub component name",
                     "minLength": 1
                   },
                   "topic": {
                     "type": "string",
-                    "description": "Topic adı",
+                    "description": "Topic name",
                     "minLength": 1
                   },
                   "data": {
@@ -292,21 +292,21 @@
               },
               "config": {
                 "type": "object",
-                "description": "Human Task konfigürasyonu",
+                "description": "Human Task configuration",
                 "properties": {
                   "title": {
                     "type": "string",
-                    "description": "Task başlığı",
+                    "description": "Task title",
                     "minLength": 1
                   },
                   "instructions": {
                     "type": "string",
-                    "description": "Task talimatları",
+                    "description": "Task instructions",
                     "minLength": 1
                   },
                   "assignedTo": {
                     "type": "string",
-                    "description": "Atanan kişi/grup",
+                    "description": "Assigned person/group",
                     "minLength": 1
                   },
                   "dueDate": {
@@ -314,25 +314,25 @@
                       "string",
                       "null"
                     ],
-                    "description": "Bitiş tarihi (ISO 8601 format)",
+                    "description": "Due date (ISO 8601 format)",
                     "format": "date-time"
                   },
                   "form": {
-                    "description": "Form tanımı JSON formatında"
+                    "description": "Form definition in JSON format"
                   },
                   "reminderIntervalMinutes": {
                     "type": "integer",
-                    "description": "Hatırlatma aralığı (dakika)",
+                    "description": "Reminder interval (minutes)",
                     "minimum": 0
                   },
                   "escalationTimeoutMinutes": {
                     "type": "integer",
-                    "description": "Escalation timeout (dakika)",
+                    "description": "Escalation timeout (minutes)",
                     "minimum": 0
                   },
                   "escalationAssignee": {
                     "type": "string",
-                    "description": "Escalation atanacak kişi/grup"
+                    "description": "Person/group to be assigned for escalation"
                   }
                 },
                 "required": [
@@ -366,7 +366,7 @@
               },
               "config": {
                 "type": "object",
-                "description": "HTTP Task konfigürasyonu",
+                "description": "HTTP Task configuration",
                 "properties": {
                   "url": {
                     "type": "string",
@@ -374,7 +374,7 @@
                   },
                   "method": {
                     "type": "string",
-                    "description": "HTTP metodu",
+                    "description": "HTTP method",
                     "enum": [
                       "GET",
                       "POST",
@@ -386,7 +386,7 @@
                   },
                   "headers": {
                     "type": "object",
-                    "description": "HTTP header bilgileri"
+                    "description": "HTTP header information"
                   },
                   "body": {
                     "type": "object",
@@ -394,13 +394,13 @@
                   },
                   "timeoutSeconds": {
                     "type": "integer",
-                    "description": "Timeout süresi (saniye)",
+                    "description": "Timeout duration (seconds)",
                     "minimum": 1,
                     "default": 30
                   },
                   "validateSsl": {
                     "type": "boolean",
-                    "description": "SSL doğrulaması yapılsın mı",
+                    "description": "Whether SSL validation should be performed",
                     "default": true
                   }
                 },
@@ -434,7 +434,7 @@
               },
               "config": {
                 "type": "object",
-                "description": "Script Task konfigürasyonu",
+                "description": "Script Task configuration",
                 "properties": {},
                 "additionalProperties": false
               }

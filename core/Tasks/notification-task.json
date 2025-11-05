@@ -1,0 +1,21 @@
+{
+  "key": "notification-task",
+  "version": "1.0.0",
+  "domain": "core",
+  "flow": "sys-tasks",
+  "flowVersion": "1.0.0",
+  "tags": [
+    "core",
+    "sys-tasks",
+    "components"
+  ],
+  "attributes": {
+    "type": "10",
+    "config": {
+      "metadata": {
+        "method": "post",
+        "ForwardingHeaders": "X-Installation-Id,X-Device-Id"
+      }
+    }
+  }
+}
