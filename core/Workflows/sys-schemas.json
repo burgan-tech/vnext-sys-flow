@@ -45,8 +45,7 @@
       "schema": {
         "ref": "Schemas/schema.json"
       },
-      "onExecutionTasks": [],
-      "view": null
+      "onExecutionTasks": []
     },
     "states": [
       {

@@ -45,8 +45,7 @@
       "schema": {
         "ref": "Schemas/task.json"
       },
-      "onExecutionTasks": [],
-      "view": null
+      "onExecutionTasks": []
     },
     "states": [
       {
@@ -319,98 +318,6 @@
       "attributes": {
         "type": "7",
         "config": {}
-      }
-    },
-    {
-      "key": "sys-get-data",
-      "version": "1.0.0",
-      "domain": "core",
-      "flow": "sys-tasks",
-      "flowVersion": "1.0.0",
-      "tags": [
-        "core",
-        "system",
-        "sys-tasks"
-      ],
-      "attributes": {
-        "type": "3",
-        "config": {
-          "appId": "vnext-app",
-          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/data",
-          "httpVerb": "GET",
-          "data": {},
-          "queryString": "",
-          "timeoutSeconds": 60
-        }
-      }
-    },
-    {
-      "key": "sys-get-transitions",
-      "version": "1.0.0",
-      "domain": "core",
-      "flow": "sys-tasks",
-      "flowVersion": "1.0.0",
-      "tags": [
-        "core",
-        "system",
-        "sys-tasks"
-      ],
-      "attributes": {
-        "type": "3",
-        "config": {
-          "appId": "vnext-app",
-          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/transitions/items",
-          "httpVerb": "GET",
-          "data": {},
-          "queryString": "",
-          "timeoutSeconds": 60
-        }
-      }
-    },
-    {
-      "key": "sys-get-view",
-      "version": "1.0.0",
-      "domain": "core",
-      "flow": "sys-tasks",
-      "flowVersion": "1.0.0",
-      "tags": [
-        "core",
-        "system",
-        "sys-tasks"
-      ],
-      "attributes": {
-        "type": "3",
-        "config": {
-          "appId": "vnext-app",
-          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/view",
-          "httpVerb": "GET",
-          "data": {},
-          "queryString": "",
-          "timeoutSeconds": 60
-        }
-      }
-    },
-    {
-      "key": "sys-get-correlations",
-      "version": "1.0.0",
-      "domain": "core",
-      "flow": "sys-tasks",
-      "flowVersion": "1.0.0",
-      "tags": [
-        "core",
-        "system",
-        "sys-tasks"
-      ],
-      "attributes": {
-        "type": "3",
-        "config": {
-          "appId": "vnext-app",
-          "methodName": "/api/v1/{domain}/workflows/{workflow}/instances/{instance}/correlations/active",
-          "httpVerb": "GET",
-          "data": {},
-          "queryString": "",
-          "timeoutSeconds": 60
-        }
       }
     },
     {

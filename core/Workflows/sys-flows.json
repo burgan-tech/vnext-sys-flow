@@ -26,9 +26,6 @@
     "functions": [],
     "sharedTransitions": [],
     "extensions": [
-      {
-        "ref": "Extensions/available-transitions.json"
-      }
     ],
     "features": [],
     "startTransition": {
@@ -49,8 +46,7 @@
       "schema": {
         "ref": "Schemas/workflow.json"
       },
-      "onExecutionTasks": [],
-      "view": null
+      "onExecutionTasks": []
     },
     "states": [
       {
