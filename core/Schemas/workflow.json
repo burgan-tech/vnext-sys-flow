@@ -889,13 +889,6 @@
               ],
               "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
             },
-            "availableIn": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
-            },
             "schema": {
               "anyOf": [
                 {
@@ -966,58 +959,6 @@
               ],
               "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
             },
-            "rule": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "required": [
-                    "code",
-                    "location"
-                  ],
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "description": "Rule code"
-                    },
-                    "location": {
-                      "type": "string",
-                      "description": "Location of the code file"
-                    }
-                  },
-                  "additionalProperties": false
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
-            },
-            "timer": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "required": [
-                    "code",
-                    "location"
-                  ],
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "description": "Rule code"
-                    },
-                    "location": {
-                      "type": "string",
-                      "description": "Location of the code file"
-                    }
-                  },
-                  "additionalProperties": false
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
-            },
             "labels": {
               "type": "array",
               "items": {
@@ -1065,102 +1006,6 @@
                 ]
               ],
               "description": "Çok dilli geçiş ismi"
-            },
-            "view": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "extensions": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "description": "List of extensions to be applied to the View."
-                    },
-                    "loadData": {
-                      "type": "boolean",
-                      "description": "Specifies whether data will be loaded for the View."
-                    },
-                    "view": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "key": {
-                              "type": "string",
-                              "description": "Key value of the referenced record (readable identifier)",
-                              "pattern": "^[a-z0-9-]+$",
-                              "maxLength": 255
-                            },
-                            "domain": {
-                              "type": "string",
-                              "description": "Domain where the referenced record is located (required for cross-domain references)",
-                              "pattern": "^[a-zA-Z\\-]+$",
-                              "maxLength": 100,
-                              "examples": [
-                                "core",
-                                "idm",
-                                "banking",
-                                "payment"
-                              ]
-                            },
-                            "flow": {
-                              "type": "string",
-                              "description": "Flow name where the referenced record is located",
-                              "pattern": "^[a-z\\-]+$",
-                              "maxLength": 100
-                            },
-                            "version": {
-                              "type": "string",
-                              "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
-                              "maxLength": 50
-                            }
-                          },
-                          "required": [
-                            "key",
-                            "domain",
-                            "flow",
-                            "version"
-                          ],
-                          "additionalProperties": false,
-                          "examples": [
-                            {
-                              "key": "user-authentication-workflow",
-                              "domain": "idm",
-                              "flow": "user-authentication",
-                              "version": "1.0.0"
-                            },
-                            {
-                              "key": "user-login-state",
-                              "domain": "core",
-                              "flow": "authentication",
-                              "version": "2.1.0"
-                            },
-                            {
-                              "key": "payment-validation-task",
-                              "domain": "banking",
-                              "flow": "payment-process",
-                              "version": "1.2.3"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ],
-                      "description": "View referansı"
-                    }
-                  },
-                  "required": [
-                    "view"
-                  ]
-                },
-                {
-                  "type": "null"
-                }
-              ]
             },
             "onExecutionTasks": {
               "type": "array",
@@ -1345,15 +1190,6 @@
                   5
                 ],
                 "description": "State type. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
-              },
-              "stateSubType": {
-                "type": "integer",
-                "enum": [
-                  1,
-                  2,
-                  3
-                ],
-                "description": "Sub-type for final states. 1=Success, 2=Failed, 3=Cancelled"
               },
               "versionStrategy": {
                 "type": "string",
