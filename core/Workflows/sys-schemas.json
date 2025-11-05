@@ -299,16 +299,16 @@
         "base"
       ],
       "attributes": {
-        "type": "schema",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://schemas.vnext.com/core/schema.json",
+        "$id": "https://vnext.io/schemas/core/schema.json",
         "title": "Schema Definition",
-        "description": "Field containing the actual JSON Schema definition. This field must be a valid JSON Schema.",
+        "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
+        "type": "schema",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://schemas.vnext.com/core/schema.json",
+          "$id": "https://vnext.io/schemas/core/schema.json",
           "title": "Schema Definition",
-          "description": "Field containing the actual JSON Schema definition. This field must be a valid JSON Schema.",
+          "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
           "type": "object",
           "properties": {
             "$schema": {
@@ -323,18 +323,24 @@
             },
             "title": {
               "type": "string",
-              "description": "Title of the schema"
+              "description": "Schema title"
             },
             "description": {
               "type": "string",
-              "description": "Description of the schema"
+              "description": "Schema description"
             },
             "type": {
-              "type": [
+              "type": "string",
+              "enum": [
+                "object",
+                "array",
                 "string",
-                "array"
+                "number",
+                "integer",
+                "boolean",
+                "null"
               ],
-              "description": "JSON Schema type definition"
+              "description": "JSON Schema type description"
             }
           },
           "required": [
@@ -359,15 +365,15 @@
       ],
       "attributes": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://schemas.vnext.com/core/task.json",
+        "$id": "https://vnext.io/schemas/core/task.json",
         "title": "Task Definition",
-        "description": "Polymorphic task definitions. Uses different configuration schemas according to task type.",
+        "description": "Polymorphic task definitions. Uses different configuration schemas based on task type.",
         "type": "task",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://schemas.vnext.com/core/task.json",
+          "$id": "https://vnext.io/schemas/core/task.json",
           "title": "Task Definition",
-          "description": "Polymorphic task definitions. Uses different configuration schemas according to task type.",
+          "description": "Polymorphic task definitions. Uses different configuration schemas based on task type.",
           "type": "object",
           "properties": {
             "type": {
@@ -423,7 +429,7 @@
                       },
                       "method": {
                         "type": "string",
-                        "description": "HTTP metodu",
+                        "description": "HTTP method",
                         "enum": [
                           "GET",
                           "POST",
@@ -679,7 +685,7 @@
                       },
                       "escalationAssignee": {
                         "type": "string",
-                        "description": "Person/group to be assigned on escalation"
+                        "description": "Person/group to be assigned for escalation"
                       }
                     },
                     "required": [
@@ -721,7 +727,7 @@
                       },
                       "method": {
                         "type": "string",
-                        "description": "HTTP metodu",
+                        "description": "HTTP method",
                         "enum": [
                           "GET",
                           "POST",
@@ -747,7 +753,7 @@
                       },
                       "validateSsl": {
                         "type": "boolean",
-                        "description": "Whether to validate SSL",
+                        "description": "Whether SSL validation should be performed",
                         "default": true
                       }
                     },
@@ -810,12 +816,12 @@
       "attributes": {
         "type": "view",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://schemas.vnext.com/core/view.json",
+        "$id": "https://vnext.io/schemas/core/view.json",
         "title": "View Definition",
         "description": "Schema for view definitions in vNext platform. Contains view content type, target and content information.",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://schemas.vnext.com/core/view.json",
+          "$id": "https://vnext.io/schemas/core/view.json",
           "title": "View Definition",
           "description": "Schema for view definitions in vNext platform. Contains view content type, target and content information.",
           "type": "object",
@@ -826,11 +832,11 @@
               "oneOf": [
                 {
                   "const": 1,
-                  "description": "JSON content type"
+                  "description": "Json content type"
                 },
                 {
                   "const": 2,
-                  "description": "HTML content type"
+                  "description": "Html content type"
                 },
                 {
                   "const": 3,
@@ -838,32 +844,14 @@
                 }
               ]
             },
-            "target": {
-              "type": "integer",
-              "description": "Type of workflow component targeted by the view",
-              "oneOf": [
-                {
-                  "const": 1,
-                  "description": "State-targeted view"
-                },
-                {
-                  "const": 2,
-                  "description": "Transition-targeted view"
-                },
-                {
-                  "const": 3,
-                  "description": "Task-targeted view"
-                }
-              ]
-            },
             "content": {
               "type": "string",
-              "description": "Content of the view. Can be in JSON, HTML or Markdown format.",
+              "description": "View content. Can be in Json, Html or Markdown format.",
               "minLength": 1
             },
             "display": {
               "type": "string",
-              "description": "Display type of the view. Example: full-page",
+              "description": "View display type. Example: full-page",
               "minLength": 1
             },
             "labels": {
@@ -926,15 +914,15 @@
                           "properties": {
                             "type": {
                               "type": "integer",
-                              "description": "Content type of the view to be overridden in Android environment",
+                              "description": "Content type of the View to be overridden in Android environment",
                               "oneOf": [
                                 {
                                   "const": 1,
-                                  "description": "JSON content type"
+                                  "description": "Json content type"
                                 },
                                 {
                                   "const": 2,
-                                  "description": "HTML content type"
+                                  "description": "Html content type"
                                 },
                                 {
                                   "const": 3,
@@ -943,13 +931,13 @@
                               ]
                             },
                             "content": {
-                              "description": "Content of the view to be overridden in Android environment. Can be in JSON, HTML or Markdown format.",
+                              "description": "Content of the View to be overridden in Android environment. Can be in Json, Html or Markdown format.",
                               "type": "string",
                               "minLength": 1
                             },
                             "display": {
                               "type": "string",
-                              "description": "Display type of the view.",
+                              "description": "View display type.",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -991,15 +979,15 @@
                           "properties": {
                             "type": {
                               "type": "integer",
-                              "description": "Content type of the view to be overridden in iOS environment",
+                              "description": "Content type of the View to be overridden in iOS environment",
                               "oneOf": [
                                 {
                                   "const": 1,
-                                  "description": "JSON content type"
+                                  "description": "Json content type"
                                 },
                                 {
                                   "const": 2,
-                                  "description": "HTML content type"
+                                  "description": "Html content type"
                                 },
                                 {
                                   "const": 3,
@@ -1008,13 +996,13 @@
                               ]
                             },
                             "content": {
-                              "description": "Content of the view to be overridden in iOS environment. Can be in JSON, HTML or Markdown format.",
+                              "description": "Content of the View to be overridden in iOS environment. Can be in Json, Html or Markdown format.",
                               "type": "string",
                               "minLength": 1
                             },
                             "display": {
                               "type": "string",
-                              "description": "Display type of the view.",
+                              "description": "View display type.",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -1056,15 +1044,15 @@
                           "properties": {
                             "type": {
                               "type": "integer",
-                              "description": "Content type of the view to be overridden in Web environment",
+                              "description": "Content type of the View to be overridden in Web environment",
                               "oneOf": [
                                 {
                                   "const": 1,
-                                  "description": "JSON content type"
+                                  "description": "Json content type"
                                 },
                                 {
                                   "const": 2,
-                                  "description": "HTML content type"
+                                  "description": "Html content type"
                                 },
                                 {
                                   "const": 3,
@@ -1073,13 +1061,13 @@
                               ]
                             },
                             "content": {
-                              "description": "Content of the view to be overridden in Web environment. Can be in JSON, HTML or Markdown format.",
+                              "description": "Content of the View to be overridden in Web environment. Can be in Json, Html or Markdown format.",
                               "type": "string",
                               "minLength": 1
                             },
                             "display": {
                               "type": "string",
-                              "description": "Display type of the view.",
+                              "description": "View display type.",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -1121,12 +1109,11 @@
                   "type": "null"
                 }
               ],
-              "description": "Views to be overridden on a per-platform basis"
+              "description": "Views to be overridden on a platform basis"
             }
           },
           "required": [
             "type",
-            "target",
             "content"
           ],
           "additionalProperties": false
@@ -1143,16 +1130,16 @@
         "schema"
       ],
       "attributes": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://schemas.vnext.com/core/workflow.json",
-        "title": "Workflow Definition",
-        "description": "Schema that configures workflow definitions in vNext platform. Defines only the workflow attributes structure.",
         "type": "workflow",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://vnext.io/schemas/core/workflow.json",
+        "title": "Workflow Definition",
+        "description": "Schema that configures workflow definitions in vNext platform. Only defines workflow attributes structure.",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://schemas.vnext.com/core/workflow.json",
+          "$id": "https://vnext.io/schemas/core/workflow.json",
           "title": "Workflow Definition",
-          "description": "Schema that configures workflow definitions in vNext platform. Defines only the workflow attributes structure.",
+          "description": "Schema that configures workflow definitions in vNext platform. Only defines workflow attributes structure.",
           "type": "object",
           "properties": {
             "timeout": {
@@ -1215,7 +1202,7 @@
                   "type": "null"
                 }
               ],
-              "description": "General workflow timeout definition"
+              "description": "Workflow general timeout definition"
             },
             "type": {
               "oneOf": [
@@ -1236,7 +1223,7 @@
                   "description": "Sub Process workflow type"
                 }
               ],
-              "description": "Type of the workflow"
+              "description": "Workflow type"
             },
             "labels": {
               "type": "array",
@@ -1361,7 +1348,7 @@
                     "properties": {
                       "key": {
                         "type": "string",
-                        "description": "Key value of the transition. Used in transition requests and is unique within the flow.",
+                        "description": "Transition key value. Used in transition requests and is unique within the flow.",
                         "pattern": "^[a-z0-9-]+$",
                         "maxLength": 255
                       },
@@ -1497,7 +1484,7 @@
                             "type": "null"
                           }
                         ],
-                        "description": "Code where the rule is defined if rule-based progression is used"
+                        "description": "Code where the rule is defined if rule-based progression will occur"
                       },
                       "timer": {
                         "anyOf": [
@@ -1523,7 +1510,7 @@
                             "type": "null"
                           }
                         ],
-                        "description": "Scheduling information if the transition will run automatically"
+                        "description": "Timing information if the transition will run automatically"
                       },
                       "labels": {
                         "type": "array",
@@ -1578,70 +1565,96 @@
                           {
                             "type": "object",
                             "properties": {
-                              "key": {
-                                "type": "string",
-                                "description": "Key value of the referenced record (readable identifier)",
-                                "pattern": "^[a-z0-9-]+$",
-                                "maxLength": 255
+                              "extensions": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "description": "List of extensions to be applied to the View."
                               },
-                              "domain": {
-                                "type": "string",
-                                "description": "Domain where the referenced record is located (required for cross-domain references)",
-                                "pattern": "^[a-zA-Z\\-]+$",
-                                "maxLength": 100,
-                                "examples": [
-                                  "core",
-                                  "idm",
-                                  "banking",
-                                  "payment"
-                                ]
+                              "loadData": {
+                                "type": "boolean",
+                                "description": "Specifies whether data will be loaded for the View."
                               },
-                              "flow": {
-                                "type": "string",
-                                "description": "Flow name where the referenced record is located",
-                                "pattern": "^[a-z\\-]+$",
-                                "maxLength": 100
-                              },
-                              "version": {
-                                "type": "string",
-                                "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
-                                "maxLength": 50
+                              "view": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "key": {
+                                        "type": "string",
+                                        "description": "Key value of the referenced record (readable identifier)",
+                                        "pattern": "^[a-z0-9-]+$",
+                                        "maxLength": 255
+                                      },
+                                      "domain": {
+                                        "type": "string",
+                                        "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                        "pattern": "^[a-zA-Z\\-]+$",
+                                        "maxLength": 100,
+                                        "examples": [
+                                          "core",
+                                          "idm",
+                                          "banking",
+                                          "payment"
+                                        ]
+                                      },
+                                      "flow": {
+                                        "type": "string",
+                                        "description": "Flow name where the referenced record is located",
+                                        "pattern": "^[a-z\\-]+$",
+                                        "maxLength": 100
+                                      },
+                                      "version": {
+                                        "type": "string",
+                                        "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                        "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                        "maxLength": 50
+                                      }
+                                    },
+                                    "required": [
+                                      "key",
+                                      "domain",
+                                      "flow",
+                                      "version"
+                                    ],
+                                    "additionalProperties": false,
+                                    "examples": [
+                                      {
+                                        "key": "user-authentication-workflow",
+                                        "domain": "idm",
+                                        "flow": "user-authentication",
+                                        "version": "1.0.0"
+                                      },
+                                      {
+                                        "key": "user-login-state",
+                                        "domain": "core",
+                                        "flow": "authentication",
+                                        "version": "2.1.0"
+                                      },
+                                      {
+                                        "key": "payment-validation-task",
+                                        "domain": "banking",
+                                        "flow": "payment-process",
+                                        "version": "1.2.3"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ],
+                                "description": "View reference"
                               }
                             },
                             "required": [
-                              "key",
-                              "domain",
-                              "flow",
-                              "version"
-                            ],
-                            "additionalProperties": false,
-                            "examples": [
-                              {
-                                "key": "user-authentication-workflow",
-                                "domain": "idm",
-                                "flow": "user-authentication",
-                                "version": "1.0.0"
-                              },
-                              {
-                                "key": "user-login-state",
-                                "domain": "core",
-                                "flow": "authentication",
-                                "version": "2.1.0"
-                              },
-                              {
-                                "key": "payment-validation-task",
-                                "domain": "banking",
-                                "flow": "payment-process",
-                                "version": "1.2.3"
-                              }
+                              "view"
                             ]
                           },
                           {
                             "type": "null"
                           }
-                        ],
-                        "description": "View reference to be used in the transition"
+                        ]
                       },
                       "onExecutionTasks": {
                         "type": "array",
@@ -1656,7 +1669,7 @@
                             "order": {
                               "type": "integer",
                               "minimum": 1,
-                              "description": "Execution order of the task"
+                              "description": "Task execution order"
                             },
                             "task": {
                               "type": "object",
@@ -1719,7 +1732,7 @@
                                   "version": "1.2.3"
                                 }
                               ],
-                              "description": "Task reference to be run"
+                              "description": "Task reference to be executed"
                             },
                             "mapping": {
                               "anyOf": [
@@ -1821,7 +1834,7 @@
                   }
                 ]
               },
-              "description": "Shared transitions that can be used in multiple states"
+              "description": "Common transitions that can be used in multiple states"
             },
             "extensions": {
               "type": "array",
@@ -1960,19 +1973,19 @@
               "properties": {
                 "key": {
                   "type": "string",
-                  "description": "Key value of the transition. Used in transition requests and is unique within the flow.",
+                  "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
                   "pattern": "^[a-z0-9-]+$",
                   "maxLength": 255
                 },
                 "target": {
                   "type": "string",
-                  "description": "State key that will be reached when the transition is successfully completed",
+                  "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
                   "pattern": "^[a-z0-9-]+$",
                   "maxLength": 255
                 },
                 "from": {
                   "type": "string",
-                  "description": "Source state key",
+                  "description": "Kaynak state key'i",
                   "pattern": "^[a-z0-9-]+$",
                   "maxLength": 255
                 },
@@ -1982,7 +1995,7 @@
                     "Minor",
                     "Major"
                   ],
-                  "description": "Version increment strategy after successful transition",
+                  "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
                   "maxLength": 50
                 },
                 "triggerType": {
@@ -1993,14 +2006,7 @@
                     2,
                     3
                   ],
-                  "description": "Trigger type. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
-                },
-                "availableIn": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "description": "List of states where this transition can be used"
+                  "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
                 },
                 "schema": {
                   "anyOf": [
@@ -2070,59 +2076,7 @@
                       "type": "null"
                     }
                   ],
-                  "description": "Data schema reference that must be sent to execute the transition"
-                },
-                "rule": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Rule kodu"
-                        },
-                        "location": {
-                          "type": "string",
-                          "description": "Location of the code file"
-                        }
-                      },
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ],
-                  "description": "Code where the rule is defined if rule-based progression is used"
-                },
-                "timer": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Rule kodu"
-                        },
-                        "location": {
-                          "type": "string",
-                          "description": "Location of the code file"
-                        }
-                      },
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ],
-                  "description": "Scheduling information if the transition will run automatically"
+                  "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
                 },
                 "labels": {
                   "type": "array",
@@ -2170,77 +2124,7 @@
                       }
                     ]
                   ],
-                  "description": "Multi-language transition name"
-                },
-                "view": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "type": "string",
-                          "description": "Key value of the referenced record (readable identifier)",
-                          "pattern": "^[a-z0-9-]+$",
-                          "maxLength": 255
-                        },
-                        "domain": {
-                          "type": "string",
-                          "description": "Domain where the referenced record is located (required for cross-domain references)",
-                          "pattern": "^[a-zA-Z\\-]+$",
-                          "maxLength": 100,
-                          "examples": [
-                            "core",
-                            "idm",
-                            "banking",
-                            "payment"
-                          ]
-                        },
-                        "flow": {
-                          "type": "string",
-                          "description": "Flow name where the referenced record is located",
-                          "pattern": "^[a-z\\-]+$",
-                          "maxLength": 100
-                        },
-                        "version": {
-                          "type": "string",
-                          "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                          "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
-                          "maxLength": 50
-                        }
-                      },
-                      "required": [
-                        "key",
-                        "domain",
-                        "flow",
-                        "version"
-                      ],
-                      "additionalProperties": false,
-                      "examples": [
-                        {
-                          "key": "user-authentication-workflow",
-                          "domain": "idm",
-                          "flow": "user-authentication",
-                          "version": "1.0.0"
-                        },
-                        {
-                          "key": "user-login-state",
-                          "domain": "core",
-                          "flow": "authentication",
-                          "version": "2.1.0"
-                        },
-                        {
-                          "key": "payment-validation-task",
-                          "domain": "banking",
-                          "flow": "payment-process",
-                          "version": "1.2.3"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ],
-                  "description": "View reference to be used in the transition"
+                  "description": "Çok dilli geçiş ismi"
                 },
                 "onExecutionTasks": {
                   "type": "array",
@@ -2255,7 +2139,7 @@
                       "order": {
                         "type": "integer",
                         "minimum": 1,
-                        "description": "Execution order of the task"
+                        "description": "Görevin çalışma sırası"
                       },
                       "task": {
                         "type": "object",
@@ -2327,7 +2211,7 @@
                             "properties": {
                               "type": {
                                 "const": "G",
-                                "description": "Global mapping - code and location not reqired"
+                                "description": "Global mapping - code ve location not required"
                               },
                               "code": {
                                 "type": "string",
@@ -2391,7 +2275,7 @@
                     },
                     "additionalProperties": false
                   },
-                  "description": "Tasks to be executed when the transition is triggered"
+                  "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
                 }
               },
               "required": [
@@ -2411,7 +2295,7 @@
                 "properties": {
                   "key": {
                     "type": "string",
-                    "description": "Key value of the state. Must be unique within the workflow.",
+                    "description": "State key value. Must be unique within the workflow.",
                     "pattern": "^[a-z0-9-]+$",
                     "maxLength": 255
                   },
@@ -2424,16 +2308,7 @@
                       4,
                       5
                     ],
-                    "description": "Type of the state. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
-                  },
-                  "stateSubType": {
-                    "type": "integer",
-                    "enum": [
-                      1,
-                      2,
-                      3
-                    ],
-                    "description": "Subtype for final states. 1=Success, 2=Failed, 3=Cancelled"
+                    "description": "State type. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
                   },
                   "versionStrategy": {
                     "type": "string",
@@ -2441,7 +2316,7 @@
                       "Minor",
                       "Major"
                     ],
-                    "description": "Version management strategy of the state",
+                    "description": "State version management strategy",
                     "maxLength": 50
                   },
                   "labels": {
@@ -2497,70 +2372,96 @@
                       {
                         "type": "object",
                         "properties": {
-                          "key": {
-                            "type": "string",
-                            "description": "Key value of the referenced record (readable identifier)",
-                            "pattern": "^[a-z0-9-]+$",
-                            "maxLength": 255
+                          "extensions": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "List of extensions to be applied to the View."
                           },
-                          "domain": {
-                            "type": "string",
-                            "description": "Domain where the referenced record is located (required for cross-domain references)",
-                            "pattern": "^[a-zA-Z\\-]+$",
-                            "maxLength": 100,
-                            "examples": [
-                              "core",
-                              "idm",
-                              "banking",
-                              "payment"
-                            ]
+                          "loadData": {
+                            "type": "boolean",
+                            "description": "Specifies whether data will be loaded for the View."
                           },
-                          "flow": {
-                            "type": "string",
-                            "description": "Flow name where the referenced record is located",
-                            "pattern": "^[a-z\\-]+$",
-                            "maxLength": 100
-                          },
-                          "version": {
-                            "type": "string",
-                            "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                            "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
-                            "maxLength": 50
+                          "view": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string",
+                                    "description": "Key value of the referenced record (readable identifier)",
+                                    "pattern": "^[a-z0-9-]+$",
+                                    "maxLength": 255
+                                  },
+                                  "domain": {
+                                    "type": "string",
+                                    "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                    "pattern": "^[a-zA-Z\\-]+$",
+                                    "maxLength": 100,
+                                    "examples": [
+                                      "core",
+                                      "idm",
+                                      "banking",
+                                      "payment"
+                                    ]
+                                  },
+                                  "flow": {
+                                    "type": "string",
+                                    "description": "Flow name where the referenced record is located",
+                                    "pattern": "^[a-z\\-]+$",
+                                    "maxLength": 100
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                    "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                    "maxLength": 50
+                                  }
+                                },
+                                "required": [
+                                  "key",
+                                  "domain",
+                                  "flow",
+                                  "version"
+                                ],
+                                "additionalProperties": false,
+                                "examples": [
+                                  {
+                                    "key": "user-authentication-workflow",
+                                    "domain": "idm",
+                                    "flow": "user-authentication",
+                                    "version": "1.0.0"
+                                  },
+                                  {
+                                    "key": "user-login-state",
+                                    "domain": "core",
+                                    "flow": "authentication",
+                                    "version": "2.1.0"
+                                  },
+                                  {
+                                    "key": "payment-validation-task",
+                                    "domain": "banking",
+                                    "flow": "payment-process",
+                                    "version": "1.2.3"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "View referansı"
                           }
                         },
                         "required": [
-                          "key",
-                          "domain",
-                          "flow",
-                          "version"
-                        ],
-                        "additionalProperties": false,
-                        "examples": [
-                          {
-                            "key": "user-authentication-workflow",
-                            "domain": "idm",
-                            "flow": "user-authentication",
-                            "version": "1.0.0"
-                          },
-                          {
-                            "key": "user-login-state",
-                            "domain": "core",
-                            "flow": "authentication",
-                            "version": "2.1.0"
-                          },
-                          {
-                            "key": "payment-validation-task",
-                            "domain": "banking",
-                            "flow": "payment-process",
-                            "version": "1.2.3"
-                          }
+                          "view"
                         ]
                       },
                       {
                         "type": "null"
                       }
-                    ],
-                    "description": "View reference associated with the state"
+                    ]
                   },
                   "subFlow": {
                     "anyOf": [
@@ -2568,18 +2469,17 @@
                         "type": "object",
                         "required": [
                           "type",
-                          "process"
+                          "process",
+                          "mapping"
                         ],
                         "properties": {
                           "type": {
                             "type": "string",
                             "enum": [
-                              "C",
-                              "F",
                               "S",
                               "P"
                             ],
-                            "description": "SubFlow type. C=Core, F=Flow, S=SubFlow, P=SubProcess",
+                            "description": "SubFlow type. S=SubFlow, P=SubProcess",
                             "maxLength": 10
                           },
                           "process": {
@@ -2670,6 +2570,73 @@
                               }
                             ],
                             "description": "Mapping definition for data exchange with SubFlow"
+                          },
+                          "viewOverrides": {
+                            "type": "object",
+                            "description": "Dictionary of view overrides for subflow views. Key is the original view key, value is the reference to the new view definition.",
+                            "patternProperties": {
+                              "^[a-zA-Z0-9\\-]+$": {
+                                "description": "Generic reference - can be either explicit reference or ref",
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "description": "Explicit reference",
+                                    "required": [
+                                      "key",
+                                      "domain",
+                                      "flow",
+                                      "version"
+                                    ],
+                                    "properties": {
+                                      "key": {
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "domain": {
+                                        "type": "string"
+                                      },
+                                      "flow": {
+                                        "type": "string"
+                                      },
+                                      "version": {
+                                        "type": "string",
+                                        "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                                      }
+                                    },
+                                    "anyOf": [
+                                      {
+                                        "required": [
+                                          "key"
+                                        ]
+                                      },
+                                      {
+                                        "required": [
+                                          "id"
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "description": "Reference using ref",
+                                    "required": [
+                                      "ref"
+                                    ],
+                                    "properties": {
+                                      "ref": {
+                                        "type": "string",
+                                        "description": "Reference to component file"
+                                      }
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            },
+                            "additionalProperties": false
                           }
                         },
                         "additionalProperties": false
@@ -2678,7 +2645,7 @@
                         "type": "null"
                       }
                     ],
-                    "description": "Information about the sub-workflow to be called for SubFlow state type. Can be null if the developer has no subflow definition."
+                    "description": "Information of the sub-workflow to be called for SubFlow state type. Can be null if the developer has no subflow definition."
                   },
                   "transitions": {
                     "type": "array",
@@ -2687,7 +2654,7 @@
                       "properties": {
                         "key": {
                           "type": "string",
-                          "description": "Key value of the transition. Used in transition requests and is unique within the flow.",
+                          "description": "Transition key value. Used in transition requests and is unique within the flow.",
                           "pattern": "^[a-z0-9-]+$",
                           "maxLength": 255
                         },
@@ -2823,7 +2790,7 @@
                               "type": "null"
                             }
                           ],
-                          "description": "Code where the rule is defined if rule-based progression is used"
+                          "description": "Code where the rule is defined if rule-based progression will occur"
                         },
                         "timer": {
                           "anyOf": [
@@ -2849,7 +2816,7 @@
                               "type": "null"
                             }
                           ],
-                          "description": "Scheduling information if the transition will run automatically"
+                          "description": "Timing information if the transition will run automatically"
                         },
                         "labels": {
                           "type": "array",
@@ -2904,70 +2871,96 @@
                             {
                               "type": "object",
                               "properties": {
-                                "key": {
-                                  "type": "string",
-                                  "description": "Key value of the referenced record (readable identifier)",
-                                  "pattern": "^[a-z0-9-]+$",
-                                  "maxLength": 255
+                                "extensions": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "description": "List of extensions to be applied to the View."
                                 },
-                                "domain": {
-                                  "type": "string",
-                                  "description": "Domain where the referenced record is located (required for cross-domain references)",
-                                  "pattern": "^[a-zA-Z\\-]+$",
-                                  "maxLength": 100,
-                                  "examples": [
-                                    "core",
-                                    "idm",
-                                    "banking",
-                                    "payment"
-                                  ]
+                                "loadData": {
+                                  "type": "boolean",
+                                  "description": "Specifies whether data will be loaded for the View."
                                 },
-                                "flow": {
-                                  "type": "string",
-                                  "description": "Flow name where the referenced record is located",
-                                  "pattern": "^[a-z\\-]+$",
-                                  "maxLength": 100
-                                },
-                                "version": {
-                                  "type": "string",
-                                  "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                                  "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
-                                  "maxLength": 50
+                                "view": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "key": {
+                                          "type": "string",
+                                          "description": "Key value of the referenced record (readable identifier)",
+                                          "pattern": "^[a-z0-9-]+$",
+                                          "maxLength": 255
+                                        },
+                                        "domain": {
+                                          "type": "string",
+                                          "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                          "pattern": "^[a-zA-Z\\-]+$",
+                                          "maxLength": 100,
+                                          "examples": [
+                                            "core",
+                                            "idm",
+                                            "banking",
+                                            "payment"
+                                          ]
+                                        },
+                                        "flow": {
+                                          "type": "string",
+                                          "description": "Flow name where the referenced record is located",
+                                          "pattern": "^[a-z\\-]+$",
+                                          "maxLength": 100
+                                        },
+                                        "version": {
+                                          "type": "string",
+                                          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                          "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                          "maxLength": 50
+                                        }
+                                      },
+                                      "required": [
+                                        "key",
+                                        "domain",
+                                        "flow",
+                                        "version"
+                                      ],
+                                      "additionalProperties": false,
+                                      "examples": [
+                                        {
+                                          "key": "user-authentication-workflow",
+                                          "domain": "idm",
+                                          "flow": "user-authentication",
+                                          "version": "1.0.0"
+                                        },
+                                        {
+                                          "key": "user-login-state",
+                                          "domain": "core",
+                                          "flow": "authentication",
+                                          "version": "2.1.0"
+                                        },
+                                        {
+                                          "key": "payment-validation-task",
+                                          "domain": "banking",
+                                          "flow": "payment-process",
+                                          "version": "1.2.3"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "description": "View reference"
                                 }
                               },
                               "required": [
-                                "key",
-                                "domain",
-                                "flow",
-                                "version"
-                              ],
-                              "additionalProperties": false,
-                              "examples": [
-                                {
-                                  "key": "user-authentication-workflow",
-                                  "domain": "idm",
-                                  "flow": "user-authentication",
-                                  "version": "1.0.0"
-                                },
-                                {
-                                  "key": "user-login-state",
-                                  "domain": "core",
-                                  "flow": "authentication",
-                                  "version": "2.1.0"
-                                },
-                                {
-                                  "key": "payment-validation-task",
-                                  "domain": "banking",
-                                  "flow": "payment-process",
-                                  "version": "1.2.3"
-                                }
+                                "view"
                               ]
                             },
                             {
                               "type": "null"
                             }
-                          ],
-                          "description": "View reference to be used in the transition"
+                          ]
                         },
                         "onExecutionTasks": {
                           "type": "array",
@@ -2982,7 +2975,7 @@
                               "order": {
                                 "type": "integer",
                                 "minimum": 1,
-                                "description": "Execution order of the task"
+                                "description": "Task execution order"
                               },
                               "task": {
                                 "type": "object",
@@ -3045,7 +3038,7 @@
                                     "version": "1.2.3"
                                   }
                                 ],
-                                "description": "Task reference to be run"
+                                "description": "Task reference to be executed"
                               },
                               "mapping": {
                                 "anyOf": [
@@ -3145,7 +3138,7 @@
                         "order": {
                           "type": "integer",
                           "minimum": 1,
-                          "description": "Execution order of the task"
+                          "description": "Görevin çalışma sırası"
                         },
                         "task": {
                           "type": "object",
@@ -3296,7 +3289,7 @@
                         "order": {
                           "type": "integer",
                           "minimum": 1,
-                          "description": "Execution order of the task"
+                          "description": "Görevin çalışma sırası"
                         },
                         "task": {
                           "type": "object",
@@ -3442,7 +3435,7 @@
                       "properties": {
                         "order": {
                           "type": "integer",
-                          "description": "Execution order of the task. Tasks with the same order are executed in parallel.",
+                          "description": "Task execution order. Tasks with the same order are executed in parallel.",
                           "minimum": 1
                         },
                         "task": {
@@ -3474,7 +3467,7 @@
                             }
                           }
                         },
-                        "mapping":  {
+                        "mapping": {
                           "anyOf": [
                             {
                               "type": "object",
