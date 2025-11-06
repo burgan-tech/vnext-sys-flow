@@ -42,17 +42,8 @@
           "description": "Schema description"
         },
         "type": {
-          "type": "string",
-          "enum": [
-            "object",
-            "array",
-            "string",
-            "number",
-            "integer",
-            "boolean",
-            "null"
-          ],
-          "description": "JSON Schema type description"
+           "type": "string",
+           "description": "Schema type identifier"
         }
       },
       "required": [
