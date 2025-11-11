@@ -235,8 +235,8 @@
                   },
                   "target": {
                     "type": "string",
-                    "description": "State key that will be reached when the transition is successfully completed",
-                    "pattern": "^[a-zA-Z0-9\\-]+$",
+                    "description": "State key that will be reached when the transition is successfully completed. Can be a state key or special keyword like $self",
+                    "pattern": "^(\\$self|[a-z0-9-]+)$",
                     "maxLength": 255
                   },
                   "from": {
