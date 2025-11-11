@@ -235,8 +235,8 @@
                   },
                   "target": {
                     "type": "string",
-                    "description": "State key that will be reached when the transition is successfully completed",
-                    "pattern": "^[a-zA-Z0-9\\-]+$",
+                    "description": "State key that will be reached when the transition is successfully completed. Can be a state key or special keyword like $self",
+                    "pattern": "^(\\$self|[a-z0-9-]+)$",
                     "maxLength": 255
                   },
                   "from": {
@@ -687,6 +687,77 @@
                       "additionalProperties": false
                     },
                     "description": "Tasks to be executed when the transition is triggered"
+                  },
+                  "mapping": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "G",
+                            "description": "Global mapping - code and location not required"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "oneOf": [
+                              {
+                                "const": "L",
+                                "description": "Local mapping - code and location is required"
+                              }
+                            ],
+                            "description": "Mapping type"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "location"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "location"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "Optional mapping definition for transition input data transformation"
                   }
                 },
                 "required": [
@@ -710,6 +781,22 @@
                       "type": "string"
                     },
                     "description": "List of states where this transition can be used"
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "triggerType": {
+                      "const": 1
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "mapping": {
+                      "const": null
+                    }
                   }
                 }
               }
@@ -1157,6 +1244,77 @@
                 "additionalProperties": false
               },
               "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+            },
+            "mapping": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "G",
+                      "description": "Global mapping - code and location not required"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Mapping code"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Code file location"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "oneOf": [
+                        {
+                          "const": "L",
+                          "description": "Local mapping - code and location is required"
+                        }
+                      ],
+                      "description": "Mapping type"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Mapping code"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Code file location"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "location"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "description": "Mapping code"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Code file location"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "location"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional mapping definition for transition input data transformation"
             }
           },
           "required": [
@@ -1167,6 +1325,20 @@
             "labels"
           ],
           "additionalProperties": false,
+          "if": {
+            "properties": {
+              "triggerType": {
+                "const": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "mapping": {
+                "const": null
+              }
+            }
+          },
           "description": "Initial transition that starts the workflow"
         },
         "states": {
@@ -1993,6 +2165,77 @@
                         "additionalProperties": false
                       },
                       "description": "Tasks to be executed when the transition is triggered"
+                    },
+                    "mapping": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code and location is required"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "location"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "location"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "Optional mapping definition for transition input data transformation"
                     }
                   },
                   "required": [
@@ -2002,7 +2245,21 @@
                     "triggerType",
                     "labels"
                   ],
-                  "additionalProperties": false
+                  "additionalProperties": false,
+                  "if": {
+                    "properties": {
+                      "triggerType": {
+                        "const": 1
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "mapping": {
+                        "const": null
+                      }
+                    }
+                  }
                 },
                 "description": "List of transitions that can exit from this state"
               },
