@@ -430,9 +430,9 @@
                         ],
                         "default": "GET"
                       },
-                      "headers": {
+                      "body": {
                         "type": "object",
-                        "description": "HTTP header information"
+                        "description": "Service call body"
                       }
                     },
                     "required": [
@@ -540,9 +540,13 @@
                           "PATCH"
                         ]
                       },
-                      "data": {
+                      "body": {
                         "type": "object",
-                        "description": "Service call data"
+                        "description": "Service call body"
+                      },
+                      "headers": {
+                        "type": "object",
+                        "description": "Service call headers"
                       },
                       "queryString": {
                         "type": "string",
