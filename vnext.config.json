@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "description": "vNext Core Domain Definition Configuration",
   "domain": "core",
-  "runtimeVersion": "0.0.19",
-  "schemaVersion": "0.0.24",
+  "runtimeVersion": "0.0.20",
+  "schemaVersion": "0.0.25",
   "paths": {
     "componentsRoot": "core",
     "tasks": "Tasks",
