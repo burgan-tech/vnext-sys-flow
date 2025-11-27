@@ -381,7 +381,10 @@
                 "8",
                 "9",
                 "10",
-                "11"
+                "11",
+                "12",
+                "13",
+                "14"
               ]
             },
             "config": {
@@ -842,103 +845,208 @@
                 }
               },
               "then": {
+                "title": "Start Task",
                 "properties": {
                   "type": {
                     "const": "11"
                   },
                   "config": {
                     "type": "object",
-                    "description": "Trigger Task configuration",
+                    "description": "Start Task configuration - Creates a new workflow instance",
                     "properties": {
-                      "transitionName": {
-                        "type": "string",
-                        "description": "Transition name"
-                      },
-                      "body": {
-                        "type": "object",
-                        "description": "Request body"
-                      },
                       "domain": {
                         "type": "string",
-                        "description": "Domain identifier"
+                        "description": "Target workflow domain",
+                        "minLength": 1
                       },
                       "flow": {
                         "type": "string",
-                        "description": "Flow identifier",
+                        "description": "Target workflow name",
+                        "minLength": 1,
+                        "pattern": "^[a-z0-9-]+$"
+                      },
+                      "body": {
+                        "type": "object",
+                        "description": "Request body data to send with the start request"
+                      }
+                    },
+                    "required": [
+                      "domain",
+                      "flow"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "12"
+                  }
+                }
+              },
+              "then": {
+                "title": "Direct Trigger Task",
+                "properties": {
+                  "type": {
+                    "const": "12"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Direct Trigger Task configuration - Executes a transition on a target workflow instance",
+                    "properties": {
+                      "domain": {
+                        "type": "string",
+                        "description": "Target workflow domain",
+                        "minLength": 1
+                      },
+                      "flow": {
+                        "type": "string",
+                        "description": "Target workflow name",
+                        "minLength": 1,
+                        "pattern": "^[a-z0-9-]+$"
+                      },
+                      "transitionName": {
+                        "type": "string",
+                        "description": "Transition name to execute",
+                        "minLength": 1
+                      },
+                      "key": {
+                        "type": "string",
+                        "description": "Target instance key (optional, used to resolve instance ID)"
+                      },
+                      "instanceId": {
+                        "type": "string",
+                        "description": "Target instance ID (optional, takes priority over key)"
+                      },
+                      "body": {
+                        "type": "object",
+                        "description": "Request body data to send with the transition request"
+                      }
+                    },
+                    "required": [
+                      "domain",
+                      "flow",
+                      "transitionName"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "13"
+                  }
+                }
+              },
+              "then": {
+                "title": "Get Instance Data Task",
+                "properties": {
+                  "type": {
+                    "const": "13"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "Get Instance Data Task configuration - Retrieves instance data from a workflow instance",
+                    "properties": {
+                      "domain": {
+                        "type": "string",
+                        "description": "Target workflow domain",
+                        "minLength": 1
+                      },
+                      "flow": {
+                        "type": "string",
+                        "description": "Target workflow name",
+                        "minLength": 1,
                         "pattern": "^[a-z0-9-]+$"
                       },
                       "key": {
                         "type": "string",
-                        "description": "Task key identifier"
+                        "description": "Target instance key (optional, used directly as instance identifier)"
                       },
                       "instanceId": {
                         "type": "string",
-                        "description": "Instance identifier"
-                      },
-                      "version": {
-                        "type": "string",
-                        "description": "Version in Major.Minor.Patch format",
-                        "pattern": "^\\d+\\.\\d+\\.\\d+$"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "Task extension type",
-                        "enum": [
-                          "Start",
-                          "Trigger",
-                          "SubProcess",
-                          "GetInstanceData"
-                        ]
+                        "description": "Target instance ID (optional, takes priority over key)"
                       },
                       "extensions": {
                         "type": "array",
-                        "description": "Extension strings",
+                        "description": "Data extensions to include for enrichment",
                         "items": {
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 1
                         }
                       }
                     },
-                    "allOf": [
-                      {
-                        "if": {
-                          "properties": {
-                            "type": {
-                              "enum": [
-                                "Start",
-                                "Trigger",
-                                "GetInstanceData"
-                              ]
-                            }
-                          }
-                        },
-                        "then": {
-                          "required": [
-                            "type",
-                            "domain",
-                            "flow",
-                            "body"
-                          ]
-                        }
+                    "required": [
+                      "domain",
+                      "flow"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "config"
+                ],
+                "additionalProperties": false
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "14"
+                  }
+                }
+              },
+              "then": {
+                "title": "SubProcess Task",
+                "properties": {
+                  "type": {
+                    "const": "14"
+                  },
+                  "config": {
+                    "type": "object",
+                    "description": "SubProcess Task configuration - Starts a subprocess workflow",
+                    "properties": {
+                      "domain": {
+                        "type": "string",
+                        "description": "Target workflow domain",
+                        "minLength": 1
                       },
-                      {
-                        "if": {
-                          "properties": {
-                            "type": {
-                              "const": "SubProcess"
-                            }
-                          }
-                        },
-                        "then": {
-                          "required": [
-                            "type",
-                            "domain",
-                            "flow",
-                            "body",
-                            "key",
-                            "version"
-                          ]
-                        }
+                      "key": {
+                        "type": "string",
+                        "description": "Target workflow key",
+                        "minLength": 1
+                      },
+                      "version": {
+                        "type": "string",
+                        "description": "SubFlow version in Major.Minor.Patch format",
+                        "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                      },
+                      "body": {
+                        "type": "object",
+                        "description": "Request body data to send with the subprocess request"
                       }
+                    },
+                    "required": [
+                      "domain",
+                      "key"
                     ],
                     "additionalProperties": false
                   }
@@ -2260,7 +2368,7 @@
                         "domain": {
                           "type": "string",
                           "description": "Domain where the referenced record is located (required for cross-domain references)",
-                          "pattern": "^[a-z]+$",
+                          "pattern": "^[a-zA-Z\\-]+$",
                           "maxLength": 100,
                           "examples": [
                             "core",
