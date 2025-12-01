@@ -1001,7 +1001,7 @@
                     "domain": {
                       "type": "string",
                       "description": "Domain where the referenced record is located (required for cross-domain references)",
-                      "pattern": "^[a-z]+$",
+                      "pattern": "^[a-zA-Z\\-]+$",
                       "maxLength": 100,
                       "examples": [
                         "core",
