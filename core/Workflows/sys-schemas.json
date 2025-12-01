@@ -3254,6 +3254,18 @@
                     ],
                     "description": "State type. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
                   },
+                  "subType": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4
+                    ],
+                    "default": 0,
+                    "description": "State subtype. 0=None, 1=Success, 2=Error, 3=Terminated, 4=Suspended"
+                  },
                   "versionStrategy": {
                     "type": "string",
                     "enum": [
