@@ -12,10 +12,6 @@
     ],
     "attributes": {
         "type": "view",
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://vnext.io/schemas/core/view.json",
-        "title": "View Definition",
-        "description": "Schema for view definitions in vNext platform. Contains view content type, target and content information.",
         "schema": {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "$id": "https://vnext.io/schemas/core/view.json",

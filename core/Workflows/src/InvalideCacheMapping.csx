@@ -12,7 +12,7 @@ public class InvalidateCacheMapping : IMapping
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         daprTask.SetPubSubName(pubsubName);
-        daprTask.SetTopic(daprTask.Topic.Replace("{ENVIRONMENT}", environment));
+        daprTask.SetTopic(daprTask.Topic.Replace("{ENVIRONMENT}", environment).ToLowerInvariant());
         
         daprTask.SetData(new
         {

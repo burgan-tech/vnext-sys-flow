@@ -11,10 +11,6 @@
     "base"
   ],
   "attributes": {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://vnext.io/schemas/core/schema.json",
-    "title": "Schema Definition",
-    "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
     "type": "schema",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -23,35 +19,35 @@
       "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
       "type": "object",
       "properties": {
-        "$schema": {
-          "type": "string",
-          "format": "uri",
-          "description": "JSON Schema version"
-        },
-        "$id": {
-          "type": "string",
-          "format": "uri",
-          "description": "Unique URI of the schema"
-        },
-        "title": {
-          "type": "string",
-          "description": "Schema title"
-        },
-        "description": {
-          "type": "string",
-          "description": "Schema description"
+        "schema": {
+          "description": "JSON Schema definition"
         },
         "type": {
-           "type": "string",
-           "description": "Schema type identifier"
+          "type": "string",
+          "description": "Schema type identifier",
+          "enum": [
+            "workflow",
+            "task",
+            "function",
+            "view",
+            "schema",
+            "extension",
+            "headers"
+          ],
+          "enumDescriptions": [
+            "Workflow component definition",
+            "Task component definition",
+            "Function component definition",
+            "View component definition",
+            "Schema component definition",
+            "Extension component definition",
+            "Headers schema definition"
+          ]
         }
       },
       "required": [
-        "$schema",
-        "$id",
-        "title",
-        "description",
-        "type"
+        "type",
+        "schema"
       ],
       "additionalProperties": true
     }

@@ -11,10 +11,6 @@
     "polymorphic"
   ],
   "attributes": {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://vnext.io/schemas/core/task.json",
-    "title": "Task Definition",
-    "description": "Polymorphic task definitions. Uses different configuration schemas based on task type.",
     "type": "task",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
