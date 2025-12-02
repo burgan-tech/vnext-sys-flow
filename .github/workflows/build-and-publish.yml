@@ -123,19 +123,12 @@ jobs:
         fi
         echo "Dependencies installed successfully"
     
-    - name: Install vNext CLI
-      run: |
-        echo "Installing vNext CLI globally..."
-        npm install -g @burgan-tech/vnext-cli
-        echo "vNext CLI version:"
-        vnext --version
-    
     - name: Validate vNext components
       run: |
-        echo "🔍 Validating vNext components with reference resolution..."
+        echo "🔍 Validating vNext components..."
         
-        # Run validation with reference resolution
-        if vnext validate --resolve-refs; then
+        # Run validation using npm script
+        if npm run validate; then
           echo "✅ vNext validation completed successfully"
         else
           echo "❌ vNext validation failed"
@@ -148,8 +141,8 @@ jobs:
       run: |
         echo "🏗️ Building Reference package..."
         
-        # Build reference package
-        if vnext build --type reference --output dist-reference; then
+        # Build reference package using npm script
+        if npm run build -- -t reference -o dist-reference; then
           echo "✅ Reference package built successfully"
           
           # List contents of reference build
@@ -164,8 +157,8 @@ jobs:
       run: |
         echo "🏗️ Building Runtime package..."
         
-        # Build runtime package
-        if vnext build --type runtime --output dist-runtime; then
+        # Build runtime package using npm script
+        if npm run build -- -t runtime -o dist-runtime; then
           echo "✅ Runtime package built successfully"
           
           # List contents of runtime build
@@ -637,9 +630,9 @@ jobs:
           ```
           
           ### ✅ Validation
-          This release has been validated using vNext CLI:
+          This release has been validated using project validation scripts:
           - ✅ Schema validation passed
-          - ✅ Reference resolution completed
+          - ✅ JSON syntax validation completed
           - ✅ Build verification successful
           
           ### 📋 Build Information
@@ -649,7 +642,7 @@ jobs:
           - **Commit**: ${{ github.sha }}
           
           ---
-          *This release was automatically created by GitHub Actions using vNext CLI*
+          *This release was automatically created by GitHub Actions*
         draft: false
         prerelease: false
     

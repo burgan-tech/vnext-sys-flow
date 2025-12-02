@@ -43,7 +43,10 @@
       ],
       "versionStrategy": "Minor",
       "schema": {
-        "ref": "Schemas/schema.json"
+        "key": "schema",
+        "domain": "core",
+        "flow": "sys-schemas",
+        "version": "1.0.0"
       },
       "onExecutionTasks": []
     },
@@ -51,6 +54,7 @@
       {
         "key": "draft",
         "stateType": 1,
+        "subType": 0,
         "labels": [
           {
             "language": "en-US",
@@ -82,11 +86,14 @@
               {
                 "order": 1,
                 "task": {
-                  "ref": "Tasks/invalidate-cache.json"
+                  "key": "invalidate-cache",
+                  "domain": "core",
+                  "flow": "sys-tasks",
+                  "version": "1.0.0"
                 },
                 "mapping": {
                   "location": "./src/InvalideCacheMapping.csx",
-                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KS5Ub0xvd2VySW52YXJpYW50KCkpOwogICAgICAgIAogICAgICAgIGRhcHJUYXNrLlNldERhdGEobmV3CiAgICAgICAgewogICAgICAgICAgICBrZXkgPSBjb250ZXh0Lkluc3RhbmNlLktleSwKICAgICAgICAgICAgZmxvdyA9IGNvbnRleHQuV29ya2Zsb3cuS2V5LAogICAgICAgICAgICBkb21haW4gPSBjb250ZXh0LlJ1bnRpbWUuRG9tYWluLAogICAgICAgICAgICB2ZXJzaW9uID0gY29udGV4dC5JbnN0YW5jZS5MYXRlc3REYXRhPy5WZXJzaW9uID8/ICIxLjAuMCIKICAgICAgICB9KTsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KCiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gT3V0cHV0SGFuZGxlcihTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9Cn0="
                 }
               }
             ],
@@ -120,6 +127,7 @@
       {
         "key": "active",
         "stateType": 2,
+        "subType": 1,
         "labels": [
           {
             "language": "en-US",
@@ -170,16 +178,22 @@
               {
                 "order": 1,
                 "task": {
-                  "ref": "Tasks/invalidate-cache.json"
+                  "key": "invalidate-cache",
+                  "domain": "core",
+                  "flow": "sys-tasks",
+                  "version": "1.0.0"
                 },
                 "mapping": {
                   "location": "./src/InvalideCacheMapping.csx",
-                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KSk7CiAgICAgICAgCiAgICAgICAgZGFwclRhc2suU2V0RGF0YShuZXcKICAgICAgICB7CiAgICAgICAgICAgIGtleSA9IGNvbnRleHQuSW5zdGFuY2UuS2V5LAogICAgICAgICAgICBmbG93ID0gY29udGV4dC5Xb3JrZmxvdy5LZXksCiAgICAgICAgICAgIGRvbWFpbiA9IGNvbnRleHQuUnVudGltZS5Eb21haW4sCiAgICAgICAgICAgIHZlcnNpb24gPSBjb250ZXh0Lkluc3RhbmNlLkxhdGVzdERhdGE/LlZlcnNpb24gPz8gIjEuMC4wIgogICAgICAgIH0pOwogICAgICAgIHJldHVybiBUYXNrLkZyb21SZXN1bHQobmV3IFNjcmlwdFJlc3BvbnNlKCkpOwogICAgfQoKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBPdXRwdXRIYW5kbGVyKFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KfQ=="
+                  "code": "dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uVGhyZWFkaW5nLlRhc2tzOwp1c2luZyBCQlQuV29ya2Zsb3cuU2NyaXB0aW5nOwp1c2luZyBCQlQuV29ya2Zsb3cuRGVmaW5pdGlvbnM7CgpwdWJsaWMgY2xhc3MgSW52YWxpZGF0ZUNhY2hlTWFwcGluZyA6IElNYXBwaW5nCnsKICAgIHB1YmxpYyBUYXNrPFNjcmlwdFJlc3BvbnNlPiBJbnB1dEhhbmRsZXIoV29ya2Zsb3dUYXNrIHRhc2ssIFNjcmlwdENvbnRleHQgY29udGV4dCkKICAgIHsKICAgICAgICB2YXIgZGFwclRhc2sgPSB0YXNrIGFzIERhcHJQdWJTdWJUYXNrOwogICAgICAgIHZhciBwdWJzdWJOYW1lID0gRW52aXJvbm1lbnQuR2V0RW52aXJvbm1lbnRWYXJpYWJsZSgiREFQUl9QVUJTVUJfQlJPQURDQVNUX1NUT1JFX05BTUUiKTsKICAgICAgICB2YXIgZW52aXJvbm1lbnQgPSBFbnZpcm9ubWVudC5HZXRFbnZpcm9ubWVudFZhcmlhYmxlKCJBU1BORVRDT1JFX0VOVklST05NRU5UIik7CgogICAgICAgIGRhcHJUYXNrLlNldFB1YlN1Yk5hbWUocHVic3ViTmFtZSk7CiAgICAgICAgZGFwclRhc2suU2V0VG9waWMoZGFwclRhc2suVG9waWMuUmVwbGFjZSgie0VOVklST05NRU5UfSIsIGVudmlyb25tZW50KS5Ub0xvd2VySW52YXJpYW50KCkpOwogICAgICAgIAogICAgICAgIGRhcHJUYXNrLlNldERhdGEobmV3CiAgICAgICAgewogICAgICAgICAgICBrZXkgPSBjb250ZXh0Lkluc3RhbmNlLktleSwKICAgICAgICAgICAgZmxvdyA9IGNvbnRleHQuV29ya2Zsb3cuS2V5LAogICAgICAgICAgICBkb21haW4gPSBjb250ZXh0LlJ1bnRpbWUuRG9tYWluLAogICAgICAgICAgICB2ZXJzaW9uID0gY29udGV4dC5JbnN0YW5jZS5MYXRlc3REYXRhPy5WZXJzaW9uID8/ICIxLjAuMCIKICAgICAgICB9KTsKICAgICAgICByZXR1cm4gVGFzay5Gcm9tUmVzdWx0KG5ldyBTY3JpcHRSZXNwb25zZSgpKTsKICAgIH0KCiAgICBwdWJsaWMgVGFzazxTY3JpcHRSZXNwb25zZT4gT3V0cHV0SGFuZGxlcihTY3JpcHRDb250ZXh0IGNvbnRleHQpCiAgICB7CiAgICAgICAgcmV0dXJuIFRhc2suRnJvbVJlc3VsdChuZXcgU2NyaXB0UmVzcG9uc2UoKSk7CiAgICB9Cn0="
                 }
               }
             ],
             "schema": {
-              "ref": "Schemas/schema.json"
+              "key": "schema",
+              "domain": "core",
+              "flow": "sys-schemas",
+              "version": "1.0.0"
             },
             "view": null
           }
@@ -192,6 +206,7 @@
       {
         "key": "passive",
         "stateType": 2,
+        "subType": 4,
         "labels": [
           {
             "language": "en-US",
@@ -250,6 +265,7 @@
       {
         "key": "deleted",
         "stateType": 2,
+        "subType": 3,
         "labels": [
           {
             "language": "en-US",
@@ -299,10 +315,6 @@
         "base"
       ],
       "attributes": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://vnext.io/schemas/core/schema.json",
-        "title": "Schema Definition",
-        "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
         "type": "schema",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -311,35 +323,35 @@
           "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
           "type": "object",
           "properties": {
-            "$schema": {
-              "type": "string",
-              "format": "uri",
-              "description": "JSON Schema version"
-            },
-            "$id": {
-              "type": "string",
-              "format": "uri",
-              "description": "Unique URI of the schema"
-            },
-            "title": {
-              "type": "string",
-              "description": "Schema title"
-            },
-            "description": {
-              "type": "string",
-              "description": "Schema description"
+            "schema": {
+              "description": "JSON Schema definition"
             },
             "type": {
               "type": "string",
-              "description": "Schema type identifier"
+              "description": "Schema type identifier",
+              "enum": [
+                "workflow",
+                "task",
+                "function",
+                "view",
+                "schema",
+                "extension",
+                "headers"
+              ],
+              "enumDescriptions": [
+                "Workflow component definition",
+                "Task component definition",
+                "Function component definition",
+                "View component definition",
+                "Schema component definition",
+                "Extension component definition",
+                "Headers schema definition"
+              ]
             }
           },
           "required": [
-            "$schema",
-            "$id",
-            "title",
-            "description",
-            "type"
+            "type",
+            "schema"
           ],
           "additionalProperties": true
         }
@@ -355,10 +367,6 @@
         "polymorphic"
       ],
       "attributes": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://vnext.io/schemas/core/task.json",
-        "title": "Task Definition",
-        "description": "Polymorphic task definitions. Uses different configuration schemas based on task type.",
         "type": "task",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -1074,10 +1082,6 @@
       ],
       "attributes": {
         "type": "view",
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://vnext.io/schemas/core/view.json",
-        "title": "View Definition",
-        "description": "Schema for view definitions in vNext platform. Contains view content type, target and content information.",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "$id": "https://vnext.io/schemas/core/view.json",
@@ -1390,10 +1394,6 @@
       ],
       "attributes": {
         "type": "workflow",
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://vnext.io/schemas/core/workflow.json",
-        "title": "Workflow Definition",
-        "description": "Schema that configures workflow definitions in vNext platform. Only defines workflow attributes structure.",
         "schema": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "$id": "https://vnext.io/schemas/core/workflow.json",
@@ -1413,6 +1413,10 @@
                     "timer"
                   ],
                   "properties": {
+                    "_comment": {
+                      "type": "string",
+                      "description": "Comment about the timeout"
+                    },
                     "key": {
                       "type": "string",
                       "description": "Timeout key value",
@@ -1605,6 +1609,10 @@
                   {
                     "type": "object",
                     "properties": {
+                      "_comment": {
+                        "type": "string",
+                        "description": "Comment about the transition"
+                      },
                       "key": {
                         "type": "string",
                         "description": "Transition key value. Used in transition requests and is unique within the flow.",
@@ -1613,8 +1621,8 @@
                       },
                       "target": {
                         "type": "string",
-                        "description": "State key that will be reached when the transition is successfully completed",
-                        "pattern": "^[a-zA-Z0-9\\-]+$",
+                        "description": "State key that will be reached when the transition is successfully completed. Can be a state key or special keyword like $self",
+                        "pattern": "^(\\$self|[a-z0-9-]+)$",
                         "maxLength": 255
                       },
                       "from": {
@@ -1925,6 +1933,10 @@
                             "mapping"
                           ],
                           "properties": {
+                            "_comment": {
+                              "type": "string",
+                              "description": "Comment about the task"
+                            },
                             "order": {
                               "type": "integer",
                               "minimum": 1,
@@ -2317,6 +2329,10 @@
             "startTransition": {
               "type": "object",
               "properties": {
+                "_comment": {
+                  "type": "string",
+                  "description": "Comment about the transition"
+                },
                 "key": {
                   "type": "string",
                   "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
@@ -2348,11 +2364,10 @@
                   "type": "integer",
                   "enum": [
                     0,
-                    1,
                     2,
                     3
                   ],
-                  "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                  "description": "Trigger türü. 0=Manual, 2=Timeout, 3=Event. Auto-transition (1) is not allowed for startTransition"
                 },
                 "schema": {
                   "anyOf": [
@@ -2482,6 +2497,10 @@
                       "mapping"
                     ],
                     "properties": {
+                      "_comment": {
+                        "type": "string",
+                        "description": "Comment about the task"
+                      },
                       "order": {
                         "type": "integer",
                         "minimum": 1,
@@ -2719,11 +2738,509 @@
               },
               "description": "Initial transition that starts the workflow"
             },
+            "cancel": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "_comment": {
+                      "type": "string",
+                      "description": "Comment about the cancel transition"
+                    },
+                    "key": {
+                      "type": "string",
+                      "description": "Cancel transition key value",
+                      "pattern": "^[a-z0-9-]+$",
+                      "maxLength": 255
+                    },
+                    "target": {
+                      "type": "string",
+                      "description": "Target state key when cancel is executed",
+                      "pattern": "^[a-z0-9-]+$",
+                      "maxLength": 255
+                    },
+                    "from": {
+                      "type": "string",
+                      "description": "Source state key",
+                      "pattern": "^[a-z0-9-]+$",
+                      "maxLength": 255
+                    },
+                    "versionStrategy": {
+                      "type": "string",
+                      "enum": [
+                        "Minor",
+                        "Major"
+                      ],
+                      "description": "Version increment strategy after successful cancel",
+                      "maxLength": 50
+                    },
+                    "triggerType": {
+                      "type": "integer",
+                      "const": 0,
+                      "description": "Trigger type. Only Manual (0) is allowed for cancel transition"
+                    },
+                    "availableIn": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of states where this cancel transition can be used"
+                    },
+                    "schema": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "description": "Key value of the referenced record (readable identifier)",
+                              "pattern": "^[a-z0-9-]+$",
+                              "maxLength": 255
+                            },
+                            "domain": {
+                              "type": "string",
+                              "description": "Domain where the referenced record is located (required for cross-domain references)",
+                              "pattern": "^[a-zA-Z\\-]+$",
+                              "maxLength": 100,
+                              "examples": [
+                                "core",
+                                "idm",
+                                "banking",
+                                "payment"
+                              ]
+                            },
+                            "flow": {
+                              "type": "string",
+                              "description": "Flow name where the referenced record is located",
+                              "pattern": "^[a-z\\-]+$",
+                              "maxLength": 100
+                            },
+                            "version": {
+                              "type": "string",
+                              "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                              "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                              "maxLength": 50
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "domain",
+                            "flow",
+                            "version"
+                          ],
+                          "additionalProperties": false,
+                          "examples": [
+                            {
+                              "key": "user-authentication-workflow",
+                              "domain": "idm",
+                              "flow": "user-authentication",
+                              "version": "1.0.0"
+                            },
+                            {
+                              "key": "user-login-state",
+                              "domain": "core",
+                              "flow": "authentication",
+                              "version": "2.1.0"
+                            },
+                            {
+                              "key": "payment-validation-task",
+                              "domain": "banking",
+                              "flow": "payment-process",
+                              "version": "1.2.3"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "Data schema reference that must be sent to execute the cancel transition"
+                    },
+                    "labels": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "label",
+                          "language"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "description": "Text content to be displayed to the user",
+                            "maxLength": 500
+                          },
+                          "language": {
+                            "type": "string",
+                            "description": "Language code in ISO 639 format",
+                            "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                            "maxLength": 10
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "examples": [
+                        [
+                          {
+                            "label": "Cancel",
+                            "language": "en-US"
+                          },
+                          {
+                            "label": "İptal",
+                            "language": "tr-TR"
+                          }
+                        ]
+                      ],
+                      "description": "Multi-language cancel transition name"
+                    },
+                    "view": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "extensions": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "description": "List of extensions to be applied to the View."
+                            },
+                            "loadData": {
+                              "type": "boolean",
+                              "description": "Specifies whether data will be loaded for the View."
+                            },
+                            "view": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "key": {
+                                      "type": "string",
+                                      "description": "Key value of the referenced record (readable identifier)",
+                                      "pattern": "^[a-z0-9-]+$",
+                                      "maxLength": 255
+                                    },
+                                    "domain": {
+                                      "type": "string",
+                                      "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                      "pattern": "^[a-zA-Z\\-]+$",
+                                      "maxLength": 100,
+                                      "examples": [
+                                        "core",
+                                        "idm",
+                                        "banking",
+                                        "payment"
+                                      ]
+                                    },
+                                    "flow": {
+                                      "type": "string",
+                                      "description": "Flow name where the referenced record is located",
+                                      "pattern": "^[a-z\\-]+$",
+                                      "maxLength": 100
+                                    },
+                                    "version": {
+                                      "type": "string",
+                                      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                      "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                      "maxLength": 50
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "domain",
+                                    "flow",
+                                    "version"
+                                  ],
+                                  "additionalProperties": false,
+                                  "examples": [
+                                    {
+                                      "key": "user-authentication-workflow",
+                                      "domain": "idm",
+                                      "flow": "user-authentication",
+                                      "version": "1.0.0"
+                                    },
+                                    {
+                                      "key": "user-login-state",
+                                      "domain": "core",
+                                      "flow": "authentication",
+                                      "version": "2.1.0"
+                                    },
+                                    {
+                                      "key": "payment-validation-task",
+                                      "domain": "banking",
+                                      "flow": "payment-process",
+                                      "version": "1.2.3"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "description": "View reference"
+                            }
+                          },
+                          "required": [
+                            "view"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "onExecutionTasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "order",
+                          "task",
+                          "mapping"
+                        ],
+                        "properties": {
+                          "_comment": {
+                            "type": "string",
+                            "description": "Comment about the task"
+                          },
+                          "order": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Task execution order"
+                          },
+                          "task": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "Key value of the referenced record (readable identifier)",
+                                "pattern": "^[a-z0-9-]+$",
+                                "maxLength": 255
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                "pattern": "^[a-zA-Z\\-]+$",
+                                "maxLength": 100,
+                                "examples": [
+                                  "core",
+                                  "idm",
+                                  "banking",
+                                  "payment"
+                                ]
+                              },
+                              "flow": {
+                                "type": "string",
+                                "description": "Flow name where the referenced record is located",
+                                "pattern": "^[a-z\\-]+$",
+                                "maxLength": 100
+                              },
+                              "version": {
+                                "type": "string",
+                                "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "domain",
+                              "flow",
+                              "version"
+                            ],
+                            "additionalProperties": false,
+                            "examples": [
+                              {
+                                "key": "user-authentication-workflow",
+                                "domain": "idm",
+                                "flow": "user-authentication",
+                                "version": "1.0.0"
+                              },
+                              {
+                                "key": "user-login-state",
+                                "domain": "core",
+                                "flow": "authentication",
+                                "version": "2.1.0"
+                              },
+                              {
+                                "key": "payment-validation-task",
+                                "domain": "banking",
+                                "flow": "payment-process",
+                                "version": "1.2.3"
+                              }
+                            ],
+                            "description": "Task reference to be executed"
+                          },
+                          "mapping": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "G",
+                                    "description": "Global mapping - code and location not required"
+                                  },
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  }
+                                },
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "oneOf": [
+                                      {
+                                        "const": "L",
+                                        "description": "Local mapping - code and location is required"
+                                      }
+                                    ],
+                                    "description": "Task type"
+                                  },
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  }
+                                },
+                                "required": [
+                                  "code",
+                                  "location"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  }
+                                },
+                                "required": [
+                                  "code",
+                                  "location"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ],
+                            "description": "Mapping definition"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "description": "Tasks to be executed when the cancel transition is triggered"
+                    },
+                    "mapping": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code and location is required"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "location"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "location"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "Optional mapping definition for cancel transition input data transformation"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "target",
+                    "versionStrategy",
+                    "triggerType",
+                    "labels"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cancel transition definition. Only manual trigger (triggerType: 0) is allowed. Timer and rule definitions are not permitted."
+            },
             "states": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
+                  "_comment": {
+                    "type": "string",
+                    "description": "Comment about the state"
+                  },
                   "key": {
                     "type": "string",
                     "description": "State key value. Must be unique within the workflow.",
@@ -2740,6 +3257,18 @@
                       5
                     ],
                     "description": "State type. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
+                  },
+                  "subType": {
+                    "type": "integer",
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4
+                    ],
+                    "default": 0,
+                    "description": "State subtype. 0=None, 1=Success, 2=Error, 3=Terminated, 4=Suspended"
                   },
                   "versionStrategy": {
                     "type": "string",
@@ -3083,6 +3612,10 @@
                     "items": {
                       "type": "object",
                       "properties": {
+                        "_comment": {
+                          "type": "string",
+                          "description": "Comment about the transition"
+                        },
                         "key": {
                           "type": "string",
                           "description": "Transition key value. Used in transition requests and is unique within the flow.",
@@ -3403,6 +3936,10 @@
                               "mapping"
                             ],
                             "properties": {
+                              "_comment": {
+                                "type": "string",
+                                "description": "Comment about the task"
+                              },
                               "order": {
                                 "type": "integer",
                                 "minimum": 1,
@@ -3651,6 +4188,10 @@
                         "mapping"
                       ],
                       "properties": {
+                        "_comment": {
+                          "type": "string",
+                          "description": "Comment about the task"
+                        },
                         "order": {
                           "type": "integer",
                           "minimum": 1,
@@ -3802,6 +4343,10 @@
                         "mapping"
                       ],
                       "properties": {
+                        "_comment": {
+                          "type": "string",
+                          "description": "Comment about the task"
+                        },
                         "order": {
                           "type": "integer",
                           "minimum": 1,
@@ -3949,6 +4494,10 @@
                     "items": {
                       "type": "object",
                       "properties": {
+                        "_comment": {
+                          "type": "string",
+                          "description": "Comment about the task"
+                        },
                         "order": {
                           "type": "integer",
                           "description": "Task execution order. Tasks with the same order are executed in parallel.",
