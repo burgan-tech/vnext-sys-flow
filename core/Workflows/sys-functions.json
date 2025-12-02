@@ -49,6 +49,7 @@
       {
         "key": "draft",
         "stateType": 1,
+        "subType": 0,
         "labels": [
           {
             "language": "en-US",
@@ -121,6 +122,7 @@
       {
         "key": "active",
         "stateType": 2,
+        "subType": 1,
         "labels": [
           {
             "language": "en-US",
@@ -193,6 +195,7 @@
       {
         "key": "passive",
         "stateType": 2,
+        "subType": 4,
         "labels": [
           {
             "language": "en-US",
@@ -251,6 +254,7 @@
       {
         "key": "deleted",
         "stateType": 2,
+        "subType": 3,
         "labels": [
           {
             "language": "en-US",
