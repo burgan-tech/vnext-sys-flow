@@ -630,7 +630,7 @@
                               "properties": {
                                 "type": {
                                   "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
+                                  "description": "Global mapping - code and location not required"
                                 },
                                 "code": {
                                   "type": "string",
@@ -639,6 +639,15 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "additionalProperties": false
@@ -650,10 +659,10 @@
                                   "oneOf": [
                                     {
                                       "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
+                                      "description": "Local mapping - code is required, location is optional"
                                     }
                                   ],
-                                  "description": "Task type"
+                                  "description": "Mapping type"
                                 },
                                 "code": {
                                   "type": "string",
@@ -662,11 +671,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             },
@@ -680,11 +697,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             }
@@ -712,6 +737,15 @@
                           "location": {
                             "type": "string",
                             "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
                           }
                         },
                         "additionalProperties": false
@@ -723,7 +757,7 @@
                             "oneOf": [
                               {
                                 "const": "L",
-                                "description": "Local mapping - code and location is required"
+                                "description": "Local mapping - code is required, location is optional"
                               }
                             ],
                             "description": "Mapping type"
@@ -735,11 +769,19 @@
                           "location": {
                             "type": "string",
                             "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
                           }
                         },
                         "required": [
-                          "code",
-                          "location"
+                          "code"
                         ],
                         "additionalProperties": false
                       },
@@ -753,11 +795,19 @@
                           "location": {
                             "type": "string",
                             "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
                           }
                         },
                         "required": [
-                          "code",
-                          "location"
+                          "code"
                         ],
                         "additionalProperties": false
                       },
@@ -1188,73 +1238,98 @@
                     "description": "Task reference to be run"
                   },
                   "mapping": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "G",
-                                  "description": "Global mapping - code ve location not required"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "oneOf": [
-                                    {
-                                      "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
-                                    }
-                                  ],
-                                  "description": "Task type"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ],
-                          "description": "Mapping definition"
-                        }
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "G",
+                            "description": "Global mapping - code and location not required"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "oneOf": [
+                              {
+                                "const": "L",
+                                "description": "Local mapping - code is required, location is optional"
+                              }
+                            ],
+                            "description": "Mapping type"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ],
+                    "description": "Mapping definition"
+                  }
                 },
                 "additionalProperties": false
               },
@@ -1276,6 +1351,15 @@
                     "location": {
                       "type": "string",
                       "description": "Code file location"
+                    },
+                    "encoding": {
+                      "type": "string",
+                      "enum": [
+                        "B64",
+                        "NAT"
+                      ],
+                      "default": "B64",
+                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
                     }
                   },
                   "additionalProperties": false
@@ -1287,7 +1371,7 @@
                       "oneOf": [
                         {
                           "const": "L",
-                          "description": "Local mapping - code and location is required"
+                          "description": "Local mapping - code is required, location is optional"
                         }
                       ],
                       "description": "Mapping type"
@@ -1299,11 +1383,19 @@
                     "location": {
                       "type": "string",
                       "description": "Code file location"
+                    },
+                    "encoding": {
+                      "type": "string",
+                      "enum": [
+                        "B64",
+                        "NAT"
+                      ],
+                      "default": "B64",
+                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
                     }
                   },
                   "required": [
-                    "code",
-                    "location"
+                    "code"
                   ],
                   "additionalProperties": false
                 },
@@ -1317,11 +1409,19 @@
                     "location": {
                       "type": "string",
                       "description": "Code file location"
+                    },
+                    "encoding": {
+                      "type": "string",
+                      "enum": [
+                        "B64",
+                        "NAT"
+                      ],
+                      "default": "B64",
+                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
                     }
                   },
                   "required": [
-                    "code",
-                    "location"
+                    "code"
                   ],
                   "additionalProperties": false
                 },
@@ -1706,6 +1806,15 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "additionalProperties": false
@@ -1717,10 +1826,10 @@
                                 "oneOf": [
                                   {
                                     "const": "L",
-                                    "description": "Local mapping - code and location is required"
+                                    "description": "Local mapping - code is required, location is optional"
                                   }
                                 ],
-                                "description": "Task type"
+                                "description": "Mapping type"
                               },
                               "code": {
                                 "type": "string",
@@ -1729,11 +1838,19 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "required": [
-                              "code",
-                              "location"
+                              "code"
                             ],
                             "additionalProperties": false
                           },
@@ -1747,11 +1864,19 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "required": [
-                              "code",
-                              "location"
+                              "code"
                             ],
                             "additionalProperties": false
                           }
@@ -1779,6 +1904,15 @@
                         "location": {
                           "type": "string",
                           "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
                         }
                       },
                       "additionalProperties": false
@@ -1790,7 +1924,7 @@
                           "oneOf": [
                             {
                               "const": "L",
-                              "description": "Local mapping - code and location is required"
+                              "description": "Local mapping - code is required, location is optional"
                             }
                           ],
                           "description": "Mapping type"
@@ -1802,11 +1936,19 @@
                         "location": {
                           "type": "string",
                           "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
                         }
                       },
                       "required": [
-                        "code",
-                        "location"
+                        "code"
                       ],
                       "additionalProperties": false
                     },
@@ -1820,11 +1962,19 @@
                         "location": {
                           "type": "string",
                           "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
                         }
                       },
                       "required": [
-                        "code",
-                        "location"
+                        "code"
                       ],
                       "additionalProperties": false
                     },
@@ -2128,8 +2278,7 @@
                           {
                             "type": "object",
                             "required": [
-                              "code",
-                              "location"
+                              "code"
                             ],
                             "properties": {
                               "code": {
@@ -2139,6 +2288,15 @@
                               "location": {
                                 "type": "string",
                                 "description": "Location of the mapping code file"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "additionalProperties": false
@@ -2627,73 +2785,98 @@
                             "description": "Task reference to be executed"
                           },
                           "mapping": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "G",
+                                    "description": "Global mapping - code and location not required"
+                                  },
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                  }
                                 },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
+                                "additionalProperties": false
                               },
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "oneOf": [
-                                    {
-                                      "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
-                                    }
-                                  ],
-                                  "description": "Task type"
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "oneOf": [
+                                      {
+                                        "const": "L",
+                                        "description": "Local mapping - code is required, location is optional"
+                                      }
+                                    ],
+                                    "description": "Mapping type"
+                                  },
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                  }
                                 },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
+                                "required": [
+                                  "code"
+                                ],
+                                "additionalProperties": false
                               },
-                              "required": [
-                                "code",
-                                "location"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                  }
                                 },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ],
-                          "description": "Mapping definition"
-                        }
+                                "required": [
+                                  "code"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ],
+                            "description": "Mapping definition"
+                          }
                         },
                         "additionalProperties": false
                       },
@@ -2715,6 +2898,15 @@
                             "location": {
                               "type": "string",
                               "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "additionalProperties": false
@@ -2726,7 +2918,7 @@
                               "oneOf": [
                                 {
                                   "const": "L",
-                                  "description": "Local mapping - code and location is required"
+                                  "description": "Local mapping - code is required, location is optional"
                                 }
                               ],
                               "description": "Mapping type"
@@ -2738,11 +2930,19 @@
                             "location": {
                               "type": "string",
                               "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "required": [
-                            "code",
-                            "location"
+                            "code"
                           ],
                           "additionalProperties": false
                         },
@@ -2756,11 +2956,19 @@
                             "location": {
                               "type": "string",
                               "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "required": [
-                            "code",
-                            "location"
+                            "code"
                           ],
                           "additionalProperties": false
                         },
@@ -2879,73 +3087,98 @@
                       "description": "Task reference to be run"
                     },
                     "mapping": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "additionalProperties": false
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "oneOf": [
-                                    {
-                                      "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
-                                    }
-                                  ],
-                                  "description": "Task type"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
-                              ],
-                              "additionalProperties": false
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
                               ],
-                              "additionalProperties": false
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code is required, location is optional"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
                           ],
-                          "description": "Mapping definition"
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
                         }
+                      ],
+                      "description": "Mapping definition"
+                    }
                   },
                   "additionalProperties": false
                 },
@@ -3034,73 +3267,98 @@
                       "description": "Task reference to be run"
                     },
                     "mapping": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "additionalProperties": false
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "oneOf": [
-                                    {
-                                      "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
-                                    }
-                                  ],
-                                  "description": "Task type"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
-                              ],
-                              "additionalProperties": false
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
                               ],
-                              "additionalProperties": false
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code is required, location is optional"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
                           ],
-                          "description": "Mapping definition"
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
                         }
+                      ],
+                      "description": "Mapping definition"
+                    }
                   },
                   "additionalProperties": false
                 },
@@ -3151,73 +3409,98 @@
                       }
                     },
                     "mapping": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "additionalProperties": false
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "oneOf": [
-                                    {
-                                      "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
-                                    }
-                                  ],
-                                  "description": "Task type"
-                                },
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
-                              ],
-                              "additionalProperties": false
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "code": {
-                                  "type": "string",
-                                  "description": "Mapping code"
-                                },
-                                "location": {
-                                  "type": "string",
-                                  "description": "Code file location"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "location"
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
                               ],
-                              "additionalProperties": false
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code is required, location is optional"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
                           ],
-                          "description": "Mapping definition"
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
                         }
+                      ],
+                      "description": "Mapping definition"
+                    }
                   },
                   "required": [
                     "order",
