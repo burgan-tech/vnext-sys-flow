@@ -350,8 +350,7 @@
                       {
                         "type": "object",
                         "required": [
-                          "code",
-                          "location"
+                          "code"
                         ],
                         "properties": {
                           "code": {
@@ -361,6 +360,15 @@
                           "location": {
                             "type": "string",
                             "description": "Location of the code file"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
                           }
                         },
                         "additionalProperties": false
@@ -376,17 +384,25 @@
                       {
                         "type": "object",
                         "required": [
-                          "code",
-                          "location"
+                          "code"
                         ],
                         "properties": {
                           "code": {
                             "type": "string",
-                            "description": "Rule code"
+                            "description": "Timer code"
                           },
                           "location": {
                             "type": "string",
                             "description": "Location of the code file"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
                           }
                         },
                         "additionalProperties": false
@@ -2511,8 +2527,7 @@
                         {
                           "type": "object",
                           "required": [
-                            "code",
-                            "location"
+                            "code"
                           ],
                           "properties": {
                             "code": {
@@ -2522,6 +2537,15 @@
                             "location": {
                               "type": "string",
                               "description": "Location of the code file"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "additionalProperties": false
@@ -2537,17 +2561,25 @@
                         {
                           "type": "object",
                           "required": [
-                            "code",
-                            "location"
+                            "code"
                           ],
                           "properties": {
                             "code": {
                               "type": "string",
-                              "description": "Rule code"
+                              "description": "Timer code"
                             },
                             "location": {
                               "type": "string",
                               "description": "Location of the code file"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "additionalProperties": false
