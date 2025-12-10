@@ -2060,7 +2060,7 @@
                                   "properties": {
                                     "type": {
                                       "const": "G",
-                                      "description": "Global mapping - code and location not reqired"
+                                      "description": "Global mapping - code and location not required"
                                     },
                                     "code": {
                                       "type": "string",
@@ -2069,6 +2069,15 @@
                                     "location": {
                                       "type": "string",
                                       "description": "Code file location"
+                                    },
+                                    "encoding": {
+                                      "type": "string",
+                                      "enum": [
+                                        "B64",
+                                        "NAT"
+                                      ],
+                                      "default": "B64",
+                                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                     }
                                   },
                                   "additionalProperties": false
@@ -2080,10 +2089,10 @@
                                       "oneOf": [
                                         {
                                           "const": "L",
-                                          "description": "Local mapping - code and location is reqired"
+                                          "description": "Local mapping - code is required, location is optional"
                                         }
                                       ],
-                                      "description": "Task type"
+                                      "description": "Mapping type"
                                     },
                                     "code": {
                                       "type": "string",
@@ -2092,11 +2101,19 @@
                                     "location": {
                                       "type": "string",
                                       "description": "Code file location"
+                                    },
+                                    "encoding": {
+                                      "type": "string",
+                                      "enum": [
+                                        "B64",
+                                        "NAT"
+                                      ],
+                                      "default": "B64",
+                                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                     }
                                   },
                                   "required": [
-                                    "code",
-                                    "location"
+                                    "code"
                                   ],
                                   "additionalProperties": false
                                 },
@@ -2110,11 +2127,19 @@
                                     "location": {
                                       "type": "string",
                                       "description": "Code file location"
+                                    },
+                                    "encoding": {
+                                      "type": "string",
+                                      "enum": [
+                                        "B64",
+                                        "NAT"
+                                      ],
+                                      "default": "B64",
+                                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                     }
                                   },
                                   "required": [
-                                    "code",
-                                    "location"
+                                    "code"
                                   ],
                                   "additionalProperties": false
                                 }
@@ -2142,6 +2167,15 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "additionalProperties": false
@@ -2153,7 +2187,7 @@
                                 "oneOf": [
                                   {
                                     "const": "L",
-                                    "description": "Local mapping - code and location is required"
+                                    "description": "Local mapping - code is required, location is optional"
                                   }
                                 ],
                                 "description": "Mapping type"
@@ -2165,11 +2199,19 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "required": [
-                              "code",
-                              "location"
+                              "code"
                             ],
                             "additionalProperties": false
                           },
@@ -2183,11 +2225,19 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "required": [
-                              "code",
-                              "location"
+                              "code"
                             ],
                             "additionalProperties": false
                           },
@@ -2624,7 +2674,7 @@
                             "properties": {
                               "type": {
                                 "const": "G",
-                                "description": "Global mapping - code ve location not required"
+                                "description": "Global mapping - code and location not required"
                               },
                               "code": {
                                 "type": "string",
@@ -2633,6 +2683,15 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "additionalProperties": false
@@ -2644,10 +2703,10 @@
                                 "oneOf": [
                                   {
                                     "const": "L",
-                                    "description": "Local mapping - code and location is reqired"
+                                    "description": "Local mapping - code is required, location is optional"
                                   }
                                 ],
-                                "description": "Task type"
+                                "description": "Mapping type"
                               },
                               "code": {
                                 "type": "string",
@@ -2656,11 +2715,19 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "required": [
-                              "code",
-                              "location"
+                              "code"
                             ],
                             "additionalProperties": false
                           },
@@ -2674,11 +2741,19 @@
                               "location": {
                                 "type": "string",
                                 "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
                               }
                             },
                             "required": [
-                              "code",
-                              "location"
+                              "code"
                             ],
                             "additionalProperties": false
                           }
@@ -2706,6 +2781,15 @@
                         "location": {
                           "type": "string",
                           "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
                         }
                       },
                       "additionalProperties": false
@@ -2717,7 +2801,7 @@
                           "oneOf": [
                             {
                               "const": "L",
-                              "description": "Local mapping - code and location is required"
+                              "description": "Local mapping - code is required, location is optional"
                             }
                           ],
                           "description": "Mapping type"
@@ -2729,11 +2813,19 @@
                         "location": {
                           "type": "string",
                           "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
                         }
                       },
                       "required": [
-                        "code",
-                        "location"
+                        "code"
                       ],
                       "additionalProperties": false
                     },
@@ -2747,11 +2839,19 @@
                         "location": {
                           "type": "string",
                           "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
                         }
                       },
                       "required": [
-                        "code",
-                        "location"
+                        "code"
                       ],
                       "additionalProperties": false
                     },
@@ -3136,6 +3236,15 @@
                                   "location": {
                                     "type": "string",
                                     "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                   }
                                 },
                                 "additionalProperties": false
@@ -3147,10 +3256,10 @@
                                     "oneOf": [
                                       {
                                         "const": "L",
-                                        "description": "Local mapping - code and location is required"
+                                        "description": "Local mapping - code is required, location is optional"
                                       }
                                     ],
-                                    "description": "Task type"
+                                    "description": "Mapping type"
                                   },
                                   "code": {
                                     "type": "string",
@@ -3159,11 +3268,19 @@
                                   "location": {
                                     "type": "string",
                                     "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                   }
                                 },
                                 "required": [
-                                  "code",
-                                  "location"
+                                  "code"
                                 ],
                                 "additionalProperties": false
                               },
@@ -3177,11 +3294,19 @@
                                   "location": {
                                     "type": "string",
                                     "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                   }
                                 },
                                 "required": [
-                                  "code",
-                                  "location"
+                                  "code"
                                 ],
                                 "additionalProperties": false
                               }
@@ -3209,6 +3334,15 @@
                             "location": {
                               "type": "string",
                               "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "additionalProperties": false
@@ -3220,7 +3354,7 @@
                               "oneOf": [
                                 {
                                   "const": "L",
-                                  "description": "Local mapping - code and location is required"
+                                  "description": "Local mapping - code is required, location is optional"
                                 }
                               ],
                               "description": "Mapping type"
@@ -3232,11 +3366,19 @@
                             "location": {
                               "type": "string",
                               "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "required": [
-                            "code",
-                            "location"
+                            "code"
                           ],
                           "additionalProperties": false
                         },
@@ -3250,11 +3392,19 @@
                             "location": {
                               "type": "string",
                               "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "required": [
-                            "code",
-                            "location"
+                            "code"
                           ],
                           "additionalProperties": false
                         },
@@ -3558,8 +3708,7 @@
                               {
                                 "type": "object",
                                 "required": [
-                                  "code",
-                                  "location"
+                                  "code"
                                 ],
                                 "properties": {
                                   "code": {
@@ -3569,6 +3718,15 @@
                                   "location": {
                                     "type": "string",
                                     "description": "Location of the mapping code file"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                   }
                                 },
                                 "additionalProperties": false
@@ -4063,7 +4221,7 @@
                                     "properties": {
                                       "type": {
                                         "const": "G",
-                                        "description": "Global mapping - code and location not reqired"
+                                        "description": "Global mapping - code and location not required"
                                       },
                                       "code": {
                                         "type": "string",
@@ -4072,6 +4230,15 @@
                                       "location": {
                                         "type": "string",
                                         "description": "Code file location"
+                                      },
+                                      "encoding": {
+                                        "type": "string",
+                                        "enum": [
+                                          "B64",
+                                          "NAT"
+                                        ],
+                                        "default": "B64",
+                                        "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                       }
                                     },
                                     "additionalProperties": false
@@ -4083,10 +4250,10 @@
                                         "oneOf": [
                                           {
                                             "const": "L",
-                                            "description": "Local mapping - code and location is reqired"
+                                            "description": "Local mapping - code is required, location is optional"
                                           }
                                         ],
-                                        "description": "Task type"
+                                        "description": "Mapping type"
                                       },
                                       "code": {
                                         "type": "string",
@@ -4095,11 +4262,19 @@
                                       "location": {
                                         "type": "string",
                                         "description": "Code file location"
+                                      },
+                                      "encoding": {
+                                        "type": "string",
+                                        "enum": [
+                                          "B64",
+                                          "NAT"
+                                        ],
+                                        "default": "B64",
+                                        "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                       }
                                     },
                                     "required": [
-                                      "code",
-                                      "location"
+                                      "code"
                                     ],
                                     "additionalProperties": false
                                   },
@@ -4113,11 +4288,19 @@
                                       "location": {
                                         "type": "string",
                                         "description": "Code file location"
+                                      },
+                                      "encoding": {
+                                        "type": "string",
+                                        "enum": [
+                                          "B64",
+                                          "NAT"
+                                        ],
+                                        "default": "B64",
+                                        "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                       }
                                     },
                                     "required": [
-                                      "code",
-                                      "location"
+                                      "code"
                                     ],
                                     "additionalProperties": false
                                   }
@@ -4145,6 +4328,15 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "additionalProperties": false
@@ -4156,7 +4348,7 @@
                                   "oneOf": [
                                     {
                                       "const": "L",
-                                      "description": "Local mapping - code and location is required"
+                                      "description": "Local mapping - code is required, location is optional"
                                     }
                                   ],
                                   "description": "Mapping type"
@@ -4168,11 +4360,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             },
@@ -4186,11 +4386,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             },
@@ -4315,7 +4523,7 @@
                               "properties": {
                                 "type": {
                                   "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
+                                  "description": "Global mapping - code and location not required"
                                 },
                                 "code": {
                                   "type": "string",
@@ -4324,6 +4532,15 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "additionalProperties": false
@@ -4335,10 +4552,10 @@
                                   "oneOf": [
                                     {
                                       "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
+                                      "description": "Local mapping - code is required, location is optional"
                                     }
                                   ],
-                                  "description": "Task type"
+                                  "description": "Mapping type"
                                 },
                                 "code": {
                                   "type": "string",
@@ -4347,11 +4564,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             },
@@ -4365,11 +4590,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             }
@@ -4470,7 +4703,7 @@
                               "properties": {
                                 "type": {
                                   "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
+                                  "description": "Global mapping - code and location not required"
                                 },
                                 "code": {
                                   "type": "string",
@@ -4479,6 +4712,15 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "additionalProperties": false
@@ -4490,10 +4732,10 @@
                                   "oneOf": [
                                     {
                                       "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
+                                      "description": "Local mapping - code is required, location is optional"
                                     }
                                   ],
-                                  "description": "Task type"
+                                  "description": "Mapping type"
                                 },
                                 "code": {
                                   "type": "string",
@@ -4502,11 +4744,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             },
@@ -4520,11 +4770,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             }
@@ -4587,7 +4845,7 @@
                               "properties": {
                                 "type": {
                                   "const": "G",
-                                  "description": "Global mapping - code and location not reqired"
+                                  "description": "Global mapping - code and location not required"
                                 },
                                 "code": {
                                   "type": "string",
@@ -4596,6 +4854,15 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "additionalProperties": false
@@ -4607,10 +4874,10 @@
                                   "oneOf": [
                                     {
                                       "const": "L",
-                                      "description": "Local mapping - code and location is reqired"
+                                      "description": "Local mapping - code is required, location is optional"
                                     }
                                   ],
-                                  "description": "Task type"
+                                  "description": "Mapping type"
                                 },
                                 "code": {
                                   "type": "string",
@@ -4619,11 +4886,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             },
@@ -4637,11 +4912,19 @@
                                 "location": {
                                   "type": "string",
                                   "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
                                 }
                               },
                               "required": [
-                                "code",
-                                "location"
+                                "code"
                               ],
                               "additionalProperties": false
                             }
