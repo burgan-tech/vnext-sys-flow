@@ -1,5 +1,5 @@
 {
-  "key": "invalidate-cache",
+  "key": "notification-task",
   "version": "1.0.0",
   "domain": "core",
   "flow": "sys-tasks",
@@ -10,12 +10,12 @@
     "components"
   ],
   "attributes": {
-    "type": "4",
+    "type": "10",
     "config": {
-      "pubSubName": "vnext-pubsub-broadcast",
-      "topic": "{ENVIRONMENT}.vnext.invalidate-cache",
-      "data": {},
-      "metadata": {}
+      "metadata": {
+        "method": "post",
+        "ForwardingHeaders": "X-Installation-Id,X-Device-Id"
+      }
     }
   }
 }

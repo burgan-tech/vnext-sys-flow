@@ -14,16 +14,16 @@
     "type": "workflow",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://schemas.vnext.com/core/workflow.json",
+      "$id": "https://vnext.io/schemas/core/workflow.json",
       "title": "Workflow Definition",
-      "description": "vNext platformunda iş akışı tanımlarını yapılandıran şema. Sadece workflow attributes yapısını tanımlar.",
+      "description": "Schema that configures workflow definitions in vNext platform. Only defines workflow attributes structure.",
       "type": "object",
       "properties": {
         "timeout": {
           "anyOf": [
             {
               "type": "object",
-              "description": "Workflow timeout yapılandırması",
+              "description": "Workflow timeout configuration",
               "required": [
                 "key",
                 "target",
@@ -31,15 +31,19 @@
                 "timer"
               ],
               "properties": {
+                "_comment": {
+                  "type": "string",
+                  "description": "Comment about the timeout"
+                },
                 "key": {
                   "type": "string",
-                  "description": "Timeout anahtar değeri",
+                  "description": "Timeout key value",
                   "pattern": "^[a-z0-9-]+$",
                   "maxLength": 255
                 },
                 "target": {
                   "type": "string",
-                  "description": "Timeout durumunda hedef state",
+                  "description": "Target state in case of timeout",
                   "pattern": "^[a-z0-9-]+$",
                   "maxLength": 255
                 },
@@ -49,7 +53,7 @@
                     "Minor",
                     "Major"
                   ],
-                  "description": "Timeout sonrası versiyon stratejisi",
+                  "description": "Version strategy after timeout",
                   "maxLength": 50
                 },
                 "timer": {
@@ -61,12 +65,12 @@
                   "properties": {
                     "reset": {
                       "type": "string",
-                      "description": "Timer reset stratejisi"
+                      "description": "Timer reset strategy"
                     },
                     "duration": {
                       "type": "string",
                       "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                      "description": "Süre bilgisi (ISO 8601 formatında)",
+                      "description": "Duration information (in ISO 8601 format)",
                       "maxLength": 100
                     }
                   },
@@ -79,28 +83,28 @@
               "type": "null"
             }
           ],
-          "description": "Workflow genel timeout tanımı"
+          "description": "Workflow general timeout definition"
         },
         "type": {
           "oneOf": [
             {
               "const": "C",
-              "description": "Core workflow türü"
+              "description": "Core workflow type"
             },
             {
               "const": "F",
-              "description": "Flow workflow türü"
+              "description": "Flow workflow type"
             },
             {
               "const": "S",
-              "description": "SubFlow workflow türü"
+              "description": "SubFlow workflow type"
             },
             {
               "const": "P",
-              "description": "Sub Process workflow türü"
+              "description": "Sub Process workflow type"
             }
           ],
-          "description": "Workflow'un türü"
+          "description": "Workflow type"
         },
         "labels": {
           "type": "array",
@@ -113,12 +117,12 @@
             "properties": {
               "label": {
                 "type": "string",
-                "description": "Kullanıcıya gösterilecek metin içeriği",
+                "description": "Text content to be displayed to the user",
                 "maxLength": 500
               },
               "language": {
                 "type": "string",
-                "description": "ISO 639 formatında dil kodu",
+                "description": "Language code in ISO 639 format",
                 "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                 "maxLength": 10
               }
@@ -148,7 +152,7 @@
               }
             ]
           ],
-          "description": "Workflow'un çoklu dil etiketleri"
+          "description": "Multi-language labels of the workflow"
         },
         "functions": {
           "type": "array",
@@ -157,13 +161,13 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                "description": "Key value of the referenced record (readable identifier)",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 255
               },
               "domain": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                "description": "Domain where the referenced record is located (required for cross-domain references)",
                 "pattern": "^[a-zA-Z\\-]+$",
                 "maxLength": 100,
                 "examples": [
@@ -175,14 +179,14 @@
               },
               "flow": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu flow adı",
+                "description": "Flow name where the referenced record is located",
                 "pattern": "^[a-z\\-]+$",
                 "maxLength": 100
               },
               "version": {
                 "type": "string",
                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                 "maxLength": 50
               }
             },
@@ -214,7 +218,7 @@
               }
             ]
           },
-          "description": "Workflow ile ilişkili function referansları"
+          "description": "Function references associated with the workflow"
         },
         "sharedTransitions": {
           "type": "array",
@@ -223,21 +227,25 @@
               {
                 "type": "object",
                 "properties": {
+                  "_comment": {
+                    "type": "string",
+                    "description": "Comment about the transition"
+                  },
                   "key": {
                     "type": "string",
-                    "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
+                    "description": "Transition key value. Used in transition requests and is unique within the flow.",
                     "pattern": "^[a-z0-9-]+$",
                     "maxLength": 255
                   },
                   "target": {
                     "type": "string",
-                    "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
-                    "pattern": "^[a-zA-Z0-9\\-]+$",
+                    "description": "State key that will be reached when the transition is successfully completed. Can be a state key or special keyword like $self",
+                    "pattern": "^(\\$self|[a-z0-9-]+)$",
                     "maxLength": 255
                   },
                   "from": {
                     "type": "string",
-                    "description": "Kaynak state key'i",
+                    "description": "Source state key",
                     "pattern": "^[a-zA-Z0-9\\-]+$",
                     "maxLength": 255
                   },
@@ -247,7 +255,7 @@
                       "Minor",
                       "Major"
                     ],
-                    "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
+                    "description": "Version increment strategy after successful transition",
                     "maxLength": 50
                   },
                   "triggerType": {
@@ -258,14 +266,14 @@
                       2,
                       3
                     ],
-                    "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                    "description": "Trigger type. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
                   },
                   "availableIn": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
-                    "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                    "description": "List of states where this transition can be used"
                   },
                   "schema": {
                     "anyOf": [
@@ -274,13 +282,13 @@
                         "properties": {
                           "key": {
                             "type": "string",
-                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                            "description": "Key value of the referenced record (readable identifier)",
                             "pattern": "^[a-z0-9-]+$",
                             "maxLength": 255
                           },
                           "domain": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                            "description": "Domain where the referenced record is located (required for cross-domain references)",
                             "pattern": "^[a-zA-Z\\-]+$",
                             "maxLength": 100,
                             "examples": [
@@ -292,14 +300,14 @@
                           },
                           "flow": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu flow adı",
+                            "description": "Flow name where the referenced record is located",
                             "pattern": "^[a-zA-Z\\-]+$",
                             "maxLength": 100
                           },
                           "version": {
                             "type": "string",
                             "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                            "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                             "maxLength": 50
                           }
                         },
@@ -335,24 +343,32 @@
                         "type": "null"
                       }
                     ],
-                    "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
+                    "description": "Data schema reference that must be sent to execute the transition"
                   },
                   "rule": {
                     "anyOf": [
                       {
                         "type": "object",
                         "required": [
-                          "code",
-                          "location"
+                          "code"
                         ],
                         "properties": {
                           "code": {
                             "type": "string",
-                            "description": "Rule kodu"
+                            "description": "Rule code"
                           },
                           "location": {
                             "type": "string",
-                            "description": "Kod dosyasının konumu"
+                            "description": "Location of the code file"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
                           }
                         },
                         "additionalProperties": false
@@ -361,26 +377,32 @@
                         "type": "null"
                       }
                     ],
-                    "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
+                    "description": "Code where the rule is defined if rule-based progression will occur"
                   },
                   "timer": {
                     "anyOf": [
                       {
                         "type": "object",
                         "required": [
-                          "reset",
-                          "duration"
+                          "code"
                         ],
                         "properties": {
-                          "reset": {
+                          "code": {
                             "type": "string",
-                            "description": "Zamanlayıcı reset stratejisi"
+                            "description": "Timer code"
                           },
-                          "duration": {
+                          "location": {
                             "type": "string",
-                            "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                            "description": "Süre bilgisi (ISO 8601 formatında)",
-                            "maxLength": 100
+                            "description": "Location of the code file"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
                           }
                         },
                         "additionalProperties": false
@@ -389,7 +411,7 @@
                         "type": "null"
                       }
                     ],
-                    "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
+                    "description": "Timing information if the transition will run automatically"
                   },
                   "labels": {
                     "type": "array",
@@ -402,12 +424,12 @@
                       "properties": {
                         "label": {
                           "type": "string",
-                          "description": "Kullanıcıya gösterilecek metin içeriği",
+                          "description": "Text content to be displayed to the user",
                           "maxLength": 500
                         },
                         "language": {
                           "type": "string",
-                          "description": "ISO 639 formatında dil kodu",
+                          "description": "Language code in ISO 639 format",
                           "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                           "maxLength": 10
                         }
@@ -437,77 +459,103 @@
                         }
                       ]
                     ],
-                    "description": "Çok dilli geçiş ismi"
+                    "description": "Multi-language transition name"
                   },
                   "view": {
                     "anyOf": [
                       {
                         "type": "object",
                         "properties": {
-                          "key": {
-                            "type": "string",
-                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                            "pattern": "^[a-z0-9-]+$",
-                            "maxLength": 255
+                          "extensions": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "List of extensions to be applied to the View."
                           },
-                          "domain": {
-                            "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                            "pattern": "^[a-zA-Z\\-]+$",
-                            "maxLength": 100,
-                            "examples": [
-                              "core",
-                              "idm",
-                              "banking",
-                              "payment"
-                            ]
+                          "loadData": {
+                            "type": "boolean",
+                            "description": "Specifies whether data will be loaded for the View."
                           },
-                          "flow": {
-                            "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu flow adı",
-                            "pattern": "^[a-z\\-]+$",
-                            "maxLength": 100
-                          },
-                          "version": {
-                            "type": "string",
-                            "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                            "maxLength": 50
+                          "view": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string",
+                                    "description": "Key value of the referenced record (readable identifier)",
+                                    "pattern": "^[a-z0-9-]+$",
+                                    "maxLength": 255
+                                  },
+                                  "domain": {
+                                    "type": "string",
+                                    "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                    "pattern": "^[a-zA-Z\\-]+$",
+                                    "maxLength": 100,
+                                    "examples": [
+                                      "core",
+                                      "idm",
+                                      "banking",
+                                      "payment"
+                                    ]
+                                  },
+                                  "flow": {
+                                    "type": "string",
+                                    "description": "Flow name where the referenced record is located",
+                                    "pattern": "^[a-z\\-]+$",
+                                    "maxLength": 100
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                    "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                    "maxLength": 50
+                                  }
+                                },
+                                "required": [
+                                  "key",
+                                  "domain",
+                                  "flow",
+                                  "version"
+                                ],
+                                "additionalProperties": false,
+                                "examples": [
+                                  {
+                                    "key": "user-authentication-workflow",
+                                    "domain": "idm",
+                                    "flow": "user-authentication",
+                                    "version": "1.0.0"
+                                  },
+                                  {
+                                    "key": "user-login-state",
+                                    "domain": "core",
+                                    "flow": "authentication",
+                                    "version": "2.1.0"
+                                  },
+                                  {
+                                    "key": "payment-validation-task",
+                                    "domain": "banking",
+                                    "flow": "payment-process",
+                                    "version": "1.2.3"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "View reference"
                           }
                         },
                         "required": [
-                          "key",
-                          "domain",
-                          "flow",
-                          "version"
-                        ],
-                        "additionalProperties": false,
-                        "examples": [
-                          {
-                            "key": "user-authentication-workflow",
-                            "domain": "idm",
-                            "flow": "user-authentication",
-                            "version": "1.0.0"
-                          },
-                          {
-                            "key": "user-login-state",
-                            "domain": "core",
-                            "flow": "authentication",
-                            "version": "2.1.0"
-                          },
-                          {
-                            "key": "payment-validation-task",
-                            "domain": "banking",
-                            "flow": "payment-process",
-                            "version": "1.2.3"
-                          }
+                          "view"
                         ]
                       },
                       {
                         "type": "null"
                       }
-                    ],
-                    "description": "Geçişte kullanılacak view referansı"
+                    ]
                   },
                   "onExecutionTasks": {
                     "type": "array",
@@ -519,23 +567,27 @@
                         "mapping"
                       ],
                       "properties": {
+                        "_comment": {
+                          "type": "string",
+                          "description": "Comment about the task"
+                        },
                         "order": {
                           "type": "integer",
                           "minimum": 1,
-                          "description": "Görevin çalışma sırası"
+                          "description": "Task execution order"
                         },
                         "task": {
                           "type": "object",
                           "properties": {
                             "key": {
                               "type": "string",
-                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "description": "Key value of the referenced record (readable identifier)",
                               "pattern": "^[a-zA-Z0-9\\-]+$",
                               "maxLength": 255
                             },
                             "domain": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "description": "Domain where the referenced record is located (required for cross-domain references)",
                               "pattern": "^[a-zA-Z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -547,14 +599,14 @@
                             },
                             "flow": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "description": "Flow name where the referenced record is located",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100
                             },
                             "version": {
                               "type": "string",
                               "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                               "maxLength": 50
                             }
                           },
@@ -585,30 +637,201 @@
                               "version": "1.2.3"
                             }
                           ],
-                          "description": "Çalıştırılacak task referansı"
+                          "description": "Task reference to be executed"
                         },
                         "mapping": {
-                          "type": "object",
-                          "required": [
-                            "code",
-                            "location"
-                          ],
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Mapping kodu"
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "G",
+                                  "description": "Global mapping - code and location not required"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                }
+                              },
+                              "additionalProperties": false
                             },
-                            "location": {
-                              "type": "string",
-                              "description": "Kod dosyasının konumu"
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "oneOf": [
+                                    {
+                                      "const": "L",
+                                      "description": "Local mapping - code is required, location is optional"
+                                    }
+                                  ],
+                                  "description": "Mapping type"
+                                },
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                }
+                              },
+                              "required": [
+                                "code"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string",
+                                  "description": "Mapping code"
+                                },
+                                "location": {
+                                  "type": "string",
+                                  "description": "Code file location"
+                                },
+                                "encoding": {
+                                  "type": "string",
+                                  "enum": [
+                                    "B64",
+                                    "NAT"
+                                  ],
+                                  "default": "B64",
+                                  "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                }
+                              },
+                              "required": [
+                                "code"
+                              ],
+                              "additionalProperties": false
                             }
-                          },
-                          "additionalProperties": false
+                          ],
+                          "description": "Mapping definition"
                         }
                       },
                       "additionalProperties": false
                     },
-                    "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+                    "description": "Tasks to be executed when the transition is triggered"
+                  },
+                  "mapping": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "G",
+                            "description": "Global mapping - code and location not required"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "oneOf": [
+                              {
+                                "const": "L",
+                                "description": "Local mapping - code is required, location is optional"
+                              }
+                            ],
+                            "description": "Mapping type"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "Optional mapping definition for transition input data transformation"
                   }
                 },
                 "required": [
@@ -631,13 +854,29 @@
                     "items": {
                       "type": "string"
                     },
-                    "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                    "description": "List of states where this transition can be used"
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "triggerType": {
+                      "const": 1
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "mapping": {
+                      "const": null
+                    }
                   }
                 }
               }
             ]
           },
-          "description": "Birden fazla state'de kullanılabilecek ortak transition'lar"
+          "description": "Common transitions that can be used in multiple states"
         },
         "extensions": {
           "type": "array",
@@ -646,13 +885,13 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                "description": "Key value of the referenced record (readable identifier)",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 255
               },
               "domain": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                "description": "Domain where the referenced record is located (required for cross-domain references)",
                 "pattern": "^[a-zA-Z\\-]+$",
                 "maxLength": 100,
                 "examples": [
@@ -664,14 +903,14 @@
               },
               "flow": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu flow adı",
+                "description": "Flow name where the referenced record is located",
                 "pattern": "^[a-z\\-]+$",
                 "maxLength": 100
               },
               "version": {
                 "type": "string",
                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                 "maxLength": 50
               }
             },
@@ -703,7 +942,7 @@
               }
             ]
           },
-          "description": "Workflow ile ilişkili extension referansları"
+          "description": "Extension references associated with the workflow"
         },
         "features": {
           "type": "array",
@@ -712,13 +951,13 @@
             "properties": {
               "key": {
                 "type": "string",
-                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                "description": "Key value of the referenced record (readable identifier)",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 255
               },
               "domain": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                "description": "Domain where the referenced record is located (required for cross-domain references)",
                 "pattern": "^[a-zA-Z\\-]+$",
                 "maxLength": 100,
                 "examples": [
@@ -730,14 +969,14 @@
               },
               "flow": {
                 "type": "string",
-                "description": "Referans edilen kaydın bulunduğu flow adı",
+                "description": "Flow name where the referenced record is located",
                 "pattern": "^[a-z0-9-]+$",
                 "maxLength": 100
               },
               "version": {
                 "type": "string",
                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                 "maxLength": 50
               }
             },
@@ -769,11 +1008,15 @@
               }
             ]
           },
-          "description": "Workflow ile ilişkili feature referansları"
+          "description": "Feature references associated with the workflow"
         },
         "startTransition": {
           "type": "object",
           "properties": {
+            "_comment": {
+              "type": "string",
+              "description": "Comment about the transition"
+            },
             "key": {
               "type": "string",
               "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
@@ -805,18 +1048,10 @@
               "type": "integer",
               "enum": [
                 0,
-                1,
                 2,
                 3
               ],
-              "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
-            },
-            "availableIn": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+              "description": "Trigger türü. 0=Manual, 2=Timeout, 3=Event. Auto-transition (1) is not allowed for startTransition"
             },
             "schema": {
               "anyOf": [
@@ -825,14 +1060,14 @@
                   "properties": {
                     "key": {
                       "type": "string",
-                      "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                      "description": "Key value of the referenced record (readable identifier)",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
                     "domain": {
                       "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                      "pattern": "^[a-z]+$",
+                      "description": "Domain where the referenced record is located (required for cross-domain references)",
+                      "pattern": "^[a-zA-Z\\-]+$",
                       "maxLength": 100,
                       "examples": [
                         "core",
@@ -843,14 +1078,14 @@
                     },
                     "flow": {
                       "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu flow adı",
+                      "description": "Flow name where the referenced record is located",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 100
                     },
                     "version": {
                       "type": "string",
                       "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                      "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                      "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                       "maxLength": 50
                     }
                   },
@@ -888,60 +1123,6 @@
               ],
               "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
             },
-            "rule": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "required": [
-                    "code",
-                    "location"
-                  ],
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "description": "Rule kodu"
-                    },
-                    "location": {
-                      "type": "string",
-                      "description": "Kod dosyasının konumu"
-                    }
-                  },
-                  "additionalProperties": false
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
-            },
-            "timer": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "required": [
-                    "reset",
-                    "duration"
-                  ],
-                  "properties": {
-                    "reset": {
-                      "type": "string",
-                      "description": "Zamanlayıcı reset stratejisi"
-                    },
-                    "duration": {
-                      "type": "string",
-                      "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                      "description": "Süre bilgisi (ISO 8601 formatında)",
-                      "maxLength": 100
-                    }
-                  },
-                  "additionalProperties": false
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
-            },
             "labels": {
               "type": "array",
               "items": {
@@ -953,12 +1134,12 @@
                 "properties": {
                   "label": {
                     "type": "string",
-                    "description": "Kullanıcıya gösterilecek metin içeriği",
+                    "description": "Text content to be displayed to the user",
                     "maxLength": 500
                   },
                   "language": {
                     "type": "string",
-                    "description": "ISO 639 formatında dil kodu",
+                    "description": "Language code in ISO 639 format",
                     "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                     "maxLength": 10
                   }
@@ -990,76 +1171,6 @@
               ],
               "description": "Çok dilli geçiş ismi"
             },
-            "view": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "type": "string",
-                      "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                      "pattern": "^[a-z0-9-]+$",
-                      "maxLength": 255
-                    },
-                    "domain": {
-                      "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                      "pattern": "^[a-zA-Z\\-]+$",
-                      "maxLength": 100,
-                      "examples": [
-                        "core",
-                        "idm",
-                        "banking",
-                        "payment"
-                      ]
-                    },
-                    "flow": {
-                      "type": "string",
-                      "description": "Referans edilen kaydın bulunduğu flow adı",
-                      "pattern": "^[a-z\\-]+$",
-                      "maxLength": 100
-                    },
-                    "version": {
-                      "type": "string",
-                      "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                      "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                      "maxLength": 50
-                    }
-                  },
-                  "required": [
-                    "key",
-                    "domain",
-                    "flow",
-                    "version"
-                  ],
-                  "additionalProperties": false,
-                  "examples": [
-                    {
-                      "key": "user-authentication-workflow",
-                      "domain": "idm",
-                      "flow": "user-authentication",
-                      "version": "1.0.0"
-                    },
-                    {
-                      "key": "user-login-state",
-                      "domain": "core",
-                      "flow": "authentication",
-                      "version": "2.1.0"
-                    },
-                    {
-                      "key": "payment-validation-task",
-                      "domain": "banking",
-                      "flow": "payment-process",
-                      "version": "1.2.3"
-                    }
-                  ]
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Geçişte kullanılacak view referansı"
-            },
             "onExecutionTasks": {
               "type": "array",
               "items": {
@@ -1070,6 +1181,10 @@
                   "mapping"
                 ],
                 "properties": {
+                  "_comment": {
+                    "type": "string",
+                    "description": "Comment about the task"
+                  },
                   "order": {
                     "type": "integer",
                     "minimum": 1,
@@ -1080,13 +1195,13 @@
                     "properties": {
                       "key": {
                         "type": "string",
-                        "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                        "description": "Key value of the referenced record (readable identifier)",
                         "pattern": "^[a-z0-9-]+$",
                         "maxLength": 255
                       },
                       "domain": {
                         "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                        "description": "Domain where the referenced record is located (required for cross-domain references)",
                         "pattern": "^[a-zA-Z\\-]+$",
                         "maxLength": 100,
                         "examples": [
@@ -1098,14 +1213,14 @@
                       },
                       "flow": {
                         "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu flow adı",
+                        "description": "Flow name where the referenced record is located",
                         "pattern": "^[a-z\\-]+$",
                         "maxLength": 100
                       },
                       "version": {
                         "type": "string",
                         "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                        "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                        "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                         "maxLength": 50
                       }
                     },
@@ -1136,30 +1251,201 @@
                         "version": "1.2.3"
                       }
                     ],
-                    "description": "Çalıştırılacak task referansı"
+                    "description": "Task reference to be run"
                   },
                   "mapping": {
-                    "type": "object",
-                    "required": [
-                      "code",
-                      "location"
-                    ],
-                    "properties": {
-                      "code": {
-                        "type": "string",
-                        "description": "Mapping kodu"
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "G",
+                            "description": "Global mapping - code and location not required"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "additionalProperties": false
                       },
-                      "location": {
-                        "type": "string",
-                        "description": "Kod dosyasının konumu"
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "oneOf": [
+                              {
+                                "const": "L",
+                                "description": "Local mapping - code is required, location is optional"
+                              }
+                            ],
+                            "description": "Mapping type"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Mapping code"
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Code file location"
+                          },
+                          "encoding": {
+                            "type": "string",
+                            "enum": [
+                              "B64",
+                              "NAT"
+                            ],
+                            "default": "B64",
+                            "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                          }
+                        },
+                        "required": [
+                          "code"
+                        ],
+                        "additionalProperties": false
                       }
-                    },
-                    "additionalProperties": false
+                    ],
+                    "description": "Mapping definition"
                   }
                 },
                 "additionalProperties": false
               },
               "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+            },
+            "mapping": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "G",
+                      "description": "Global mapping - code and location not required"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Mapping code"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Code file location"
+                    },
+                    "encoding": {
+                      "type": "string",
+                      "enum": [
+                        "B64",
+                        "NAT"
+                      ],
+                      "default": "B64",
+                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "oneOf": [
+                        {
+                          "const": "L",
+                          "description": "Local mapping - code is required, location is optional"
+                        }
+                      ],
+                      "description": "Mapping type"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Mapping code"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Code file location"
+                    },
+                    "encoding": {
+                      "type": "string",
+                      "enum": [
+                        "B64",
+                        "NAT"
+                      ],
+                      "default": "B64",
+                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "description": "Mapping code"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Code file location"
+                    },
+                    "encoding": {
+                      "type": "string",
+                      "enum": [
+                        "B64",
+                        "NAT"
+                      ],
+                      "default": "B64",
+                      "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional mapping definition for transition input data transformation"
             }
           },
           "required": [
@@ -1170,197 +1456,305 @@
             "labels"
           ],
           "additionalProperties": false,
-          "description": "Workflow'u başlatan initial transition"
-        },
-        "states": {
-          "type": "array",
-          "items": {
-            "type": "object",
+          "if": {
             "properties": {
-              "key": {
-                "type": "string",
-                "description": "State'in anahtar değeri. Workflow içinde benzersiz olmalıdır.",
-                "pattern": "^[a-z0-9-]+$",
-                "maxLength": 255
-              },
-              "stateType": {
-                "type": "integer",
-                "enum": [
-                  1,
-                  2,
-                  3,
-                  4
-                ],
-                "description": "State'in türü. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow"
-              },
-              "stateSubType": {
-                "type": "integer",
-                "enum": [
-                  1,
-                  2,
-                  3
-                ],
-                "description": "Final state'ler için alt tür. 1=Success, 2=Failed, 3=Cancelled"
-              },
-              "versionStrategy": {
-                "type": "string",
-                "enum": [
-                  "Minor",
-                  "Major"
-                ],
-                "description": "State'in versiyon yönetim stratejisi",
-                "maxLength": 50
-              },
-              "labels": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": [
-                    "label",
-                    "language"
-                  ],
-                  "properties": {
-                    "label": {
-                      "type": "string",
-                      "description": "Kullanıcıya gösterilecek metin içeriği",
-                      "maxLength": 500
-                    },
-                    "language": {
-                      "type": "string",
-                      "description": "ISO 639 formatında dil kodu",
-                      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
-                      "maxLength": 10
-                    }
-                  },
-                  "additionalProperties": false
+              "triggerType": {
+                "const": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "mapping": {
+                "const": null
+              }
+            }
+          },
+          "description": "Initial transition that starts the workflow"
+        },
+        "cancel": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "_comment": {
+                  "type": "string",
+                  "description": "Comment about the cancel transition"
                 },
-                "minItems": 1,
-                "examples": [
-                  [
+                "key": {
+                  "type": "string",
+                  "description": "Cancel transition key value",
+                  "pattern": "^[a-z0-9-]+$",
+                  "maxLength": 255
+                },
+                "target": {
+                  "type": "string",
+                  "description": "Target state key when cancel is executed",
+                  "pattern": "^[a-z0-9-]+$",
+                  "maxLength": 255
+                },
+                "from": {
+                  "type": "string",
+                  "description": "Source state key",
+                  "pattern": "^[a-z0-9-]+$",
+                  "maxLength": 255
+                },
+                "versionStrategy": {
+                  "type": "string",
+                  "enum": [
+                    "Minor",
+                    "Major"
+                  ],
+                  "description": "Version increment strategy after successful cancel",
+                  "maxLength": 50
+                },
+                "triggerType": {
+                  "type": "integer",
+                  "const": 0,
+                  "description": "Trigger type. Only Manual (0) is allowed for cancel transition"
+                },
+                "availableIn": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "List of states where this cancel transition can be used"
+                },
+                "schema": {
+                  "anyOf": [
                     {
-                      "label": "User Login",
-                      "language": "en"
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "Key value of the referenced record (readable identifier)",
+                          "pattern": "^[a-z0-9-]+$",
+                          "maxLength": 255
+                        },
+                        "domain": {
+                          "type": "string",
+                          "description": "Domain where the referenced record is located (required for cross-domain references)",
+                          "pattern": "^[a-zA-Z\\-]+$",
+                          "maxLength": 100,
+                          "examples": [
+                            "core",
+                            "idm",
+                            "banking",
+                            "payment"
+                          ]
+                        },
+                        "flow": {
+                          "type": "string",
+                          "description": "Flow name where the referenced record is located",
+                          "pattern": "^[a-z\\-]+$",
+                          "maxLength": 100
+                        },
+                        "version": {
+                          "type": "string",
+                          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                          "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                          "maxLength": 50
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "domain",
+                        "flow",
+                        "version"
+                      ],
+                      "additionalProperties": false,
+                      "examples": [
+                        {
+                          "key": "user-authentication-workflow",
+                          "domain": "idm",
+                          "flow": "user-authentication",
+                          "version": "1.0.0"
+                        },
+                        {
+                          "key": "user-login-state",
+                          "domain": "core",
+                          "flow": "authentication",
+                          "version": "2.1.0"
+                        },
+                        {
+                          "key": "payment-validation-task",
+                          "domain": "banking",
+                          "flow": "payment-process",
+                          "version": "1.2.3"
+                        }
+                      ]
                     },
                     {
-                      "label": "Kullanıcı Girişi",
-                      "language": "tr"
+                      "type": "null"
                     }
                   ],
-                  [
-                    {
-                      "label": "Data Processing",
-                      "language": "en-US"
-                    },
-                    {
-                      "label": "Veri İşleme",
-                      "language": "tr-TR"
-                    }
-                  ]
-                ],
-                "description": "State'in çoklu dil etiketleri"
-              },
-              "view": {
-                "anyOf": [
-                  {
+                  "description": "Data schema reference that must be sent to execute the cancel transition"
+                },
+                "labels": {
+                  "type": "array",
+                  "items": {
                     "type": "object",
+                    "required": [
+                      "label",
+                      "language"
+                    ],
                     "properties": {
-                      "key": {
+                      "label": {
                         "type": "string",
-                        "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                        "pattern": "^[a-z0-9-]+$",
-                        "maxLength": 255
+                        "description": "Text content to be displayed to the user",
+                        "maxLength": 500
                       },
-                      "domain": {
+                      "language": {
                         "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                        "pattern": "^[a-zA-Z\\-]+$",
-                        "maxLength": 100,
-                        "examples": [
-                          "core",
-                          "idm",
-                          "banking",
-                          "payment"
-                        ]
-                      },
-                      "flow": {
-                        "type": "string",
-                        "description": "Referans edilen kaydın bulunduğu flow adı",
-                        "pattern": "^[a-z\\-]+$",
-                        "maxLength": 100
-                      },
-                      "version": {
-                        "type": "string",
-                        "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                        "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                        "maxLength": 50
+                        "description": "Language code in ISO 639 format",
+                        "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                        "maxLength": 10
                       }
                     },
-                    "required": [
-                      "key",
-                      "domain",
-                      "flow",
-                      "version"
-                    ],
-                    "additionalProperties": false,
-                    "examples": [
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "examples": [
+                    [
                       {
-                        "key": "user-authentication-workflow",
-                        "domain": "idm",
-                        "flow": "user-authentication",
-                        "version": "1.0.0"
+                        "label": "Cancel",
+                        "language": "en-US"
                       },
                       {
-                        "key": "user-login-state",
-                        "domain": "core",
-                        "flow": "authentication",
-                        "version": "2.1.0"
-                      },
-                      {
-                        "key": "payment-validation-task",
-                        "domain": "banking",
-                        "flow": "payment-process",
-                        "version": "1.2.3"
+                        "label": "İptal",
+                        "language": "tr-TR"
                       }
                     ]
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "description": "State ile ilişkili view referansı"
-              },
-              "subFlow": {
-                "anyOf": [
-                  {
+                  ],
+                  "description": "Multi-language cancel transition name"
+                },
+                "view": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "extensions": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "List of extensions to be applied to the View."
+                        },
+                        "loadData": {
+                          "type": "boolean",
+                          "description": "Specifies whether data will be loaded for the View."
+                        },
+                        "view": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "key": {
+                                  "type": "string",
+                                  "description": "Key value of the referenced record (readable identifier)",
+                                  "pattern": "^[a-z0-9-]+$",
+                                  "maxLength": 255
+                                },
+                                "domain": {
+                                  "type": "string",
+                                  "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                  "pattern": "^[a-zA-Z\\-]+$",
+                                  "maxLength": 100,
+                                  "examples": [
+                                    "core",
+                                    "idm",
+                                    "banking",
+                                    "payment"
+                                  ]
+                                },
+                                "flow": {
+                                  "type": "string",
+                                  "description": "Flow name where the referenced record is located",
+                                  "pattern": "^[a-z\\-]+$",
+                                  "maxLength": 100
+                                },
+                                "version": {
+                                  "type": "string",
+                                  "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                  "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                  "maxLength": 50
+                                }
+                              },
+                              "required": [
+                                "key",
+                                "domain",
+                                "flow",
+                                "version"
+                              ],
+                              "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "key": "user-authentication-workflow",
+                                  "domain": "idm",
+                                  "flow": "user-authentication",
+                                  "version": "1.0.0"
+                                },
+                                {
+                                  "key": "user-login-state",
+                                  "domain": "core",
+                                  "flow": "authentication",
+                                  "version": "2.1.0"
+                                },
+                                {
+                                  "key": "payment-validation-task",
+                                  "domain": "banking",
+                                  "flow": "payment-process",
+                                  "version": "1.2.3"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "description": "View reference"
+                        }
+                      },
+                      "required": [
+                        "view"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "onExecutionTasks": {
+                  "type": "array",
+                  "items": {
                     "type": "object",
                     "required": [
-                      "type",
-                      "process"
+                      "order",
+                      "task",
+                      "mapping"
                     ],
                     "properties": {
-                      "type": {
+                      "_comment": {
                         "type": "string",
-                        "enum": [
-                          "C",
-                          "F",
-                          "S",
-                          "P"
-                        ],
-                        "description": "SubFlow türü. C=Core, F=Flow, S=SubFlow, P=SubProcess",
-                        "maxLength": 10
+                        "description": "Comment about the task"
                       },
-                      "process": {
+                      "order": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": "Task execution order"
+                      },
+                      "task": {
                         "type": "object",
                         "properties": {
                           "key": {
                             "type": "string",
-                            "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                            "pattern": "^[a-zA-Z0-9\\-]+$",
+                            "description": "Key value of the referenced record (readable identifier)",
+                            "pattern": "^[a-z0-9-]+$",
                             "maxLength": 255
                           },
                           "domain": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                            "description": "Domain where the referenced record is located (required for cross-domain references)",
                             "pattern": "^[a-zA-Z\\-]+$",
                             "maxLength": 100,
                             "examples": [
@@ -1372,14 +1766,14 @@
                           },
                           "flow": {
                             "type": "string",
-                            "description": "Referans edilen kaydın bulunduğu flow adı",
+                            "description": "Flow name where the referenced record is located",
                             "pattern": "^[a-z\\-]+$",
                             "maxLength": 100
                           },
                           "version": {
                             "type": "string",
                             "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                            "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                            "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                             "maxLength": 50
                           }
                         },
@@ -1410,7 +1804,591 @@
                             "version": "1.2.3"
                           }
                         ],
-                        "description": "SubFlow process referansı"
+                        "description": "Task reference to be executed"
+                      },
+                      "mapping": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "G",
+                                "description": "Global mapping - code and location not required"
+                              },
+                              "code": {
+                                "type": "string",
+                                "description": "Mapping code"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "oneOf": [
+                                  {
+                                    "const": "L",
+                                    "description": "Local mapping - code is required, location is optional"
+                                  }
+                                ],
+                                "description": "Mapping type"
+                              },
+                              "code": {
+                                "type": "string",
+                                "description": "Mapping code"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                              }
+                            },
+                            "required": [
+                              "code"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "Mapping code"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "Code file location"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                              }
+                            },
+                            "required": [
+                              "code"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ],
+                        "description": "Mapping definition"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "description": "Tasks to be executed when the cancel transition is triggered"
+                },
+                "mapping": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "const": "G",
+                          "description": "Global mapping - code and location not required"
+                        },
+                        "code": {
+                          "type": "string",
+                          "description": "Mapping code"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "oneOf": [
+                            {
+                              "const": "L",
+                              "description": "Local mapping - code is required, location is optional"
+                            }
+                          ],
+                          "description": "Mapping type"
+                        },
+                        "code": {
+                          "type": "string",
+                          "description": "Mapping code"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Mapping code"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "Code file location"
+                        },
+                        "encoding": {
+                          "type": "string",
+                          "enum": [
+                            "B64",
+                            "NAT"
+                          ],
+                          "default": "B64",
+                          "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "Optional mapping definition for cancel transition input data transformation"
+                }
+              },
+              "required": [
+                "key",
+                "target",
+                "versionStrategy",
+                "triggerType",
+                "labels"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Cancel transition definition. Only manual trigger (triggerType: 0) is allowed. Timer and rule definitions are not permitted."
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_comment": {
+                "type": "string",
+                "description": "Comment about the state"
+              },
+              "key": {
+                "type": "string",
+                "description": "State key value. Must be unique within the workflow.",
+                "pattern": "^[a-z0-9-]+$",
+                "maxLength": 255
+              },
+              "stateType": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "description": "State type. 1=Initial, 2=Intermediate, 3=Final, 4=SubFlow, 5=Wizard"
+              },
+              "subType": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "default": 0,
+                "description": "State subtype. 0=None, 1=Success, 2=Error, 3=Terminated, 4=Suspended"
+              },
+              "versionStrategy": {
+                "type": "string",
+                "enum": [
+                  "Minor",
+                  "Major"
+                ],
+                "description": "State version management strategy",
+                "maxLength": 50
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "language"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "description": "Text content to be displayed to the user",
+                      "maxLength": 500
+                    },
+                    "language": {
+                      "type": "string",
+                      "description": "Language code in ISO 639 format",
+                      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                      "maxLength": 10
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "examples": [
+                  [
+                    {
+                      "label": "User Login",
+                      "language": "en"
+                    },
+                    {
+                      "label": "Kullanıcı Girişi",
+                      "language": "tr"
+                    }
+                  ],
+                  [
+                    {
+                      "label": "Data Processing",
+                      "language": "en-US"
+                    },
+                    {
+                      "label": "Veri İşleme",
+                      "language": "tr-TR"
+                    }
+                  ]
+                ],
+                "description": "Multi-language labels of the state"
+              },
+              "view": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "extensions": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "List of extensions to be applied to the View."
+                      },
+                      "loadData": {
+                        "type": "boolean",
+                        "description": "Specifies whether data will be loaded for the View."
+                      },
+                      "view": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "Key value of the referenced record (readable identifier)",
+                                "pattern": "^[a-z0-9-]+$",
+                                "maxLength": 255
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                "pattern": "^[a-zA-Z\\-]+$",
+                                "maxLength": 100,
+                                "examples": [
+                                  "core",
+                                  "idm",
+                                  "banking",
+                                  "payment"
+                                ]
+                              },
+                              "flow": {
+                                "type": "string",
+                                "description": "Flow name where the referenced record is located",
+                                "pattern": "^[a-z\\-]+$",
+                                "maxLength": 100
+                              },
+                              "version": {
+                                "type": "string",
+                                "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                "maxLength": 50
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "domain",
+                              "flow",
+                              "version"
+                            ],
+                            "additionalProperties": false,
+                            "examples": [
+                              {
+                                "key": "user-authentication-workflow",
+                                "domain": "idm",
+                                "flow": "user-authentication",
+                                "version": "1.0.0"
+                              },
+                              {
+                                "key": "user-login-state",
+                                "domain": "core",
+                                "flow": "authentication",
+                                "version": "2.1.0"
+                              },
+                              {
+                                "key": "payment-validation-task",
+                                "domain": "banking",
+                                "flow": "payment-process",
+                                "version": "1.2.3"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "View referansı"
+                      }
+                    },
+                    "required": [
+                      "view"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "subFlow": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "process",
+                      "mapping"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "S",
+                          "P"
+                        ],
+                        "description": "SubFlow type. S=SubFlow, P=SubProcess",
+                        "maxLength": 10
+                      },
+                      "process": {
+                        "type": "object",
+                        "properties": {
+                          "key": {
+                            "type": "string",
+                            "description": "Key value of the referenced record (readable identifier)",
+                            "pattern": "^[a-zA-Z0-9\\-]+$",
+                            "maxLength": 255
+                          },
+                          "domain": {
+                            "type": "string",
+                            "description": "Domain where the referenced record is located (required for cross-domain references)",
+                            "pattern": "^[a-zA-Z\\-]+$",
+                            "maxLength": 100,
+                            "examples": [
+                              "core",
+                              "idm",
+                              "banking",
+                              "payment"
+                            ]
+                          },
+                          "flow": {
+                            "type": "string",
+                            "description": "Flow name where the referenced record is located",
+                            "pattern": "^[a-z\\-]+$",
+                            "maxLength": 100
+                          },
+                          "version": {
+                            "type": "string",
+                            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                            "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                            "maxLength": 50
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "domain",
+                          "flow",
+                          "version"
+                        ],
+                        "additionalProperties": false,
+                        "examples": [
+                          {
+                            "key": "user-authentication-workflow",
+                            "domain": "idm",
+                            "flow": "user-authentication",
+                            "version": "1.0.0"
+                          },
+                          {
+                            "key": "user-login-state",
+                            "domain": "core",
+                            "flow": "authentication",
+                            "version": "2.1.0"
+                          },
+                          {
+                            "key": "payment-validation-task",
+                            "domain": "banking",
+                            "flow": "payment-process",
+                            "version": "1.2.3"
+                          }
+                        ],
+                        "description": "SubFlow process reference"
+                      },
+                      "mapping": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "code"
+                            ],
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "description": "SubFlow mapping code"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "Location of the mapping code file"
+                              },
+                              "encoding": {
+                                "type": "string",
+                                "enum": [
+                                  "B64",
+                                  "NAT"
+                                ],
+                                "default": "B64",
+                                "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "description": "Mapping definition for data exchange with SubFlow"
+                      },
+                      "viewOverrides": {
+                        "type": "object",
+                        "description": "Dictionary of view overrides for subflow views. Key is the original view key, value is the reference to the new view definition.",
+                        "patternProperties": {
+                          "^[a-zA-Z0-9\\-]+$": {
+                            "description": "Generic reference - can be either explicit reference or ref",
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "description": "Explicit reference",
+                                "required": [
+                                  "key",
+                                  "domain",
+                                  "flow",
+                                  "version"
+                                ],
+                                "properties": {
+                                  "key": {
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "domain": {
+                                    "type": "string"
+                                  },
+                                  "flow": {
+                                    "type": "string"
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                                  }
+                                },
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "key"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "id"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "description": "Reference using ref",
+                                "required": [
+                                  "ref"
+                                ],
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "description": "Reference to component file"
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "additionalProperties": false
                       }
                     },
                     "additionalProperties": false
@@ -1419,28 +2397,32 @@
                     "type": "null"
                   }
                 ],
-                "description": "SubFlow state türü için çağrılacak alt workflow'un bilgisi"
+                "description": "Information of the sub-workflow to be called for SubFlow state type. Can be null if the developer has no subflow definition."
               },
               "transitions": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
+                    "_comment": {
+                      "type": "string",
+                      "description": "Comment about the transition"
+                    },
                     "key": {
                       "type": "string",
-                      "description": "Geçişin anahtar değeri. Geçiş talebinde kullanılır ve akış özelinde tekildir.",
+                      "description": "Transition key value. Used in transition requests and is unique within the flow.",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
                     "target": {
                       "type": "string",
-                      "description": "Geçiş başarılı tamamlandığında erişeceği state key'i",
+                      "description": "State key that will be reached when the transition is successfully completed",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
                     "from": {
                       "type": "string",
-                      "description": "Kaynak state key'i",
+                      "description": "Source state key",
                       "pattern": "^[a-z0-9-]+$",
                       "maxLength": 255
                     },
@@ -1450,7 +2432,7 @@
                         "Minor",
                         "Major"
                       ],
-                      "description": "Başarılı geçiş sonrasında versiyon artış stratejisi",
+                      "description": "Version increment strategy after successful transition",
                       "maxLength": 50
                     },
                     "triggerType": {
@@ -1461,14 +2443,14 @@
                         2,
                         3
                       ],
-                      "description": "Trigger türü. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
+                      "description": "Trigger type. 0=Manual, 1=Automatic, 2=Timeout, 3=Event"
                     },
                     "availableIn": {
                       "type": "array",
                       "items": {
                         "type": "string"
                       },
-                      "description": "Bu transition'ın kullanılabileceği state'lerin listesi"
+                      "description": "List of states where this transition can be used"
                     },
                     "schema": {
                       "anyOf": [
@@ -1477,13 +2459,13 @@
                           "properties": {
                             "key": {
                               "type": "string",
-                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                              "description": "Key value of the referenced record (readable identifier)",
                               "pattern": "^[a-z0-9-]+$",
                               "maxLength": 255
                             },
                             "domain": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                              "description": "Domain where the referenced record is located (required for cross-domain references)",
                               "pattern": "^[a-zA-Z\\-]+$",
                               "maxLength": 100,
                               "examples": [
@@ -1495,14 +2477,14 @@
                             },
                             "flow": {
                               "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu flow adı",
+                              "description": "Flow name where the referenced record is located",
                               "pattern": "^[a-z\\-]+$",
                               "maxLength": 100
                             },
                             "version": {
                               "type": "string",
                               "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                              "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                               "maxLength": 50
                             }
                           },
@@ -1538,24 +2520,32 @@
                           "type": "null"
                         }
                       ],
-                      "description": "Geçişi çalıştırmak için gönderilmesi gereken veri şeması referansı"
+                      "description": "Data schema reference that must be sent to execute the transition"
                     },
                     "rule": {
                       "anyOf": [
                         {
                           "type": "object",
                           "required": [
-                            "code",
-                            "location"
+                            "code"
                           ],
                           "properties": {
                             "code": {
                               "type": "string",
-                              "description": "Rule kodu"
+                              "description": "Rule code"
                             },
                             "location": {
                               "type": "string",
-                              "description": "Kod dosyasının konumu"
+                              "description": "Location of the code file"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "additionalProperties": false
@@ -1564,26 +2554,32 @@
                           "type": "null"
                         }
                       ],
-                      "description": "Kural tabanlı ilerleme olacak ise kuralın tanımlandığı kod"
+                      "description": "Code where the rule is defined if rule-based progression will occur"
                     },
                     "timer": {
                       "anyOf": [
                         {
                           "type": "object",
                           "required": [
-                            "reset",
-                            "duration"
+                            "code"
                           ],
                           "properties": {
-                            "reset": {
+                            "code": {
                               "type": "string",
-                              "description": "Zamanlayıcı reset stratejisi"
+                              "description": "Timer code"
                             },
-                            "duration": {
+                            "location": {
                               "type": "string",
-                              "pattern": "^P(?=\\d|T\\d)(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$",
-                              "description": "Süre bilgisi (ISO 8601 formatında)",
-                              "maxLength": 100
+                              "description": "Location of the code file"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
                             }
                           },
                           "additionalProperties": false
@@ -1592,7 +2588,7 @@
                           "type": "null"
                         }
                       ],
-                      "description": "Otomatik olarak geçiş çalışacak ise zamanlama bilgisi"
+                      "description": "Timing information if the transition will run automatically"
                     },
                     "labels": {
                       "type": "array",
@@ -1605,12 +2601,12 @@
                         "properties": {
                           "label": {
                             "type": "string",
-                            "description": "Kullanıcıya gösterilecek metin içeriği",
+                            "description": "Text content to be displayed to the user",
                             "maxLength": 500
                           },
                           "language": {
                             "type": "string",
-                            "description": "ISO 639 formatında dil kodu",
+                            "description": "Language code in ISO 639 format",
                             "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
                             "maxLength": 10
                           }
@@ -1640,77 +2636,103 @@
                           }
                         ]
                       ],
-                      "description": "Çok dilli geçiş ismi"
+                      "description": "Multi-language transition name"
                     },
                     "view": {
                       "anyOf": [
                         {
                           "type": "object",
                           "properties": {
-                            "key": {
-                              "type": "string",
-                              "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
-                              "pattern": "^[a-z0-9-]+$",
-                              "maxLength": 255
+                            "extensions": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "description": "List of extensions to be applied to the View."
                             },
-                            "domain": {
-                              "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
-                              "pattern": "^[a-zA-Z\\-]+$",
-                              "maxLength": 100,
-                              "examples": [
-                                "core",
-                                "idm",
-                                "banking",
-                                "payment"
-                              ]
+                            "loadData": {
+                              "type": "boolean",
+                              "description": "Specifies whether data will be loaded for the View."
                             },
-                            "flow": {
-                              "type": "string",
-                              "description": "Referans edilen kaydın bulunduğu flow adı",
-                              "pattern": "^[a-z\\-]+$",
-                              "maxLength": 100
-                            },
-                            "version": {
-                              "type": "string",
-                              "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                              "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
-                              "maxLength": 50
+                            "view": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "key": {
+                                      "type": "string",
+                                      "description": "Key value of the referenced record (readable identifier)",
+                                      "pattern": "^[a-z0-9-]+$",
+                                      "maxLength": 255
+                                    },
+                                    "domain": {
+                                      "type": "string",
+                                      "description": "Domain where the referenced record is located (required for cross-domain references)",
+                                      "pattern": "^[a-zA-Z\\-]+$",
+                                      "maxLength": 100,
+                                      "examples": [
+                                        "core",
+                                        "idm",
+                                        "banking",
+                                        "payment"
+                                      ]
+                                    },
+                                    "flow": {
+                                      "type": "string",
+                                      "description": "Flow name where the referenced record is located",
+                                      "pattern": "^[a-z\\-]+$",
+                                      "maxLength": 100
+                                    },
+                                    "version": {
+                                      "type": "string",
+                                      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+                                      "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
+                                      "maxLength": 50
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "domain",
+                                    "flow",
+                                    "version"
+                                  ],
+                                  "additionalProperties": false,
+                                  "examples": [
+                                    {
+                                      "key": "user-authentication-workflow",
+                                      "domain": "idm",
+                                      "flow": "user-authentication",
+                                      "version": "1.0.0"
+                                    },
+                                    {
+                                      "key": "user-login-state",
+                                      "domain": "core",
+                                      "flow": "authentication",
+                                      "version": "2.1.0"
+                                    },
+                                    {
+                                      "key": "payment-validation-task",
+                                      "domain": "banking",
+                                      "flow": "payment-process",
+                                      "version": "1.2.3"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "description": "View reference"
                             }
                           },
                           "required": [
-                            "key",
-                            "domain",
-                            "flow",
-                            "version"
-                          ],
-                          "additionalProperties": false,
-                          "examples": [
-                            {
-                              "key": "user-authentication-workflow",
-                              "domain": "idm",
-                              "flow": "user-authentication",
-                              "version": "1.0.0"
-                            },
-                            {
-                              "key": "user-login-state",
-                              "domain": "core",
-                              "flow": "authentication",
-                              "version": "2.1.0"
-                            },
-                            {
-                              "key": "payment-validation-task",
-                              "domain": "banking",
-                              "flow": "payment-process",
-                              "version": "1.2.3"
-                            }
+                            "view"
                           ]
                         },
                         {
                           "type": "null"
                         }
-                      ],
-                      "description": "Geçişte kullanılacak view referansı"
+                      ]
                     },
                     "onExecutionTasks": {
                       "type": "array",
@@ -1722,23 +2744,27 @@
                           "mapping"
                         ],
                         "properties": {
+                          "_comment": {
+                            "type": "string",
+                            "description": "Comment about the task"
+                          },
                           "order": {
                             "type": "integer",
                             "minimum": 1,
-                            "description": "Görevin çalışma sırası"
+                            "description": "Task execution order"
                           },
                           "task": {
                             "type": "object",
                             "properties": {
                               "key": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                                "description": "Key value of the referenced record (readable identifier)",
                                 "pattern": "^[a-zA-Z0-9\\-]+$",
                                 "maxLength": 255
                               },
                               "domain": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                                "description": "Domain where the referenced record is located (required for cross-domain references)",
                                 "pattern": "^[a-zA-Z\\-]+$",
                                 "maxLength": 100,
                                 "examples": [
@@ -1750,14 +2776,14 @@
                               },
                               "flow": {
                                 "type": "string",
-                                "description": "Referans edilen kaydın bulunduğu flow adı",
+                                "description": "Flow name where the referenced record is located",
                                 "pattern": "^[a-z\\-]+$",
                                 "maxLength": 100
                               },
                               "version": {
                                 "type": "string",
                                 "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                                "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                                "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                                 "maxLength": 50
                               }
                             },
@@ -1788,30 +2814,201 @@
                                 "version": "1.2.3"
                               }
                             ],
-                            "description": "Çalıştırılacak task referansı"
+                            "description": "Task reference to be executed"
                           },
                           "mapping": {
-                            "type": "object",
-                            "required": [
-                              "code",
-                              "location"
-                            ],
-                            "properties": {
-                              "code": {
-                                "type": "string",
-                                "description": "Mapping kodu"
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "const": "G",
+                                    "description": "Global mapping - code and location not required"
+                                  },
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                  }
+                                },
+                                "additionalProperties": false
                               },
-                              "location": {
-                                "type": "string",
-                                "description": "Kod dosyasının konumu"
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "oneOf": [
+                                      {
+                                        "const": "L",
+                                        "description": "Local mapping - code is required, location is optional"
+                                      }
+                                    ],
+                                    "description": "Mapping type"
+                                  },
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                  }
+                                },
+                                "required": [
+                                  "code"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string",
+                                    "description": "Mapping code"
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "description": "Code file location"
+                                  },
+                                  "encoding": {
+                                    "type": "string",
+                                    "enum": [
+                                      "B64",
+                                      "NAT"
+                                    ],
+                                    "default": "B64",
+                                    "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                                  }
+                                },
+                                "required": [
+                                  "code"
+                                ],
+                                "additionalProperties": false
                               }
-                            },
-                            "additionalProperties": false
+                            ],
+                            "description": "Mapping definition"
                           }
                         },
                         "additionalProperties": false
                       },
-                      "description": "Geçiş tetiklendiğinde çalıştırılacak görevler"
+                      "description": "Tasks to be executed when the transition is triggered"
+                    },
+                    "mapping": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code is required, location is optional"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "description": "Optional mapping definition for transition input data transformation"
                     }
                   },
                   "required": [
@@ -1821,9 +3018,23 @@
                     "triggerType",
                     "labels"
                   ],
-                  "additionalProperties": false
+                  "additionalProperties": false,
+                  "if": {
+                    "properties": {
+                      "triggerType": {
+                        "const": 1
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "mapping": {
+                        "const": null
+                      }
+                    }
+                  }
                 },
-                "description": "Bu state'den çıkış yapılabilecek geçişlerin listesi"
+                "description": "List of transitions that can exit from this state"
               },
               "onEntries": {
                 "type": "array",
@@ -1835,6 +3046,10 @@
                     "mapping"
                   ],
                   "properties": {
+                    "_comment": {
+                      "type": "string",
+                      "description": "Comment about the task"
+                    },
                     "order": {
                       "type": "integer",
                       "minimum": 1,
@@ -1845,13 +3060,13 @@
                       "properties": {
                         "key": {
                           "type": "string",
-                          "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                          "description": "Key value of the referenced record (readable identifier)",
                           "pattern": "^[a-z0-9-]+$",
                           "maxLength": 255
                         },
                         "domain": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                          "description": "Domain where the referenced record is located (required for cross-domain references)",
                           "pattern": "^[a-zA-Z\\-]+$",
                           "maxLength": 100,
                           "examples": [
@@ -1863,14 +3078,14 @@
                         },
                         "flow": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu flow adı",
+                          "description": "Flow name where the referenced record is located",
                           "pattern": "^[a-z\\-]+$",
                           "maxLength": 100
                         },
                         "version": {
                           "type": "string",
                           "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                          "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                          "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                           "maxLength": 50
                         }
                       },
@@ -1901,30 +3116,105 @@
                           "version": "1.2.3"
                         }
                       ],
-                      "description": "Çalıştırılacak task referansı"
+                      "description": "Task reference to be run"
                     },
                     "mapping": {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Mapping kodu"
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "additionalProperties": false
                         },
-                        "location": {
-                          "type": "string",
-                          "description": "Kod dosyasının konumu"
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code is required, location is optional"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
                         }
-                      },
-                      "additionalProperties": false
+                      ],
+                      "description": "Mapping definition"
                     }
                   },
                   "additionalProperties": false
                 },
-                "description": "State'e girildiğinde çalıştırılacak görevler"
+                "description": "Tasks to be executed when entering the state"
               },
               "onExits": {
                 "type": "array",
@@ -1936,6 +3226,10 @@
                     "mapping"
                   ],
                   "properties": {
+                    "_comment": {
+                      "type": "string",
+                      "description": "Comment about the task"
+                    },
                     "order": {
                       "type": "integer",
                       "minimum": 1,
@@ -1946,13 +3240,13 @@
                       "properties": {
                         "key": {
                           "type": "string",
-                          "description": "Referans edilen kaydın anahtar değeri (okunabilir identifier)",
+                          "description": "Key value of the referenced record (readable identifier)",
                           "pattern": "^[a-z0-9-]+$",
                           "maxLength": 255
                         },
                         "domain": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu domain (cross-domain referanslar için zorunlu)",
+                          "description": "Domain where the referenced record is located (required for cross-domain references)",
                           "pattern": "^[a-zA-Z\\-]+$",
                           "maxLength": 100,
                           "examples": [
@@ -1964,14 +3258,14 @@
                         },
                         "flow": {
                           "type": "string",
-                          "description": "Referans edilen kaydın bulunduğu flow adı",
+                          "description": "Flow name where the referenced record is located",
                           "pattern": "^[a-z\\-]+$",
                           "maxLength": 100
                         },
                         "version": {
                           "type": "string",
                           "pattern": "^\\d+\\.\\d+\\.\\d+$",
-                          "description": "Referans edilen kaydın sürüm bilgisi (semantic versioning MAJOR.MINOR.PATCH formatında)",
+                          "description": "Version information of the referenced record (in semantic versioning MAJOR.MINOR.PATCH format)",
                           "maxLength": 50
                         }
                       },
@@ -2002,40 +3296,119 @@
                           "version": "1.2.3"
                         }
                       ],
-                      "description": "Çalıştırılacak task referansı"
+                      "description": "Task reference to be run"
                     },
                     "mapping": {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Mapping kodu"
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "additionalProperties": false
                         },
-                        "location": {
-                          "type": "string",
-                          "description": "Kod dosyasının konumu"
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code is required, location is optional"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
                         }
-                      },
-                      "additionalProperties": false
+                      ],
+                      "description": "Mapping definition"
                     }
                   },
                   "additionalProperties": false
                 },
-                "description": "State'den çıkılırken çalıştırılacak görevler"
+                "description": "Tasks to be executed when exiting the state"
               },
               "onExecutionTasks": {
                 "type": "array",
-                "description": "State execution sırasında çalıştırılacak görevler dizisi",
+                "description": "Array of tasks to be executed during state execution",
                 "items": {
                   "type": "object",
                   "properties": {
+                    "_comment": {
+                      "type": "string",
+                      "description": "Comment about the task"
+                    },
                     "order": {
                       "type": "integer",
-                      "description": "Görevin çalışma sırası. Aynı sıradaki görevler paralel çalıştırılır.",
+                      "description": "Task execution order. Tasks with the same order are executed in parallel.",
                       "minimum": 1
                     },
                     "task": {
@@ -2068,33 +3441,97 @@
                       }
                     },
                     "mapping": {
-                      "type": "object",
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "description": "Mapping script kod içeriği"
-                        },
-                        "location": {
-                          "type": "string",
-                          "description": "Mapping kod dosyasının konumu"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "location"
-                      ],
-                      "additionalProperties": false,
-                      "examples": [
+                      "anyOf": [
                         {
-                          "code": "return { userId: input.id, name: input.fullName };",
-                          "location": "./src/mappings/userMapping.js"
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "G",
+                              "description": "Global mapping - code and location not required"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "additionalProperties": false
                         },
                         {
-                          "code": "return input.data.map(item => ({ id: item.key, value: item.val }));",
-                          "location": "./src/mappings/dataTransform.js"
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "oneOf": [
+                                {
+                                  "const": "L",
+                                  "description": "Local mapping - code is required, location is optional"
+                                }
+                              ],
+                              "description": "Mapping type"
+                            },
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Mapping code"
+                            },
+                            "location": {
+                              "type": "string",
+                              "description": "Code file location"
+                            },
+                            "encoding": {
+                              "type": "string",
+                              "enum": [
+                                "B64",
+                                "NAT"
+                              ],
+                              "default": "B64",
+                              "description": "Encoding type. B64=Base64 (default), NAT=Native"
+                            }
+                          },
+                          "required": [
+                            "code"
+                          ],
+                          "additionalProperties": false
                         }
                       ],
-                      "description": "Göreve iletilecek ve geri dönüşümde alınacak verilerin mapping tanımı"
+                      "description": "Mapping definition"
                     }
                   },
                   "required": [
@@ -2111,9 +3548,23 @@
               "versionStrategy",
               "labels"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "if": {
+              "properties": {
+                "stateType": {
+                  "const": 5
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "transitions": {
+                  "maxItems": 1
+                }
+              }
+            }
           },
-          "description": "Workflow'u oluşturan state'lerin listesi"
+          "description": "List of states that make up the workflow"
         }
       },
       "required": [

@@ -14,43 +14,40 @@
     "type": "schema",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://schemas.vnext.com/core/schema.json",
+      "$id": "https://vnext.io/schemas/core/schema.json",
       "title": "Schema Definition",
-      "description": "Gerçek JSON Schema tanımının bulunduğu alan. Bu alan valid bir JSON Schema olmalıdır.",
+      "description": "The field where the actual JSON Schema definition is located. This field must be a valid JSON Schema.",
       "type": "object",
       "properties": {
-        "$schema": {
-          "type": "string",
-          "format": "uri",
-          "description": "JSON Schema versiyonu"
-        },
-        "$id": {
-          "type": "string",
-          "format": "uri",
-          "description": "Şemanın benzersiz URI'si"
-        },
-        "title": {
-          "type": "string",
-          "description": "Şemanın başlığı"
-        },
-        "description": {
-          "type": "string",
-          "description": "Şemanın açıklaması"
+        "schema": {
+          "description": "JSON Schema definition"
         },
         "type": {
-          "type": [
-            "string",
-            "array"
+          "type": "string",
+          "description": "Schema type identifier",
+          "enum": [
+            "workflow",
+            "task",
+            "function",
+            "view",
+            "schema",
+            "extension",
+            "headers"
           ],
-          "description": "JSON Schema type tanımı"
+          "enumDescriptions": [
+            "Workflow component definition",
+            "Task component definition",
+            "Function component definition",
+            "View component definition",
+            "Schema component definition",
+            "Extension component definition",
+            "Headers schema definition"
+          ]
         }
       },
       "required": [
-        "$schema",
-        "$id",
-        "title",
-        "description",
-        "type"
+        "type",
+        "schema"
       ],
       "additionalProperties": true
     }

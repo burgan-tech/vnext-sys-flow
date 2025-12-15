@@ -1,72 +1,315 @@
 {
-  "key": "view",
-  "version": "1.0.0",
-  "domain": "core",
-  "flow": "sys-schemas",
-  "flowVersion": "1.0.0",
-  "tags": [
-    "core",
-    "schema",
-    "view",
-    "ui"
-  ],
-  "attributes": {
-    "type": "view",
-    "schema": {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://schemas.vnext.com/core/view.json",
-      "title": "View Definition",
-      "description": "vNext platformunda view tanımları için şema. View içerik türü, hedef ve içerik bilgilerini içerir.",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "integer",
-          "description": "View içerik türü",
-          "oneOf": [
-            {
-              "const": 1,
-              "description": "Json içerik türü"
+    "key": "view",
+    "version": "1.0.0",
+    "domain": "core",
+    "flow": "sys-schemas",
+    "flowVersion": "1.0.0",
+    "tags": [
+        "core",
+        "schema",
+        "view",
+        "ui"
+    ],
+    "attributes": {
+        "type": "view",
+        "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "$id": "https://vnext.io/schemas/core/view.json",
+            "title": "View Definition",
+            "description": "Schema for view definitions in vNext platform. Contains view content type, target and content information.",
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "integer",
+                    "description": "View content type",
+                    "oneOf": [
+                        {
+                            "const": 1,
+                            "description": "Json content type"
+                        },
+                        {
+                            "const": 2,
+                            "description": "Html content type"
+                        },
+                        {
+                            "const": 3,
+                            "description": "Markdown content type"
+                        }
+                    ]
+                },
+                "content": {
+                    "type": "string",
+                    "description": "View content. Can be in Json, Html or Markdown format.",
+                    "minLength": 1
+                },
+                "display": {
+                    "type": "string",
+                    "description": "View display type. Example: full-page",
+                    "minLength": 1
+                },
+                "labels": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "label",
+                            "language"
+                        ],
+                        "properties": {
+                            "label": {
+                                "type": "string",
+                                "description": "Text content to be displayed to the user",
+                                "maxLength": 500
+                            },
+                            "language": {
+                                "type": "string",
+                                "description": "Language code in ISO 639 format",
+                                "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+                                "maxLength": 10
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "minItems": 1,
+                    "examples": [
+                        [
+                            {
+                                "label": "User Login",
+                                "language": "en-US"
+                            },
+                            {
+                                "label": "Kullanıcı Girişi",
+                                "language": "tr-TR"
+                            }
+                        ],
+                        [
+                            {
+                                "label": "Data Processing",
+                                "language": "en-US"
+                            },
+                            {
+                                "label": "Veri İşleme",
+                                "language": "tr-TR"
+                            }
+                        ]
+                    ],
+                    "description": "Multi-language labels of the workflow"
+                },
+                "platformOverrides": {
+                    "anyOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "android": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "integer",
+                                                    "description": "Content type of the View to be overridden in Android environment",
+                                                    "oneOf": [
+                                                        {
+                                                            "const": 1,
+                                                            "description": "Json content type"
+                                                        },
+                                                        {
+                                                            "const": 2,
+                                                            "description": "Html content type"
+                                                        },
+                                                        {
+                                                            "const": 3,
+                                                            "description": "Markdown content type"
+                                                        }
+                                                    ]
+                                                },
+                                                "content": {
+                                                    "description": "Content of the View to be overridden in Android environment. Can be in Json, Html or Markdown format.",
+                                                    "type": "string",
+                                                    "minLength": 1
+                                                },
+                                                "display": {
+                                                    "type": "string",
+                                                    "description": "View display type.",
+                                                    "pattern": "^[a-z\\-]+$",
+                                                    "maxLength": 100,
+                                                    "examples": [
+                                                        "full-page",
+                                                        "popup",
+                                                        "bottom-sheet",
+                                                        "inline"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "content",
+                                                "display"
+                                            ],
+                                            "additionalProperties": false,
+                                            "examples": [
+                                                {
+                                                    "type": 1,
+                                                    "content": "{ \"widget\": \"MaterialCard\", \"title\": \"Android Profile\" }",
+                                                    "display": "full-page"
+                                                },
+                                                {
+                                                    "type": 2,
+                                                    "content": "<div class=\"profile\">Android Profile</div>",
+                                                    "display": "inline"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "description": "View to be overridden in Android environment"
+                                },
+                                "ios": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "integer",
+                                                    "description": "Content type of the View to be overridden in iOS environment",
+                                                    "oneOf": [
+                                                        {
+                                                            "const": 1,
+                                                            "description": "Json content type"
+                                                        },
+                                                        {
+                                                            "const": 2,
+                                                            "description": "Html content type"
+                                                        },
+                                                        {
+                                                            "const": 3,
+                                                            "description": "Markdown content type"
+                                                        }
+                                                    ]
+                                                },
+                                                "content": {
+                                                    "description": "Content of the View to be overridden in iOS environment. Can be in Json, Html or Markdown format.",
+                                                    "type": "string",
+                                                    "minLength": 1
+                                                },
+                                                "display": {
+                                                    "type": "string",
+                                                    "description": "View display type.",
+                                                    "pattern": "^[a-z\\-]+$",
+                                                    "maxLength": 100,
+                                                    "examples": [
+                                                        "full-page",
+                                                        "popup",
+                                                        "bottom-sheet",
+                                                        "inline"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "content",
+                                                "display"
+                                            ],
+                                            "additionalProperties": false,
+                                            "examples": [
+                                                {
+                                                    "type": 1,
+                                                    "content": "{ \"widget\": \"MaterialCard\", \"title\": \"Ios Profile\" }",
+                                                    "display": "full-page"
+                                                },
+                                                {
+                                                    "type": 2,
+                                                    "content": "<div class=\"profile\">Ios Profile</div>",
+                                                    "display": "inline"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "description": "View to be overridden in iOS environment"
+                                },
+                                "web": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "integer",
+                                                    "description": "Content type of the View to be overridden in Web environment",
+                                                    "oneOf": [
+                                                        {
+                                                            "const": 1,
+                                                            "description": "Json content type"
+                                                        },
+                                                        {
+                                                            "const": 2,
+                                                            "description": "Html content type"
+                                                        },
+                                                        {
+                                                            "const": 3,
+                                                            "description": "Markdown content type"
+                                                        }
+                                                    ]
+                                                },
+                                                "content": {
+                                                    "description": "Content of the View to be overridden in Web environment. Can be in Json, Html or Markdown format.",
+                                                    "type": "string",
+                                                    "minLength": 1
+                                                },
+                                                "display": {
+                                                    "type": "string",
+                                                    "description": "View display type.",
+                                                    "pattern": "^[a-z\\-]+$",
+                                                    "maxLength": 100,
+                                                    "examples": [
+                                                        "full-page",
+                                                        "popup",
+                                                        "bottom-sheet",
+                                                        "inline"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "content",
+                                                "display"
+                                            ],
+                                            "additionalProperties": false,
+                                            "examples": [
+                                                {
+                                                    "type": 1,
+                                                    "content": "{ \"widget\": \"MaterialCard\", \"title\": \"Web Profile\" }",
+                                                    "display": "full-page"
+                                                },
+                                                {
+                                                    "type": 2,
+                                                    "content": "<div class=\"profile\">Web Profile</div>",
+                                                    "display": "inline"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "description": "View to be overridden in Web environment"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Views to be overridden on a platform basis"
+                }
             },
-            {
-              "const": 2,
-              "description": "Html içerik türü"
-            },
-            {
-              "const": 3,
-              "description": "Markdown içerik türü"
-            }
-          ]
-        },
-        "target": {
-          "type": "integer",
-          "description": "View'in hedef aldığı workflow component türü",
-          "oneOf": [
-            {
-              "const": 1,
-              "description": "State hedefli view"
-            },
-            {
-              "const": 2,
-              "description": "Transition hedefli view"
-            },
-            {
-              "const": 3,
-              "description": "Task hedefli view"
-            }
-          ]
-        },
-        "content": {
-          "type": "string",
-          "description": "View'in içeriği. Json, Html veya Markdown formatında olabilir.",
-          "minLength": 1
+            "required": [
+                "type",
+                "content"
+            ],
+            "additionalProperties": false
         }
-      },
-      "required": [
-        "type",
-        "target",
-        "content"
-      ],
-      "additionalProperties": false
     }
-  }
 }
