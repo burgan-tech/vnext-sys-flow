@@ -5,10 +5,10 @@
   "flow": "sys-flows",
   "flowVersion": "1.0.0",
   "tags": [
-    "Core",
-    "Extension",
-    "Lifecycle",
-    "Repository"
+    "core",
+    "extension",
+    "lifecycle",
+    "repository"
   ],
   "attributes": {
     "timeout": null,

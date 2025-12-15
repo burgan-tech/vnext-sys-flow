@@ -43,6 +43,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Fetch all history for version calculation
+        token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}  # Use PAT for branch protection bypass
     
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -112,6 +113,55 @@ jobs:
         
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "Final version: $VERSION"
+    
+    - name: Update version in package.json and vnext.config.json
+      run: |
+        VERSION="${{ steps.version.outputs.version }}"
+        
+        echo "📝 Updating version to $VERSION in package.json and vnext.config.json..."
+        
+        # Update package.json version
+        if [ -f "package.json" ]; then
+          jq --arg version "$VERSION" '.version = $version' package.json > package.json.tmp && mv package.json.tmp package.json
+          echo "✅ Updated package.json version to $VERSION"
+        else
+          echo "⚠️ package.json not found"
+        fi
+        
+        # Update vnext.config.json version
+        if [ -f "vnext.config.json" ]; then
+          jq --arg version "$VERSION" '.version = $version' vnext.config.json > vnext.config.json.tmp && mv vnext.config.json.tmp vnext.config.json
+          echo "✅ Updated vnext.config.json version to $VERSION"
+        else
+          echo "⚠️ vnext.config.json not found"
+        fi
+        
+        # Display updated versions
+        echo ""
+        echo "📋 Updated versions:"
+        echo "package.json version: $(jq -r '.version' package.json)"
+        echo "vnext.config.json version: $(jq -r '.version' vnext.config.json)"
+    
+    - name: Commit version updates
+      run: |
+        VERSION="${{ steps.version.outputs.version }}"
+        
+        # Configure git
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Check if there are changes to commit
+        if git diff --quiet package.json vnext.config.json; then
+          echo "ℹ️ No version changes to commit"
+        else
+          echo "📦 Committing version updates..."
+          
+          git add package.json vnext.config.json
+          git commit -m "chore: bump version to $VERSION [skip ci]"
+          git push origin ${{ github.ref_name }}
+          
+          echo "✅ Version updates committed and pushed to ${{ github.ref_name }}"
+        fi
     
     - name: Install dependencies
       run: |

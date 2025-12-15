@@ -9,7 +9,6 @@
     "sys-tasks",
     "components"
   ],
-  "_comment": "Task to execute a script",
   "attributes": {
     "type": "7",
     "config": {}
