@@ -1,6 +1,6 @@
 {
   "name": "@burgan-tech/vnext-core",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "vNext core packages platform",
   "main": "index.js",
   "scripts": {
