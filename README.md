@@ -26,11 +26,12 @@ npm install --save-dev @burgan-tech/vnext-core
 ```
 vnext-core/
 ├── core/              # Domain-specific components
-│   ├── Extensions/            # Extension definitions
-│   ├── Functions/             # Function definitions
+│   ├── Extensions/           # Extension definitions
+│   ├── Functions/            # Function definitions
 │   ├── Schemas/              # JSON schema definitions
 │   ├── Tasks/                # Task definitions
 │   ├── Views/                # View components
+│   ├── Mappings/             # Mapping components
 │   └── Workflows/            # Workflow definitions
 ├── index.js                  # Main entry point
 ├── vnext.config.json         # Domain configuration
@@ -45,6 +46,7 @@ vnext-core/
 2. **Workflows**: Business process definitions and state machines
 3. **Tasks**: Individual task definitions and configurations
 4. **Views**: User interface and presentation components
+4. **Mappings**: Re-usable script mapping code components
 5. **Functions**: Reusable business logic functions
 6. **Extensions**: Plugin and extension definitions
 
@@ -69,7 +71,8 @@ The `vnext.config.json` file allows you to customize paths and exports:
     "tasks": "Tasks",
     "views": "Views",
     "functions": "Functions",
-    "extensions": "Extensions"
+    "extensions": "Extensions",
+    "mappings": "Mappings"
   },
   "exports": {
     "schemas": ["schema1.json", "schema2.json"],
@@ -77,7 +80,8 @@ The `vnext.config.json` file allows you to customize paths and exports:
     "tasks": [],
     "views": [],
     "functions": [],
-    "extensions": []
+    "extensions": [],
+    "mappings": []
   }
 }
 ```
@@ -180,6 +184,7 @@ dist/
 │   ├── Schemas/
 │   ├── Tasks/
 │   ├── Views/
+│   ├── Mappings/
 │   └── Workflows/
 ├── vnext.config.json
 ├── package.json
@@ -196,6 +201,7 @@ dist/
 │   ├── Schemas/        # Only exported files
 │   ├── Tasks/          # Only exported files
 │   ├── Views/          # Only exported files
+│   ├── Mappings/          # Only exported files
 │   └── Workflows/      # Only exported files
 ├── vnext.config.json
 ├── package.json
