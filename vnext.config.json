@@ -1,5 +1,5 @@
 {
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "vNext Core Domain Definition Configuration",
   "domain": "core",
   "runtimeVersion": "0.0.59",
