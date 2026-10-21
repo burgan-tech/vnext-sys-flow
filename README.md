@@ -66,9 +66,10 @@ floating version against the pointer instead of the latest published version.
 | `defaultVersion` | string or `null` | yes | `2`, `2.1`, `2.1.0`, `2.1.0-pkg.1.0.0`; `null` clears the pointer. `latest` and blank strings are rejected |
 | `reason` | string | no | Free-text note for the change |
 
-- **Lifecycle**: `create` registers the entry (the instance becomes `active` automatically); `set-default`
-  is a self-loop on `active` that rewrites the data (send `defaultVersion: null` to clear). There is no
-  final state: the instance must stay Active so the runtime can read it. No roles are defined, and cache
+- **Lifecycle**: `create` registers the entry and the instance rests in its single state `active` (the
+  Initial state — there is no automatic hop, since the runtime rejects an automatic transition without a
+  rule); `set-default` is a self-loop on `active` that rewrites the data (send `defaultVersion: null` to
+  clear). There is no final state. No roles are defined, and cache
   invalidation is done by the runtime, not by a task in this flow.
 - `sys-*` workflows are exempt from the policy.
 

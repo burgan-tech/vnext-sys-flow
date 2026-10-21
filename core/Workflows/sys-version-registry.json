@@ -28,7 +28,7 @@
     "features": [],
     "startTransition": {
       "key": "create",
-      "target": "draft",
+      "target": "active",
       "triggerType": 0,
       "labels": [
         {
@@ -51,49 +51,9 @@
     },
     "states": [
       {
-        "key": "draft",
+        "key": "active",
         "stateType": 1,
         "subType": 0,
-        "labels": [
-          {
-            "language": "en-US",
-            "label": "Draft State"
-          },
-          {
-            "language": "tr-TR",
-            "label": "Taslak Durumu"
-          }
-        ],
-        "transitions": [
-          {
-            "key": "register",
-            "from": "draft",
-            "target": "active",
-            "triggerType": 1,
-            "labels": [
-              {
-                "language": "en-US",
-                "label": "Register Entry"
-              },
-              {
-                "language": "tr-TR",
-                "label": "Kaydı Yayınla"
-              }
-            ],
-            "versionStrategy": "Minor",
-            "onExecutionTasks": [],
-            "view": null
-          }
-        ],
-        "view": null,
-        "onEntries": [],
-        "onExits": [],
-        "versionStrategy": "Minor"
-      },
-      {
-        "key": "active",
-        "stateType": 2,
-        "subType": 1,
         "labels": [
           {
             "language": "en-US",
