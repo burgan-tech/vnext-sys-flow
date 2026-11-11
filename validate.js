@@ -560,7 +560,7 @@ validate('Domain directory structure', () => {
   }
   
   if (!fs.existsSync(domainName)) {
-    throw new Error(`Domain directory $core does not exist`);
+    throw new Error(`Domain directory ${domainName} does not exist`);
   }
   
   // Check for vnext structure directories using paths config
@@ -580,7 +580,7 @@ validate('Domain directory structure', () => {
     throw new Error('No vnext structure directories found in domain directory');
   }
   
-  console.log(`  ✓ Domain directory: $core`);
+  console.log(`  ✓ Domain directory: ${domainName}`);
   console.log(`  ✓ Found directories: ${existingDirs.join(', ')}`);
   
   return true;
@@ -664,6 +664,22 @@ validate('JSON files schema validation using @burgan-tech/vnext-schema', () => {
   const ajv2019 = new Ajv2019({ strict: false, allErrors: true, verbose: true });
   addFormats(ajv2019);
 
+  // Newer schema packages $ref shared vocabularies by $id (for example schema-definition → record-vocab);
+  // register them so those schemas compile. Older packages have no addVocabularies and need nothing.
+  if (typeof vnextSchema.addVocabularies === 'function') {
+    for (const ajv of [ajv7, ajv2019]) {
+      try {
+        // The vocabularies are draft-07; the 2019-09 instance needs that meta-schema to accept them.
+        if (!ajv.getSchema('http://json-schema.org/draft-07/schema')) {
+          ajv.addMetaSchema(require('ajv/dist/refs/json-schema-draft-07.json'));
+        }
+        vnextSchema.addVocabularies(ajv);
+      } catch (error) {
+        console.log(`  ⚠ Warning: Could not register vnext-schema vocabularies: ${error.message}`);
+      }
+    }
+  }
+
   // Pick the correct AJV instance based on the schema's $schema field
   function getAjvInstance(schema) {
     const draft = schema?.$schema || '';
@@ -679,6 +695,7 @@ validate('JSON files schema validation using @burgan-tech/vnext-schema', () => {
     [pathsConfig.functions]: 'function',
     [pathsConfig.extensions]: 'extension',
     [pathsConfig.mappings]: 'mapping',
+    // sys-agents components; validated once @burgan-tech/vnext-schema exposes the 'agent' schema
     [pathsConfig.agents]: 'agent'
   };
 
@@ -703,6 +720,21 @@ validate('JSON files schema validation using @burgan-tech/vnext-schema', () => {
     }
   }
 
+  // Warn when a component folder has files but the installed schema package has no schema for it
+  // (for example Agents/ with a vnext-schema release older than the AI Agent state).
+  for (const [dirName, schemaType] of Object.entries(directoryToSchemaType)) {
+    if (!dirName || validators[dirName]) {
+      continue;
+    }
+    const componentDir = path.join(domainName, dirName);
+    const hasJsonFiles = (dir) => fs.readdirSync(dir, { withFileTypes: true }).some(entry =>
+      entry.name !== '.meta' &&
+      (entry.isDirectory() ? hasJsonFiles(path.join(dir, entry.name)) : entry.name.endsWith('.json')));
+    if (fs.existsSync(componentDir) && hasJsonFiles(componentDir)) {
+      console.log(`  ⚠ Warning: @burgan-tech/vnext-schema has no '${schemaType}' schema; files in ${componentDir} are not schema-validated`);
+    }
+  }
+
   if (Object.keys(validators).length === 0) {
     console.log(`  ⚠ No validators available, skipping schema validation`);
     return true;
@@ -712,6 +744,16 @@ validate('JSON files schema validation using @burgan-tech/vnext-schema', () => {
   let errorCount = 0;
   const errors = [];
   const passedFiles = [];
+
+  // In the unconfigured template itself the components still carry the domain-name placeholder,
+  // which the schemas' domain pattern rejects. Validate them as a generated project would see them.
+  // (The token is assembled so that setup/init, which replace it in every .js file, leave it intact.)
+  const domainPlaceholder = '{' + 'domainName' + '}';
+  const isUnconfiguredTemplate = domainName === domainPlaceholder;
+  const readComponentJson = (filePath) => {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(isUnconfiguredTemplate ? raw.split(domainPlaceholder).join('template-domain') : raw);
+  };
 
   // Validate JSON files against schemas
   const validateJsonAgainstSchema = (dirPath, domainPath) => {
@@ -748,7 +790,7 @@ validate('JSON files schema validation using @burgan-tech/vnext-schema', () => {
         if (validator) {
           validatedCount++;
           try {
-            const jsonContent = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+            const jsonContent = readComponentJson(fullPath);
             const valid = validator.validator(jsonContent);
             
             if (valid) {
