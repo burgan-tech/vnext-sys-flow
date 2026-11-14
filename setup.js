@@ -24,7 +24,8 @@ function getPathsConfig() {
     views: 'Views',
     functions: 'Functions',
     extensions: 'Extensions',
-    mappings: 'Mappings'
+    mappings: 'Mappings',
+    agents: 'Agents'
   };
   
   if (config && config.paths) {

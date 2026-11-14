@@ -40,7 +40,8 @@ function getPathsConfig() {
     views: 'Views',
     functions: 'Functions',
     extensions: 'Extensions',
-    mappings: 'Mappings'
+    mappings: 'Mappings',
+    agents: 'Agents'
   };
   
   if (config && config.paths) {
@@ -321,7 +322,8 @@ async function build() {
       pathsConfig.views,
       pathsConfig.functions,
       pathsConfig.extensions,
-      pathsConfig.mappings
+      pathsConfig.mappings,
+      pathsConfig.agents
     ];
     
     for (const dir of componentDirs) {

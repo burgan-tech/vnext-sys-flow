@@ -21,7 +21,8 @@ function getPathsConfig() {
     views: 'Views',
     functions: 'Functions',
     extensions: 'Extensions',
-    mappings: 'Mappings'
+    mappings: 'Mappings',
+    agents: 'Agents'
   };
   
   if (config && config.paths) {
@@ -131,11 +132,19 @@ module.exports = {
     const pathsConfig = getPathsConfig();
     return loadJsonFiles(path.join(domainDir, pathsConfig.mappings));
   },
+
+  // Get all agents
+  getAgents: function() {
+    const domainDir = findDomainDirectory();
+    if (!domainDir) return {};
+    const pathsConfig = getPathsConfig();
+    return loadJsonFiles(path.join(domainDir, pathsConfig.agents));
+  },
   
   // Get available component types
   getAvailableTypes: function() {
     const pathsConfig = getPathsConfig();
-    return [pathsConfig.schemas, pathsConfig.workflows, pathsConfig.tasks, pathsConfig.views, pathsConfig.functions, pathsConfig.extensions, pathsConfig.mappings];
+    return [pathsConfig.schemas, pathsConfig.workflows, pathsConfig.tasks, pathsConfig.views, pathsConfig.functions, pathsConfig.extensions, pathsConfig.mappings, pathsConfig.agents];
   },
   
   // Get domain directory name

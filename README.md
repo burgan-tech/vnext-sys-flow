@@ -32,6 +32,7 @@ vnext-core/
 │   ├── Tasks/                # Task definitions
 │   ├── Views/                # View components
 │   ├── Mappings/             # Mapping components
+│   ├── Agents/               # AI agent components
 │   └── Workflows/            # Workflow definitions
 ├── index.js                  # Main entry point
 ├── vnext.config.json         # Domain configuration
@@ -49,6 +50,7 @@ vnext-core/
 4. **Mappings**: Re-usable script mapping code components
 5. **Functions**: Reusable business logic functions
 6. **Extensions**: Plugin and extension definitions
+7. **Agents**: Re-usable AI agent definitions (`sys-agents`)
 
 ## 🧭 Version Registry (`sys-version-registry`)
 
@@ -73,6 +75,20 @@ floating version against the pointer instead of the latest published version.
   invalidation is done by the runtime, not by a task in this flow.
 - `sys-*` workflows are exempt from the policy.
 
+## 🤖 Agents (`sys-agents`)
+
+`sys-agents` is the system flow of the **agent** component type (vNext issue #1105). An agent component is a
+re-usable, versioned AI agent definition (provider profile name, instructions, inline tools, memory, output
+schema and policy) that an AI Agent state (`stateType: 6`) of a workflow references.
+
+- **Envelope**: `flow: "sys-agents"`; the runtime stores agents in the `sys_agents` schema and caches them on
+  publish. Validate agent files with the `agent` schema of `@burgan-tech/vnext-schema` (0.0.60 or later);
+  older schema packages do not ship it, so files under `Agents/` are skipped by `npm run validate` there.
+- **Lifecycle**: the same as `sys-mappings`: `create` → `draft` → `activate` → `active` (`update` self-loop,
+  `deactivate` → `passive`, `reactivate`, `archive`/`delete` → `deleted`, `recover`). `activate` and `update`
+  run the `invalidate-cache` task.
+- **No secrets** in agent JSON: provider credentials stay in the runtime's provider profiles.
+
 ## 🛠️ Development
 
 ### Running Tests
@@ -95,7 +111,8 @@ The `vnext.config.json` file allows you to customize paths and exports:
     "views": "Views",
     "functions": "Functions",
     "extensions": "Extensions",
-    "mappings": "Mappings"
+    "mappings": "Mappings",
+    "agents": "Agents"
   },
   "exports": {
     "schemas": ["schema1.json", "schema2.json"],
@@ -104,7 +121,8 @@ The `vnext.config.json` file allows you to customize paths and exports:
     "views": [],
     "functions": [],
     "extensions": [],
-    "mappings": []
+    "mappings": [],
+    "agents": []
   }
 }
 ```
@@ -208,6 +226,7 @@ dist/
 │   ├── Tasks/
 │   ├── Views/
 │   ├── Mappings/
+│   ├── Agents/
 │   └── Workflows/
 ├── vnext.config.json
 ├── package.json
@@ -225,6 +244,7 @@ dist/
 │   ├── Tasks/          # Only exported files
 │   ├── Views/          # Only exported files
 │   ├── Mappings/          # Only exported files
+│   ├── Agents/         # Only exported files
 │   └── Workflows/      # Only exported files
 ├── vnext.config.json
 ├── package.json

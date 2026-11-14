@@ -12,7 +12,8 @@
     "extensions": "Extensions",
     "workflows": "Workflows",
     "schemas": "Schemas",
-    "mappings": "Mappings"
+    "mappings": "Mappings",
+    "agents": "Agents"
   },
   "exports": {
     "functions": [],
@@ -22,6 +23,7 @@
     "schemas": [],
     "extensions": [],
     "mappings": [],
+    "agents": [],
     "visibility": "public",
     "metadata": {
       "description": "Exported components for core domain",
